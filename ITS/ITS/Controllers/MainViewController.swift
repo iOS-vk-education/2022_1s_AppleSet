@@ -34,16 +34,6 @@ class MainViewController: UIViewController {
     private func setupNavBar() {
         
         navigationItem.title = "Мои устройства"
-//
-        navigationController?.navigationBar.barTintColor = UIColor(red: 0x27 / 255,
-                                                                green: 0x4c / 255,
-                                                                blue: 0x77 / 255,
-                                                                alpha: 1)
-        
-        navigationController?.navigationBar.backgroundColor = UIColor(red: 0x27 / 255,
-                                                                green: 0x4c / 255,
-                                                                blue: 0x77 / 255,
-                                                                alpha: 1)
         
         let rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "questionmark"),
                                                  style: .plain,

@@ -31,10 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                              blue: 0x77 / 255,
                                              alpha: 1)
 
-        UINavigationBar.appearance().barTintColor = UIColor(red: 0x27 / 255,
-                                                            green: 0x4c / 255,
-                                                            blue: 0x77 / 255,
-                                                            alpha: 1)
+        UINavigationBar.appearance().barTintColor = UIColor.white
 
         UINavigationBar.appearance().tintColor = UIColor.white
         UINavigationBar.appearance().standardAppearance = appearance
