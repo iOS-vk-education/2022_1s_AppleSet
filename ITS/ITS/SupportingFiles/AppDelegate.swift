@@ -14,6 +14,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // MARK: - navigation bar
+        
+        let appearance: UINavigationBarAppearance = UINavigationBarAppearance()
+
+        appearance.configureWithOpaqueBackground()
+        appearance.shadowColor = .clear
+        appearance.shadowImage = nil
+
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.white,
+                                          .font: UIFont.systemFont(ofSize: 17)]
+
+        appearance.backgroundColor = UIColor(red: 0x27 / 255,
+                                             green: 0x4c / 255,
+                                             blue: 0x77 / 255,
+                                             alpha: 1)
+
+        UINavigationBar.appearance().barTintColor = UIColor.white
+
+        UINavigationBar.appearance().tintColor = UIColor.white
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().compactAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+
+        if #available(iOS 15.0, *) {
+            UINavigationBar.appearance().compactScrollEdgeAppearance = appearance
+        }
+        
         return true
     }
 
