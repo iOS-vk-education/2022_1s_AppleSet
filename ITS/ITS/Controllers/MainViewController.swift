@@ -106,6 +106,12 @@ class MainViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = rightBarButtonItem
         
+        let leftBarButtonItem: UIBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person.circle"),
+                                                 style: .plain,
+                                                 target: self,
+                                                 action: #selector(didTapProfileButton))
+        
+        navigationItem.leftBarButtonItem = leftBarButtonItem
     }
     
     // MARK: - Layout
@@ -149,6 +155,13 @@ class MainViewController: UIViewController {
         alertController.addAction(okAction)
         
         present(alertController, animated: true)
+    }
+    
+    // MARK: - Profile button action
+    
+    @objc
+    private func didTapProfileButton() {
+        
     }
     
     // MARK: - Add button action
@@ -200,6 +213,16 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         cell.configure(with: models[indexPath.row])
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let placeViewController = PlaceViewController()
+        placeViewController.title = models[indexPath.row].name
+        
+        let navigationController = UINavigationController(rootViewController: placeViewController)
+        navigationController.modalPresentationStyle = .fullScreen
+        
+        present(navigationController, animated: true)
     }
 }
 
