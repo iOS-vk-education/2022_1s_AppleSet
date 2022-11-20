@@ -124,6 +124,16 @@ class MainViewController: UIViewController {
             .bottom(view.safeAreaInsets.bottom + addPlaceButton.frame.height + Constants.AddPlaceButton.marginBottom * 2)
     }
     
+    // MARK: - add place cell
+    
+    private func addPlaceCell(with name: String) {
+        
+        let model = PlaceCellModel(name: name)
+        self.models.append(model)
+        
+        // Исправить ошибку!!!
+        self.collectionView.insertItems(at: [IndexPath(row: self.models.count - 1, section: 0)])
+    }
     
     // MARK: - Question button action
     
@@ -146,7 +156,24 @@ class MainViewController: UIViewController {
     @objc
     private func didTapAddPlaceButton() {
         
-        present(MainViewController(), animated: true)
+        let alertController  = UIAlertController(title: "Добавить место", message: "Введите название места", preferredStyle: .alert)
+        
+        alertController.addTextField()
+        
+        let okAction = UIAlertAction(title: "Добавить", style: .default) { _ in
+            guard let text = alertController.textFields?.first?.text else {
+                return
+            }
+    
+            self.addPlaceCell(with: text)
+        }
+        
+        let cancelAction = UIAlertAction(title: "Отменить", style: .destructive)
+        
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true)
         
     }
 }
@@ -181,8 +208,8 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
 extension MainViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
-        return CGSize(width: view.frame.width - Constants.PlaceCell.width, height: Constants.PlaceCell.height)
+        
+        return CGSize(width: view.frame.width - 30, height: 70)
     }
 }
 
@@ -202,11 +229,6 @@ private extension MainViewController {
             static let marginBottom: CGFloat = 17
             static let height: CGFloat = 50
             static let cornerRadius: CGFloat = height / 2
-        }
-        
-        struct PlaceCell {
-            static let width: CGFloat = 30
-            static let height: CGFloat = 70
         }
     }
 }
