@@ -12,6 +12,15 @@
 		A04FFF2F2913034400BC96A7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04FFF2E2913034400BC96A7 /* MainViewController.swift */; };
 		A04FFF342913034400BC96A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A04FFF332913034400BC96A7 /* Assets.xcassets */; };
 		A04FFF372913034400BC96A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A04FFF352913034400BC96A7 /* LaunchScreen.storyboard */; };
+		E128A748292924A50005011A /* PinLayout in Frameworks */ = {isa = PBXBuildFile; productRef = E128A747292924A50005011A /* PinLayout */; };
+		E15DC1D1292A045600FE1818 /* PlaceCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15DC1D0292A045600FE1818 /* PlaceCellModel.swift */; };
+		E15DC1D3292A047200FE1818 /* PlaceCellDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15DC1D2292A047200FE1818 /* PlaceCellDataModel.swift */; };
+		E15DC1D5292A04A000FE1818 /* PlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15DC1D4292A04A000FE1818 /* PlaceCell.swift */; };
+		E15DC1D7292A04BB00FE1818 /* DeviceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15DC1D6292A04BB00FE1818 /* DeviceCell.swift */; };
+		E15DC1D9292A04D100FE1818 /* DeviceCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15DC1D8292A04D100FE1818 /* DeviceCellModel.swift */; };
+		E15DC1DB292A04E100FE1818 /* DeviceCellDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15DC1DA292A04E100FE1818 /* DeviceCellDataModel.swift */; };
+		E15DC1DD292A050300FE1818 /* PlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15DC1DC292A050300FE1818 /* PlaceViewController.swift */; };
+		E15DC1E0292A089A00FE1818 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15DC1DF292A089A00FE1818 /* UIView+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +31,14 @@
 		A04FFF332913034400BC96A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A04FFF362913034400BC96A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A04FFF382913034400BC96A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E15DC1D0292A045600FE1818 /* PlaceCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCellModel.swift; sourceTree = "<group>"; };
+		E15DC1D2292A047200FE1818 /* PlaceCellDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCellDataModel.swift; sourceTree = "<group>"; };
+		E15DC1D4292A04A000FE1818 /* PlaceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCell.swift; sourceTree = "<group>"; };
+		E15DC1D6292A04BB00FE1818 /* DeviceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceCell.swift; sourceTree = "<group>"; };
+		E15DC1D8292A04D100FE1818 /* DeviceCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceCellModel.swift; sourceTree = "<group>"; };
+		E15DC1DA292A04E100FE1818 /* DeviceCellDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceCellDataModel.swift; sourceTree = "<group>"; };
+		E15DC1DC292A050300FE1818 /* PlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceViewController.swift; sourceTree = "<group>"; };
+		E15DC1DF292A089A00FE1818 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E128A748292924A50005011A /* PinLayout in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,6 +72,9 @@
 		A04FFF292913034400BC96A7 /* ITS */ = {
 			isa = PBXGroup;
 			children = (
+				E15DC1DE292A086C00FE1818 /* Extensions */,
+				E128A74A292A01B80005011A /* Cells */,
+				E128A749292A01A60005011A /* Models */,
 				E128A745292912D40005011A /* Controllers */,
 				E128A744292912B30005011A /* SupportingFiles */,
 			);
@@ -76,8 +97,37 @@
 			isa = PBXGroup;
 			children = (
 				A04FFF2E2913034400BC96A7 /* MainViewController.swift */,
+				E15DC1DC292A050300FE1818 /* PlaceViewController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		E128A749292A01A60005011A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E15DC1D0292A045600FE1818 /* PlaceCellModel.swift */,
+				E15DC1D2292A047200FE1818 /* PlaceCellDataModel.swift */,
+				E15DC1D8292A04D100FE1818 /* DeviceCellModel.swift */,
+				E15DC1DA292A04E100FE1818 /* DeviceCellDataModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E128A74A292A01B80005011A /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				E15DC1D4292A04A000FE1818 /* PlaceCell.swift */,
+				E15DC1D6292A04BB00FE1818 /* DeviceCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		E15DC1DE292A086C00FE1818 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E15DC1DF292A089A00FE1818 /* UIView+Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -97,6 +147,7 @@
 			);
 			name = ITS;
 			packageProductDependencies = (
+				E128A747292924A50005011A /* PinLayout */,
 			);
 			productName = ITS;
 			productReference = A04FFF272913034400BC96A7 /* ITS.app */;
@@ -127,6 +178,7 @@
 			);
 			mainGroup = A04FFF1E2913034400BC96A7;
 			packageReferences = (
+				E128A746292924A50005011A /* XCRemoteSwiftPackageReference "PinLayout" */,
 			);
 			productRefGroup = A04FFF282913034400BC96A7 /* Products */;
 			projectDirPath = "";
@@ -155,8 +207,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				A04FFF2F2913034400BC96A7 /* MainViewController.swift in Sources */,
+				E15DC1D9292A04D100FE1818 /* DeviceCellModel.swift in Sources */,
+				E15DC1D3292A047200FE1818 /* PlaceCellDataModel.swift in Sources */,
+				E15DC1D1292A045600FE1818 /* PlaceCellModel.swift in Sources */,
+				E15DC1D7292A04BB00FE1818 /* DeviceCell.swift in Sources */,
+				E15DC1DB292A04E100FE1818 /* DeviceCellDataModel.swift in Sources */,
 				A04FFF2B2913034400BC96A7 /* AppDelegate.swift in Sources */,
 				A04FFF2D2913034400BC96A7 /* SceneDelegate.swift in Sources */,
+				E15DC1DD292A050300FE1818 /* PlaceViewController.swift in Sources */,
+				E15DC1D5292A04A000FE1818 /* PlaceCell.swift in Sources */,
+				E15DC1E0292A089A00FE1818 /* UIView+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,6 +426,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E128A746292924A50005011A /* XCRemoteSwiftPackageReference "PinLayout" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/layoutBox/PinLayout?ysclid=labgcn1yrr539369254";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E128A747292924A50005011A /* PinLayout */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E128A746292924A50005011A /* XCRemoteSwiftPackageReference "PinLayout" */;
+			productName = PinLayout;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A04FFF1F2913034400BC96A7 /* Project object */;
 }

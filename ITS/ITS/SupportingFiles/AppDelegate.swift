@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // MARK: - navigation bar
         
-        let appearance = UINavigationBarAppearance()
+        let appearance: UINavigationBarAppearance = UINavigationBarAppearance()
 
         appearance.configureWithOpaqueBackground()
         appearance.shadowColor = .clear
