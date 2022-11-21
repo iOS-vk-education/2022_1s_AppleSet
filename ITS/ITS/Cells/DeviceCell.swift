@@ -33,7 +33,7 @@ final class DeviceCell: UICollectionViewCell {
     }
     
     private func setup() {
-        backgroundColor = Constants.customBlue
+        backgroundColor = .white
         layer.cornerRadius = Constants.DeviceCell.cornerRadius
         clipsToBounds = true
         
@@ -54,27 +54,29 @@ final class DeviceCell: UICollectionViewCell {
         nameLabel.text = model.name
         imageView.image = model.image
         values.text = model.values
-        nameLabel.textColor = .white
-        values.textColor = .white
+        nameLabel.textColor = Constants.customBlue
+        values.textColor = Constants.customBlue
         
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
+
         nameLabel.pin
             .topLeft(18)
             .right(10)
             .sizeToFit(.width)
-        
+
         values.pin
             .below(of: nameLabel)
+            .topLeft(18)
             .marginTop(16)
             .horizontally(10)
             .sizeToFit(.width)
         
         imageView.pin
             .below(of: values)
+            .center()
             .marginTop(16)
             .above(of: values)
             .marginBottom(10)

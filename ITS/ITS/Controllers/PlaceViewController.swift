@@ -29,9 +29,9 @@ final class PlaceViewController: UIViewController {
 
     private func setup()
     {
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBlue
         
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .black
         collectionView.delegate = self
         collectionView.dataSource = self
         view.addSubview(collectionView)
@@ -108,7 +108,7 @@ extension PlaceViewController: UICollectionViewDelegate, UICollectionViewDataSou
 extension PlaceViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.row == 0 {
-            return CGSize(width: view.frame.width, height: 100)
+            return CGSize(width: view.frame.width, height:  view.frame.width)
         } else {
             return CGSize(width: view.frame.width, height: view.frame.width)
         }

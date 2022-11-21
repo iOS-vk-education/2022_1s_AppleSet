@@ -13,7 +13,7 @@ final class DeviceCellModel {
     let values: String
     
     // Инициализация ячейки
-    init(name: String = "", values: String = "", image: UIImage? = nil ) {
+    init(name: String = "", values: String = "", image: UIImage? ) {
         self.name = name
         self.image = image
         self.values = values
