@@ -45,7 +45,7 @@ class MainViewController: UIViewController {
 
         addPlaceButton.setImage(UIImage(systemName: Constants.AddPlaceButton.iconName), for: .normal)
         addPlaceButton.imageView?.tintColor = .white
-        // Размер картинки!!!
+        addPlaceButton.imageView?.layer.transform = CATransform3DMakeScale(2, 2, 2)
         addPlaceButton.backgroundColor = Constants.AddPlaceButton.backgroundColor
         addPlaceButton.layer.cornerRadius = Constants.AddPlaceButton.cornerRadius
         addPlaceButton.addTarget(self, action: #selector(didTapAddPlaceButton), for: .touchUpInside)
@@ -100,16 +100,16 @@ class MainViewController: UIViewController {
         navigationItem.title = "Мои места"
         
         let rightBarButtonItem: UIBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "questionmark"),
-                                                 style: .plain,
-                                                 target: self,
-                                                 action: #selector(didTapQuestionButton))
+                                                                  style: .plain,
+                                                                  target: self,
+                                                                  action: #selector(didTapQuestionButton))
         
         navigationItem.rightBarButtonItem = rightBarButtonItem
         
         let leftBarButtonItem: UIBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person.circle"),
-                                                 style: .plain,
-                                                 target: self,
-                                                 action: #selector(didTapProfileButton))
+                                                                 style: .plain,
+                                                                 target: self,
+                                                                 action: #selector(didTapProfileButton))
         
         navigationItem.leftBarButtonItem = leftBarButtonItem
     }
@@ -247,10 +247,10 @@ private extension MainViewController {
                                         alpha: 1)
         
         struct AddPlaceButton {
-            static let iconName: String = "plus.circle"
+            static let iconName: String = "plus"
             static let backgroundColor: UIColor = Constants.customBlue
-            static let marginBottom: CGFloat = 17
-            static let height: CGFloat = 50
+            static let marginBottom: CGFloat = 7
+            static let height: CGFloat = 65
             static let cornerRadius: CGFloat = height / 2
         }
     }
