@@ -217,11 +217,13 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let placeViewController = PlaceViewController()
-        placeViewController.title = models[indexPath.row].name
         
+        placeViewController.title = models[indexPath.row].name
+
         let navigationController = UINavigationController(rootViewController: placeViewController)
         navigationController.modalPresentationStyle = .fullScreen
         
+
         present(navigationController, animated: true)
     }
 }
