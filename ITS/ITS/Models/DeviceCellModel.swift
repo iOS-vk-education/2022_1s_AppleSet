@@ -9,13 +9,13 @@ import UIKit
 // Данные приходят с бэка
 final class DeviceCellModel {
     let name: String
-    let image: UIImage?
+//    let image: UIImage?
     let values: String
     
     // Инициализация ячейки
-    init(name: String = "", values: String = "", image: UIImage? ) {
+    init(name: String = "", values: String = "") {
         self.name = name
-        self.image = image
+//        self.image = image
         self.values = values
     }
 }

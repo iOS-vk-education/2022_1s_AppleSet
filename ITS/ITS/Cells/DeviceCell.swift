@@ -13,11 +13,10 @@ final class DeviceCell: UICollectionViewCell {
 
     private let nameLabel: UILabel = UILabel()
     private let values: UILabel = UILabel()
-    private let imageView: UIImageView = UIImageView()
+//    private let imageView: UIImageView = UIImageView()
     
     private var model: DeviceCellModel?
 
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -33,26 +32,29 @@ final class DeviceCell: UICollectionViewCell {
     }
     
     private func setup() {
-        backgroundColor = .white
+        backgroundColor = UIColor(red: 0xf0 / 255,
+                                  green: 0xf5 / 255,
+                                  blue: 0xf9 / 255,
+                                  alpha: 1)
         layer.cornerRadius = Constants.DeviceCell.cornerRadius
         clipsToBounds = true
         
         nameLabel.font = UIFont(name: "Menlo-Bold", size: 18)
         values.font = UIFont(name: "Menlo-Bold", size: 16)
         
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
+//        imageView.contentMode = .scaleAspectFill
+//        imageView.clipsToBounds = true
         
         addSubview(nameLabel)
         addSubview(values)
-        addSubview(imageView)
+//        addSubview(imageView)
     }
     
     func configure(with model: DeviceCellModel) {
         self.model = model
         
         nameLabel.text = model.name
-        imageView.image = model.image
+//        imageView.image = model.image
         values.text = model.values
         nameLabel.textColor = Constants.customBlue
         values.textColor = Constants.customBlue
@@ -74,19 +76,14 @@ final class DeviceCell: UICollectionViewCell {
             .horizontally(10)
             .sizeToFit(.width)
         
-        imageView.pin
-            .below(of: values)
-            .center()
-            .marginTop(16)
-            .above(of: values)
-            .marginBottom(10)
-            .horizontally()
-        
-      
+//        imageView.pin
+//            .below(of: values)
+//            .center()
+//            .marginTop(16)
+//            .above(of: values)
+//            .marginBottom(10)
+//            .horizontally()
     }
-       
-
-    
 }
 
 // MARK: - Static values

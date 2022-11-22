@@ -11,20 +11,15 @@ struct DeviceCellDataModel {
     func loadPlaces() -> [DeviceCellModel] {
         let devices: [DeviceCellModel] = [
             .init(name: "Температура",
-                  values: "22",
-                  image: UIImage(named: "tempreture")),
+                  values: "22"),
             .init(name: "Влажность",
-                  values: "22",
-                  image: UIImage(named: "humidity")),
+                  values: "22"),
             .init(name: "Свет",
-                  values: "Выключен",
-                  image: UIImage(named: "light")),
+                  values: "Выключен"),
             .init(name: "Давление",
-                  values: "753 мм рт.ст.",
-                  image: UIImage(named: "presser")),
+                  values: "753 мм рт.ст."),
             .init(name: "Шум",
-                  values: "50 децибел",
-                  image: UIImage(named: "noise"))]
+                  values: "50 Дб")]
         
         return devices
     }
