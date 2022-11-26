@@ -2,21 +2,18 @@
 //  DeviceCell.swift
 //  ITS
 //
-//  Created by Natalia on 20.11.2022.
+//  Created by Natalia on 26.11.2022.
 //
 
 import UIKit
 import PinLayout
 
-
 final class DeviceCell: UICollectionViewCell {
 
     private let nameLabel: UILabel = UILabel()
-    private let values: UILabel = UILabel()
-//    private let imageView: UIImageView = UIImageView()
     
     private var model: DeviceCellModel?
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -32,57 +29,28 @@ final class DeviceCell: UICollectionViewCell {
     }
     
     private func setup() {
-        backgroundColor = UIColor(red: 0xf0 / 255,
-                                  green: 0xf5 / 255,
-                                  blue: 0xf9 / 255,
-                                  alpha: 1)
+        backgroundColor = Constants.customBlue
         layer.cornerRadius = Constants.DeviceCell.cornerRadius
         clipsToBounds = true
         
-        nameLabel.font = UIFont(name: "Menlo-Bold", size: 18)
-        values.font = UIFont(name: "Menlo-Bold", size: 16)
-        
-//        imageView.contentMode = .scaleAspectFill
-//        imageView.clipsToBounds = true
+        nameLabel.font = Constants.DeviceCell.nameLabelFont
         
         addSubview(nameLabel)
-        addSubview(values)
-//        addSubview(imageView)
     }
     
     func configure(with model: DeviceCellModel) {
         self.model = model
-        
         nameLabel.text = model.name
-//        imageView.image = model.image
-        values.text = model.values
-        nameLabel.textColor = Constants.customBlue
-        values.textColor = Constants.customBlue
-        
+        nameLabel.textColor = .white
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-
-        nameLabel.pin
-            .topLeft(18)
-            .right(10)
-            .sizeToFit(.width)
-
-        values.pin
-            .below(of: nameLabel)
-            .topLeft(18)
-            .marginTop(16)
-            .horizontally(10)
-            .sizeToFit(.width)
         
-//        imageView.pin
-//            .below(of: values)
-//            .center()
-//            .marginTop(16)
-//            .above(of: values)
-//            .marginBottom(10)
-//            .horizontally()
+        nameLabel.pin
+            .centerLeft(13)
+            .right(13)
+            .sizeToFit(.width)
     }
 }
 

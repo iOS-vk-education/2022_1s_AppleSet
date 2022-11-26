@@ -8,16 +8,17 @@
 import UIKit
 import PinLayout
 
-final class PlaceViewController: UIViewController {
+final class DeviceViewController: UIViewController {
     
-    private let addDeviceButton: UIButton = UIButton()
+    let addFunctionButton: UIButton = UIButton()
 
     private let collectionView: UICollectionView = {
+        
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 8
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(DeviceCell.self, forCellWithReuseIdentifier: "DeviceCell")
+        collectionView.register(FunctionCell.self, forCellWithReuseIdentifier: "FunctionCell")
        
         collectionView.contentInset = UIEdgeInsets(top: 7,
                                                    left: .zero,
@@ -27,7 +28,7 @@ final class PlaceViewController: UIViewController {
         return collectionView
     }()
     
-    private var models: [DeviceCellModel] = []
+    private var models: [FunctionCellModel] = []
 
     private func setup()
     {
@@ -39,23 +40,23 @@ final class PlaceViewController: UIViewController {
         view.addSubview(collectionView)
     }
     
-    private func setupAddDeviceButton() {
+    private func setupAddFunctionButton() {
 
-        addDeviceButton.setImage(UIImage(systemName: Constants.AddDeviceButton.iconName), for: .normal)
-        addDeviceButton.imageView?.tintColor = .white
-        addDeviceButton.imageView?.layer.transform = CATransform3DMakeScale(2, 2, 2)
-        addDeviceButton.backgroundColor = Constants.AddDeviceButton.backgroundColor
-        addDeviceButton.layer.cornerRadius = Constants.AddDeviceButton.cornerRadius
-        addDeviceButton.addTarget(self, action: #selector(didTapAddPlaceButton), for: .touchUpInside)
-        addDeviceButton.clipsToBounds = true
+        addFunctionButton.setImage(UIImage(systemName: Constants.AddFunctionButton.iconName), for: .normal)
+        addFunctionButton.imageView?.tintColor = .white
+        addFunctionButton.imageView?.layer.transform = CATransform3DMakeScale(2, 2, 2)
+        addFunctionButton.backgroundColor = Constants.AddFunctionButton.backgroundColor
+        addFunctionButton.layer.cornerRadius = Constants.AddFunctionButton.cornerRadius
+        addFunctionButton.addTarget(self, action: #selector(didTapAddFunctionButton), for: .touchUpInside)
+        addFunctionButton.clipsToBounds = true
         
-        view.addSubview(addDeviceButton)
+        view.addSubview(addFunctionButton)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupAddDeviceButton()
+        setupAddFunctionButton()
         setup()
         loadDevice()
     }
@@ -63,22 +64,22 @@ final class PlaceViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        addDeviceButton.pin
+        addFunctionButton.pin
             .bottom()
-            .marginBottom(view.safeAreaInsets.bottom + Constants.AddDeviceButton.marginBottom)
-            .height(Constants.AddDeviceButton.height)
-            .horizontally((view.frame.width - Constants.AddDeviceButton.height) / 2)
+            .marginBottom(view.safeAreaInsets.bottom + Constants.AddFunctionButton.marginBottom)
+            .height(Constants.AddFunctionButton.height)
+            .horizontally((view.frame.width - Constants.AddFunctionButton.height) / 2)
         
         collectionView.pin
             .top(view.safeAreaInsets.top + 7)
             .horizontally()
-            .bottom(view.safeAreaInsets.bottom + addDeviceButton.frame.height + Constants.AddDeviceButton.marginBottom * 2)
+            .bottom(view.safeAreaInsets.bottom + addFunctionButton.frame.height + Constants.AddFunctionButton.marginBottom * 2)
         
     }
     
     private func loadDevice() {
-        let deviceModel = DeviceCellDataModel()
-        models = deviceModel.loadPlaces()
+        let functionModel = FunctionCellDataModel()
+        models = functionModel.loadFunctions()
     }
     
     // MARK: - viewWillAppear
@@ -92,48 +93,39 @@ final class PlaceViewController: UIViewController {
     // MARK: - Setup
     
     private func setupNavBar() {
-        let backButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"),
-                                             style: .plain,
-                                             target: self,
-                                             action: #selector(didTapBackButton))
         
-        navigationItem.leftBarButtonItem = backButtonItem
         navigationController?.navigationBar.tintColor = .white
+        
     }
     
     // MARK: - add place cell
     
-    private func addDeviceCell(with name: String) {
+    private func addFunctionCell(with name: String) {
         
-        let model = DeviceCellModel(name: name)
+        let model = FunctionCellModel(name: name)
         self.models.append(model)
     
         self.collectionView.insertItems(at: [IndexPath(row: self.models.count - 1, section: 0)])
     }
     
     // MARK: - Actions
-    
-    @objc
-    private func didTapBackButton() {
-        dismiss(animated: true)
-    }
 
     @objc
-    private func didTapAddPlaceButton() {
+    private func didTapAddFunctionButton() {
         
-        let alertController  = UIAlertController(title: "Добавить устройство", message: "Введите название устройства", preferredStyle: .alert)
+        let alertController  = UIAlertController(title: "Add function", message: "Input function`s name", preferredStyle: .alert)
         
         alertController.addTextField()
         
-        let okAction = UIAlertAction(title: "Добавить", style: .default) { _ in
+        let okAction = UIAlertAction(title: "Add", style: .default) { _ in
             guard let text = alertController.textFields?.first?.text else {
                 return
             }
     
-            self.addDeviceCell(with: text)
+            self.addFunctionCell(with: text)
         }
         
-        let cancelAction = UIAlertAction(title: "Отменить", style: .destructive)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
         
         alertController.addAction(okAction)
         alertController.addAction(cancelAction)
@@ -143,33 +135,34 @@ final class PlaceViewController: UIViewController {
     }
 }
 
-extension PlaceViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension DeviceViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return models.count
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DeviceCell",
-                                                          for: indexPath) as? DeviceCell,
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FunctionCell",
+                                                          for: indexPath) as? FunctionCell,
                 models.count > indexPath.row
             else {
                 return UICollectionViewCell()
         }
         
         cell.configure(with: models[indexPath.row])
+        
         return cell
     }
 }
 
-extension PlaceViewController: UICollectionViewDelegateFlowLayout {
+extension DeviceViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
         return CGSize(width: view.frame.width - 30, height: 100)
     }
 }
 
-private extension PlaceViewController {
+private extension DeviceViewController {
     struct Constants {
         
         static let customBlue = UIColor(red: 0x27 / 255,
@@ -177,7 +170,7 @@ private extension PlaceViewController {
                                         blue: 0x77 / 255,
                                         alpha: 1)
         
-        struct AddDeviceButton {
+        struct AddFunctionButton {
             static let iconName: String = "plus"
             static let backgroundColor: UIColor = Constants.customBlue
             static let marginBottom: CGFloat = 7

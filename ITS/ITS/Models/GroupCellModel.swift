@@ -8,7 +8,7 @@
 import UIKit
 
 // Данные приходят с бэка
-final class PlaceCellModel {
+final class GroupCellModel {
     let name: String
     
     // Инициализация ячейки

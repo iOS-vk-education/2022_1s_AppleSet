@@ -8,9 +8,9 @@
 import UIKit
 
 // БД должна подгружаться с бэка, но тк бэка пока нет, создаём её сами
-struct PlaceCellDataModel {
-    func loadPlaces() -> [PlaceCellModel] {
-        let places: [PlaceCellModel] = [.init(name: "Балкон"),
+struct GroupCellDataModel {
+    func loadGroups() -> [GroupCellModel] {
+        let groups: [GroupCellModel] = [.init(name: "Балкон"),
                                         .init(name: "Теплица с помидорами"),
                                         .init(name: "Гостинная"),
                                         .init(name: "Кухня"),
@@ -24,6 +24,6 @@ struct PlaceCellDataModel {
                                         .init(name: "Подвал"),
                                         .init(name: "Чердак")]
         
-        return places
+        return groups
     }
 }

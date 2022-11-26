@@ -17,15 +17,45 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         
-        guard let scene = (scene as? UIWindowScene) else {
+        guard let scene = scene as? UIWindowScene else {
             return
         }
         
-        let navigationBarController: UINavigationController = UINavigationController(rootViewController: MainViewController())
-    
-        window = UIWindow(windowScene: scene)
-        window?.rootViewController = navigationBarController
+        window = UIWindow(frame: scene.coordinateSpace.bounds)
+        window?.windowScene = scene
+        window?.rootViewController = createTabbar()
         window?.makeKeyAndVisible()
+        
+    }
+    
+    func createAllDevicesNavigationController() -> UINavigationController {
+        
+        let allDevicesVC = AllDevicesViewController()
+        allDevicesVC.title = "Devices"
+        allDevicesVC.tabBarItem = UITabBarItem(title: "All devices", image: UIImage(systemName: "list.bullet.rectangle"), tag: 0)
+        
+        return  UINavigationController(rootViewController: allDevicesVC)
+        
+    }
+    
+    func createGroupsNavigationController() -> UINavigationController {
+        
+        let groupsVC = GroupsViewController()
+        groupsVC.title = "Groups"
+        groupsVC.tabBarItem = UITabBarItem(title: "Groups", image: UIImage(systemName: "folder"), tag: 1)
+        
+        return  UINavigationController(rootViewController: groupsVC)
+        
+    }
+    
+    func createTabbar() -> UITabBarController {
+        
+        let tabbar = UITabBarController()
+        UITabBar.appearance().tintColor = .systemCyan
+        tabbar.viewControllers = [createAllDevicesNavigationController(), createGroupsNavigationController()]
+        
+        return tabbar
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
