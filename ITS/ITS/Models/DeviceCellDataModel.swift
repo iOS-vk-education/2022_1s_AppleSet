@@ -9,19 +9,19 @@ import UIKit
 
 struct DeviceCellDataModel {
     func loadDevices() -> [DeviceCellModel] {
-        let devices: [DeviceCellModel] = [.init(name: "Устройство 1"),
-                                          .init(name: "Устройство 2"),
-                                          .init(name: "Устройство 3"),
-                                          .init(name: "Устройство 4"),
-                                          .init(name: "Устройство 5"),
-                                          .init(name: "Устройство 6"),
-                                          .init(name: "Устройство 7"),
-                                          .init(name: "Устройство 8"),
-                                          .init(name: "Устройство 9"),
-                                          .init(name: "Устройство 10"),
-                                          .init(name: "Устройство 11"),
-                                          .init(name: "Устройство 12"),
-                                          .init(name: "Устройство 13")]
+        let devices: [DeviceCellModel] = [.init(name: "Device 1"),
+                                          .init(name: "Device 2"),
+                                          .init(name: "Device 3"),
+                                          .init(name: "Device 4"),
+                                          .init(name: "Device 5"),
+                                          .init(name: "Device 6"),
+                                          .init(name: "Device 7"),
+                                          .init(name: "Device 8"),
+                                          .init(name: "Device 9"),
+                                          .init(name: "Device 10"),
+                                          .init(name: "Device 11"),
+                                          .init(name: "Device 12"),
+                                          .init(name: "Device 13")]
         
         return devices
     }

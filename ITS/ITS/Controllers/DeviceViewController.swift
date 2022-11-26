@@ -94,7 +94,7 @@ final class DeviceViewController: UIViewController {
     
     private func setupNavBar() {
         
-        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.tintColor = .red
         
     }
     
@@ -165,9 +165,9 @@ extension DeviceViewController: UICollectionViewDelegateFlowLayout {
 private extension DeviceViewController {
     struct Constants {
         
-        static let customBlue = UIColor(red: 0x27 / 255,
-                                        green: 0x4c / 255,
-                                        blue: 0x77 / 255,
+        static let customBlue = UIColor(red: 0xce / 255,
+                                        green: 0xdd / 255,
+                                        blue: 0xf0 / 255,
                                         alpha: 1)
         
         struct AddFunctionButton {

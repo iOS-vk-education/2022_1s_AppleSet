@@ -32,9 +32,9 @@ final class FunctionCell: UICollectionViewCell {
     }
     
     private func setup() {
-        backgroundColor = UIColor(red: 0xf0 / 255,
-                                  green: 0xf5 / 255,
-                                  blue: 0xf9 / 255,
+        backgroundColor = UIColor(red: 0xce / 255,
+                                  green: 0xdd / 255,
+                                  blue: 0xf0 / 255,
                                   alpha: 1)
         layer.cornerRadius = Constants.FunctionCell.cornerRadius
         clipsToBounds = true
@@ -56,8 +56,14 @@ final class FunctionCell: UICollectionViewCell {
         nameLabel.text = model.name
 //        imageView.image = model.image
         values.text = model.values
-        nameLabel.textColor = Constants.customBlue
-        values.textColor = Constants.customBlue
+        nameLabel.textColor = UIColor(red:  0x32 / 255,
+                                      green:  0x33 / 255,
+                                      blue:  0x34 / 255,
+                                      alpha: 1)
+        values.textColor = UIColor(red:  0x32 / 255,
+                                   green:  0x33 / 255,
+                                   blue:  0x34 / 255,
+                                   alpha: 1)
         
     }
     
