@@ -8,17 +8,17 @@
 import UIKit
 import PinLayout
 
-class MainViewController: UIViewController {
+class AllDevicesViewController: UIViewController {
     
     // MARK: - Create objects
     
-    private let addPlaceButton: UIButton = UIButton()
+    private let addDeviceButton: UIButton = UIButton()
 
     private let collectionView: UICollectionView = {
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         let collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(PlaceCell.self, forCellWithReuseIdentifier: "PlaceCell")
+        collectionView.register(DeviceCell.self, forCellWithReuseIdentifier: "DeviceCell")
         
         collectionView.contentInset = UIEdgeInsets(top: 7,
                                                    left: .zero,
@@ -28,7 +28,7 @@ class MainViewController: UIViewController {
         return collectionView
     }()
     
-    private var models: [PlaceCellModel] = []
+    private var models: [DeviceCellModel] = []
     
     // MARK: - setup
     
@@ -41,17 +41,17 @@ class MainViewController: UIViewController {
         view.addSubview(collectionView)
     }
     
-    private func setupAddPlaceButton() {
+    private func setupAddDeviceButton() {
 
-        addPlaceButton.setImage(UIImage(systemName: Constants.AddPlaceButton.iconName), for: .normal)
-        addPlaceButton.imageView?.tintColor = .white
-        addPlaceButton.imageView?.layer.transform = CATransform3DMakeScale(2, 2, 2)
-        addPlaceButton.backgroundColor = Constants.AddPlaceButton.backgroundColor
-        addPlaceButton.layer.cornerRadius = Constants.AddPlaceButton.cornerRadius
-        addPlaceButton.addTarget(self, action: #selector(didTapAddPlaceButton), for: .touchUpInside)
-        addPlaceButton.clipsToBounds = true
+        addDeviceButton.setImage(UIImage(systemName: Constants.AddDeviceButton.iconName), for: .normal)
+        addDeviceButton.imageView?.tintColor = .white
+        addDeviceButton.imageView?.layer.transform = CATransform3DMakeScale(2, 2, 2)
+        addDeviceButton.backgroundColor = Constants.AddDeviceButton.backgroundColor
+        addDeviceButton.layer.cornerRadius = Constants.AddDeviceButton.cornerRadius
+        addDeviceButton.addTarget(self, action: #selector(didTapAddDeviceButton), for: .touchUpInside)
+        addDeviceButton.clipsToBounds = true
         
-        view.addSubview(addPlaceButton)
+        view.addSubview(addDeviceButton)
     }
 
     // MARK: - viewDidLoad
@@ -62,8 +62,10 @@ class MainViewController: UIViewController {
         view.backgroundColor = .white
     
         setupCollectionView()
-        loadPlaces()
-        setupAddPlaceButton()
+        loadDevices()
+        setupAddDeviceButton()
+        
+        tabBarController?.view.addSubview(addDeviceButton)
     }
     
     // MARK: - WiewWillAppear
@@ -87,17 +89,17 @@ class MainViewController: UIViewController {
     // MARK: - Load places
     
     // Загружаем данные из БД
-    private func loadPlaces() {
+    private func loadDevices() {
         
-        let placeModel = PlaceCellDataModel()
-        models = placeModel.loadPlaces()
+        let deviceModel = DeviceCellDataModel()
+        models = deviceModel.loadDevices()
     }
     
     // MARK: - set up navigation bar
     
     private func setupNavBar() {
         
-        navigationItem.title = "Мои места"
+//        navigationItem.title = "Devices"
         
         let rightBarButtonItem: UIBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "questionmark"),
                                                                   style: .plain,
@@ -118,23 +120,23 @@ class MainViewController: UIViewController {
     
     private func layout() {
         
-        addPlaceButton.pin
+        addDeviceButton.pin
             .bottom()
-            .marginBottom(view.safeAreaInsets.bottom + Constants.AddPlaceButton.marginBottom)
-            .height(Constants.AddPlaceButton.height)
-            .horizontally((view.frame.width - Constants.AddPlaceButton.height) / 2)
+            .marginBottom(Constants.AddDeviceButton.marginBottom)
+            .height(Constants.AddDeviceButton.height)
+            .horizontally((view.frame.width - Constants.AddDeviceButton.height) / 2)
         
         collectionView.pin
             .top(view.safeAreaInsets.top + 7)
             .horizontally()
-            .bottom(view.safeAreaInsets.bottom + addPlaceButton.frame.height + Constants.AddPlaceButton.marginBottom * 2)
+            .bottom(addDeviceButton.frame.height + Constants.AddDeviceButton.marginBottom * 2)
     }
     
     // MARK: - add place cell
     
-    private func addPlaceCell(with name: String) {
+    private func addDeviceCell(with name: String) {
         
-        let model = PlaceCellModel(name: name)
+        let model = DeviceCellModel(name: name)
         self.models.append(model)
         
         // Исправить ошибку!!!
@@ -167,21 +169,21 @@ class MainViewController: UIViewController {
     // MARK: - Add button action
     
     @objc
-    private func didTapAddPlaceButton() {
+    private func didTapAddDeviceButton() {
         
-        let alertController  = UIAlertController(title: "Добавить место", message: "Введите название места", preferredStyle: .alert)
+        let alertController  = UIAlertController(title: "Add device", message: "Input device`s name", preferredStyle: .alert)
         
         alertController.addTextField()
         
-        let okAction = UIAlertAction(title: "Добавить", style: .default) { _ in
+        let okAction = UIAlertAction(title: "Add", style: .default) { _ in
             guard let text = alertController.textFields?.first?.text else {
                 return
             }
     
-            self.addPlaceCell(with: text)
+            self.addDeviceCell(with: text)
         }
         
-        let cancelAction = UIAlertAction(title: "Отменить", style: .destructive)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
         
         alertController.addAction(okAction)
         alertController.addAction(cancelAction)
@@ -193,7 +195,7 @@ class MainViewController: UIViewController {
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 
-extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension AllDevicesViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     // Количество ячеек
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -204,7 +206,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         guard
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PlaceCell", for: indexPath) as? PlaceCell,
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DeviceCell", for: indexPath) as? DeviceCell,
             models.count > indexPath.row
         else {
             return UICollectionViewCell()
@@ -216,21 +218,24 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let placeViewController = PlaceViewController()
+//        let deviceViewController = DeviceViewController()
         
-        placeViewController.title = models[indexPath.row].name
-
-        let navigationController = UINavigationController(rootViewController: placeViewController)
-        navigationController.modalPresentationStyle = .fullScreen
+        self.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(DeviceViewController(), animated: true)
+        self.hidesBottomBarWhenPushed = false
         
-
-        present(navigationController, animated: true)
+//        deviceViewController.title = models[indexPath.row].name
+//
+//        let navigationController = UINavigationController(rootViewController: deviceViewController)
+//        navigationController.modalPresentationStyle = .fullScreen
+//
+//        present(navigationController, animated: true)
     }
 }
 
 // MARK: - Cells size
 
-extension MainViewController: UICollectionViewDelegateFlowLayout {
+extension AllDevicesViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
@@ -240,7 +245,7 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 
 // MARK: - Static values
 
-private extension MainViewController {
+private extension AllDevicesViewController {
     struct Constants {
         
         static let customBlue = UIColor(red: 0x27 / 255,
@@ -248,7 +253,7 @@ private extension MainViewController {
                                         blue: 0x77 / 255,
                                         alpha: 1)
         
-        struct AddPlaceButton {
+        struct AddDeviceButton {
             static let iconName: String = "plus"
             static let backgroundColor: UIColor = Constants.customBlue
             static let marginBottom: CGFloat = 7

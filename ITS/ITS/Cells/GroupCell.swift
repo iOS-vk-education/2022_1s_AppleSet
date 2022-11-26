@@ -8,11 +8,11 @@
 import UIKit
 import PinLayout
 
-final class PlaceCell: UICollectionViewCell {
+final class GroupCell: UICollectionViewCell {
 
     private let nameLabel: UILabel = UILabel()
     
-    private var model: PlaceCellModel?
+    private var model: GroupCellModel?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,15 +30,15 @@ final class PlaceCell: UICollectionViewCell {
     
     private func setup() {
         backgroundColor = Constants.customBlue
-        layer.cornerRadius = Constants.PlaceCell.cornerRadius
+        layer.cornerRadius = Constants.GroupCell.cornerRadius
         clipsToBounds = true
         
-        nameLabel.font = Constants.PlaceCell.nameLabelFont
+        nameLabel.font = Constants.GroupCell.nameLabelFont
         
         addSubview(nameLabel)
     }
     
-    func configure(with model: PlaceCellModel) {
+    func configure(with model: GroupCellModel) {
         self.model = model
         nameLabel.text = model.name
         nameLabel.textColor = .white
@@ -56,14 +56,14 @@ final class PlaceCell: UICollectionViewCell {
 
 // MARK: - Static values
 
-private extension PlaceCell {
+private extension GroupCell {
     struct Constants {
         static let customBlue = UIColor(red: 0x27 / 255,
                                         green: 0x4c / 255,
                                         blue: 0x77 / 255,
                                         alpha: 1)
         
-        struct PlaceCell {
+        struct GroupCell {
             static let cornerRadius: CGFloat = 13
             static let nameLabelFont: UIFont = UIFont(name: "Menlo-Bold", size: 17)!
         }
