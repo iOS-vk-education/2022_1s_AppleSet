@@ -146,7 +146,6 @@ class AllDevicesViewController: UIViewController {
         let model = DeviceCellModel(name: name)
         self.models.append(model)
         
-        // Исправить ошибку!!!
         self.collectionView.insertItems(at: [IndexPath(row: self.models.count - 1, section: 0)])
     }
     

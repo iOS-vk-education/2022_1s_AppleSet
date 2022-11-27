@@ -28,8 +28,13 @@ final class TabBarController: UITabBarController {
                        image: UIImage(systemName: "folder")),
             
             generateNC(viewController: AllDevicesViewController(),
+<<<<<<< Updated upstream
                        title: "Devices",
                        image: UIImage(systemName: "folder"))
+=======
+                       title: "All devices",
+                       image: UIImage(systemName: "list.bullet.rectangle"))
+>>>>>>> Stashed changes
         ]
     }
     
