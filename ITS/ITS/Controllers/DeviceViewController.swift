@@ -94,7 +94,7 @@ final class DeviceViewController: UIViewController {
     
     private func setupNavBar() {
         
-        navigationController?.navigationBar.tintColor = .red
+        navigationController?.navigationBar.tintColor = .customGrey
         
     }
     
@@ -165,15 +165,10 @@ extension DeviceViewController: UICollectionViewDelegateFlowLayout {
 private extension DeviceViewController {
     struct Constants {
         
-        static let customBlue = UIColor(red: 0xce / 255,
-                                        green: 0xdd / 255,
-                                        blue: 0xf0 / 255,
-                                        alpha: 1)
-        
         struct AddFunctionButton {
             static let iconName: String = "plus"
-            static let backgroundColor: UIColor = Constants.customBlue
-            static let marginBottom: CGFloat = 7
+            static let backgroundColor: UIColor = .customBlue
+            static let marginBottom: CGFloat = 10
             static let height: CGFloat = 65
             static let cornerRadius: CGFloat = height / 2
         }

@@ -65,7 +65,7 @@ class GroupsViewController: UIViewController {
         loadGroups()
         setupAddGroupButton()
         
-        tabBarController?.view.addSubview(addGroupButton)
+//        tabBarController?.view.addSubview(addGroupButton)
 
     }
     
@@ -75,6 +75,8 @@ class GroupsViewController: UIViewController {
         super.viewWillAppear(animated)
         
         setupNavBar()
+        tabBarController?.view.addSubview(addGroupButton)
+        addGroupButton.isHidden = false
         
     }
     
@@ -85,6 +87,14 @@ class GroupsViewController: UIViewController {
         
         layout()
         
+    }
+    
+    // MARK: - viewWillDisappear
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        
+        addGroupButton.isHidden = true
     }
     
     // MARK: - Load places
@@ -100,14 +110,13 @@ class GroupsViewController: UIViewController {
     
     private func setupNavBar() {
         
-//        navigationItem.title = "Devices"
-        
         let rightBarButtonItem: UIBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "questionmark"),
                                                                   style: .plain,
                                                                   target: self,
                                                                   action: #selector(didTapQuestionButton))
         
         navigationItem.rightBarButtonItem = rightBarButtonItem
+        navigationItem.rightBarButtonItem?.tintColor = .navigationItem
         
         let leftBarButtonItem: UIBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person.circle"),
                                                                  style: .plain,
@@ -115,6 +124,7 @@ class GroupsViewController: UIViewController {
                                                                  action: #selector(didTapProfileButton))
         
         navigationItem.leftBarButtonItem = leftBarButtonItem
+        navigationItem.leftBarButtonItem?.tintColor = .navigationItem
     }
     
     // MARK: - Layout
@@ -122,15 +132,14 @@ class GroupsViewController: UIViewController {
     private func layout() {
         
         addGroupButton.pin
-            .bottom()
-            .marginBottom(Constants.AddGroupButton.marginBottom)
+            .bottom(view.safeAreaInsets.bottom - Constants.AddGroupButton.marginBottom)
             .height(Constants.AddGroupButton.height)
             .horizontally((view.frame.width - Constants.AddGroupButton.height) / 2)
         
         collectionView.pin
-            .top(view.safeAreaInsets.top + 7)
+            .top(view.safeAreaInsets.top)
             .horizontally()
-            .bottom(addGroupButton.frame.height + Constants.AddGroupButton.marginBottom * 2)
+            .bottom(view.safeAreaInsets.bottom)
     }
     
     // MARK: - add place cell
@@ -247,16 +256,11 @@ extension GroupsViewController: UICollectionViewDelegateFlowLayout {
 private extension GroupsViewController {
     struct Constants {
         
-        static let customBlue = UIColor(red: 0xe4 / 255,
-                                        green: 0xe5 / 255,
-                                        blue: 0xea / 255,
-                                        alpha: 1)
-        
         struct AddGroupButton {
             static let iconName: String = "plus"
-            static let backgroundColor: UIColor = Constants.customBlue
-            static let marginBottom: CGFloat = 7
-            static let height: CGFloat = 65
+            static let backgroundColor: UIColor = .customLightGrey
+            static let height: CGFloat = 37
+            static let marginBottom: CGFloat = height + 7
             static let cornerRadius: CGFloat = height / 2
         }
     }

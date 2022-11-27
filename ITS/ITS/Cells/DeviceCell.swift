@@ -29,10 +29,7 @@ final class DeviceCell: UICollectionViewCell {
     }
     
     private func setup() {
-        backgroundColor = UIColor(red: 0xce / 255,
-                                  green: 0xdd / 255,
-                                  blue: 0xf0 / 255,
-                                  alpha: 1)
+        backgroundColor = .customBlue
         layer.cornerRadius = Constants.DeviceCell.cornerRadius
         clipsToBounds = true
         
@@ -63,14 +60,10 @@ final class DeviceCell: UICollectionViewCell {
 
 private extension DeviceCell {
     struct Constants {
-        static let customBlue = UIColor(red: 0x27 / 255,
-                                        green: 0x4c / 255,
-                                        blue: 0x77 / 255,
-                                        alpha: 1)
         
         struct DeviceCell {
             static let cornerRadius: CGFloat = 13
-            static let nameLabelFont: UIFont = UIFont(name: "Menlo-Bold", size: 20)!
+            static let nameLabelFont: UIFont = UIFont(name: "Menlo-Bold", size: 17)!
         }
     }
 }
