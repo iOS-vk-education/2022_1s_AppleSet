@@ -23,38 +23,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(frame: scene.coordinateSpace.bounds)
         window?.windowScene = scene
-        window?.rootViewController = createTabbar()
         window?.makeKeyAndVisible()
         
-    }
-    
-    func createAllDevicesNavigationController() -> UINavigationController {
-        
-        let allDevicesVC = AllDevicesViewController()
-        allDevicesVC.title = "Devices"
-        allDevicesVC.tabBarItem = UITabBarItem(title: "All devices", image: UIImage(systemName: "list.bullet.rectangle"), tag: 0)
-        
-        return  UINavigationController(rootViewController: allDevicesVC)
-        
-    }
-    
-    func createGroupsNavigationController() -> UINavigationController {
-        
-        let groupsVC = GroupsViewController()
-        groupsVC.title = "Groups"
-        groupsVC.tabBarItem = UITabBarItem(title: "Groups", image: UIImage(systemName: "folder"), tag: 1)
-        
-        return  UINavigationController(rootViewController: groupsVC)
-        
-    }
-    
-    func createTabbar() -> UITabBarController {
-        
-        let tabbar = UITabBarController()
-        UITabBar.appearance().tintColor = .systemCyan
-        tabbar.viewControllers = [createAllDevicesNavigationController(), createGroupsNavigationController()]
-        
-        return tabbar
+        window?.rootViewController = TabBarController()
         
     }
 
