@@ -29,9 +29,14 @@ final class DeviceCell: UICollectionViewCell {
     }
     
     private func setup() {
-        backgroundColor = Constants.customBlue
+        backgroundColor = UIColor(red: 0xce / 255,
+                                  green: 0xdd / 255,
+                                  blue: 0xf0 / 255,
+                                  alpha: 1)
         layer.cornerRadius = Constants.DeviceCell.cornerRadius
         clipsToBounds = true
+        
+      
         
         nameLabel.font = Constants.DeviceCell.nameLabelFont
         
@@ -41,7 +46,7 @@ final class DeviceCell: UICollectionViewCell {
     func configure(with model: DeviceCellModel) {
         self.model = model
         nameLabel.text = model.name
-        nameLabel.textColor = .white
+        nameLabel.textColor = .black
     }
     
     override func layoutSubviews() {
@@ -65,7 +70,7 @@ private extension DeviceCell {
         
         struct DeviceCell {
             static let cornerRadius: CGFloat = 13
-            static let nameLabelFont: UIFont = UIFont(name: "Menlo-Bold", size: 17)!
+            static let nameLabelFont: UIFont = UIFont(name: "Menlo-Bold", size: 20)!
         }
     }
 }

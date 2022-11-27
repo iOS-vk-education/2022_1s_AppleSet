@@ -247,9 +247,9 @@ extension GroupsViewController: UICollectionViewDelegateFlowLayout {
 private extension GroupsViewController {
     struct Constants {
         
-        static let customBlue = UIColor(red: 0x27 / 255,
-                                        green: 0x4c / 255,
-                                        blue: 0x77 / 255,
+        static let customBlue = UIColor(red: 0xe4 / 255,
+                                        green: 0xe5 / 255,
+                                        blue: 0xea / 255,
                                         alpha: 1)
         
         struct AddGroupButton {

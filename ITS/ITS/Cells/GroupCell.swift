@@ -41,7 +41,7 @@ final class GroupCell: UICollectionViewCell {
     func configure(with model: GroupCellModel) {
         self.model = model
         nameLabel.text = model.name
-        nameLabel.textColor = .white
+        nameLabel.textColor = .black
     }
     
     override func layoutSubviews() {
@@ -58,9 +58,9 @@ final class GroupCell: UICollectionViewCell {
 
 private extension GroupCell {
     struct Constants {
-        static let customBlue = UIColor(red: 0x27 / 255,
-                                        green: 0x4c / 255,
-                                        blue: 0x77 / 255,
+        static let customBlue = UIColor(red: 0xce / 255,
+                                        green: 0xdd / 255,
+                                        blue: 0xf0 / 255,
                                         alpha: 1)
         
         struct GroupCell {

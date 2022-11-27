@@ -34,6 +34,7 @@ class AllDevicesViewController: UIViewController {
     
     private func setupCollectionView() {
 
+        // background of main controller
         collectionView.backgroundColor = .white
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -46,7 +47,12 @@ class AllDevicesViewController: UIViewController {
         addDeviceButton.setImage(UIImage(systemName: Constants.AddDeviceButton.iconName), for: .normal)
         addDeviceButton.imageView?.tintColor = .white
         addDeviceButton.imageView?.layer.transform = CATransform3DMakeScale(2, 2, 2)
-        addDeviceButton.backgroundColor = Constants.AddDeviceButton.backgroundColor
+        // background of + button
+        addDeviceButton.backgroundColor = UIColor(red:  0x32 / 255,
+                                                  green:  0x33 / 255,
+                                                  blue:  0x34 / 255,
+                                                  alpha: 1)
+               
         addDeviceButton.layer.cornerRadius = Constants.AddDeviceButton.cornerRadius
         addDeviceButton.addTarget(self, action: #selector(didTapAddDeviceButton), for: .touchUpInside)
         addDeviceButton.clipsToBounds = true
@@ -58,9 +64,9 @@ class AllDevicesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        //navigation bar
         view.backgroundColor = .white
-    
+        
         setupCollectionView()
         loadDevices()
         setupAddDeviceButton()
@@ -249,14 +255,14 @@ extension AllDevicesViewController: UICollectionViewDelegateFlowLayout {
 private extension AllDevicesViewController {
     struct Constants {
         
-        static let customBlue = UIColor(red: 0x27 / 255,
-                                        green: 0x4c / 255,
-                                        blue: 0x77 / 255,
+        static let customGrey = UIColor(red: 0x32 / 255,
+                                        green: 0x33 / 255,
+                                        blue: 0x34 / 255,
                                         alpha: 1)
         
         struct AddDeviceButton {
             static let iconName: String = "plus"
-            static let backgroundColor: UIColor = Constants.customBlue
+            static let backgroundColor: UIColor = Constants.customGrey
             static let marginBottom: CGFloat = 7
             static let height: CGFloat = 65
             static let cornerRadius: CGFloat = height / 2
