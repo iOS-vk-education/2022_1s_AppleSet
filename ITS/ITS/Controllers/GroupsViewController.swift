@@ -66,6 +66,7 @@ class GroupsViewController: UIViewController {
         setupAddGroupButton()
         
         tabBarController?.view.addSubview(addGroupButton)
+
     }
     
     // MARK: - WiewWillAppear
@@ -127,9 +128,9 @@ class GroupsViewController: UIViewController {
             .horizontally((view.frame.width - Constants.AddGroupButton.height) / 2)
         
         collectionView.pin
-            .top(view.safeAreaInsets.top + 7)
+            .top(view.safeAreaInsets.top)
             .horizontally()
-            .bottom(addGroupButton.frame.height + Constants.AddGroupButton.marginBottom * 2)
+            .bottom(view.safeAreaInsets.bottom)
     }
     
     // MARK: - add place cell

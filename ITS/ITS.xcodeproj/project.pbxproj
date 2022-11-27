@@ -24,7 +24,14 @@
 		E15DC1D9292A04D100FE1818 /* FunctionCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15DC1D8292A04D100FE1818 /* FunctionCellModel.swift */; };
 		E15DC1DB292A04E100FE1818 /* FunctionCellDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15DC1DA292A04E100FE1818 /* FunctionCellDataModel.swift */; };
 		E15DC1DD292A050300FE1818 /* DeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15DC1DC292A050300FE1818 /* DeviceViewController.swift */; };
-		E15DC1E0292A089A00FE1818 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15DC1DF292A089A00FE1818 /* UIView+Extensions.swift */; };
+		E15DC1E0292A089A00FE1818 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15DC1DF292A089A00FE1818 /* UIViewExtensions.swift */; };
+<<<<<<< Updated upstream
+		E18CE63D293354EB00533F15 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18CE63C293354EB00533F15 /* TabBarController.swift */; };
+		E18CE63F2933553600533F15 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18CE63E2933553600533F15 /* UIColorExtensions.swift */; };
+=======
+		E18CE63929334FCB00533F15 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18CE63829334FCB00533F15 /* TabBarController.swift */; };
+		E18CE63B2933502200533F15 /* UIColorExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18CE63A2933502200533F15 /* UIColorExtention.swift */; };
+>>>>>>> Stashed changes
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,7 +53,14 @@
 		E15DC1D8292A04D100FE1818 /* FunctionCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionCellModel.swift; sourceTree = "<group>"; };
 		E15DC1DA292A04E100FE1818 /* FunctionCellDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionCellDataModel.swift; sourceTree = "<group>"; };
 		E15DC1DC292A050300FE1818 /* DeviceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceViewController.swift; sourceTree = "<group>"; };
-		E15DC1DF292A089A00FE1818 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		E15DC1DF292A089A00FE1818 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
+<<<<<<< Updated upstream
+		E18CE63C293354EB00533F15 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		E18CE63E2933553600533F15 /* UIColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
+=======
+		E18CE63829334FCB00533F15 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		E18CE63A2933502200533F15 /* UIColorExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtention.swift; sourceTree = "<group>"; };
+>>>>>>> Stashed changes
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +121,11 @@
 				A04FFF2E2913034400BC96A7 /* AllDevicesViewController.swift */,
 				E15DC1DC292A050300FE1818 /* DeviceViewController.swift */,
 				E10A71722931EA0E00653EA3 /* GroupsViewController.swift */,
+<<<<<<< Updated upstream
+				E18CE63C293354EB00533F15 /* TabBarController.swift */,
+=======
+				E18CE63829334FCB00533F15 /* TabBarController.swift */,
+>>>>>>> Stashed changes
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -137,7 +156,12 @@
 		E15DC1DE292A086C00FE1818 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				E15DC1DF292A089A00FE1818 /* UIView+Extensions.swift */,
+				E15DC1DF292A089A00FE1818 /* UIViewExtensions.swift */,
+<<<<<<< Updated upstream
+				E18CE63E2933553600533F15 /* UIColorExtensions.swift */,
+=======
+				E18CE63A2933502200533F15 /* UIColorExtention.swift */,
+>>>>>>> Stashed changes
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -219,17 +243,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				A04FFF2F2913034400BC96A7 /* AllDevicesViewController.swift in Sources */,
+<<<<<<< Updated upstream
+				E18CE63D293354EB00533F15 /* TabBarController.swift in Sources */,
+=======
+				E18CE63929334FCB00533F15 /* TabBarController.swift in Sources */,
+>>>>>>> Stashed changes
 				E15DC1D9292A04D100FE1818 /* FunctionCellModel.swift in Sources */,
 				E15DC1D3292A047200FE1818 /* GroupCellDataModel.swift in Sources */,
 				E15DC1D1292A045600FE1818 /* GroupCellModel.swift in Sources */,
 				E15DC1D7292A04BB00FE1818 /* FunctionCell.swift in Sources */,
 				E15DC1DB292A04E100FE1818 /* FunctionCellDataModel.swift in Sources */,
 				A04FFF2B2913034400BC96A7 /* AppDelegate.swift in Sources */,
+				E18CE63F2933553600533F15 /* UIColorExtensions.swift in Sources */,
 				A04FFF2D2913034400BC96A7 /* SceneDelegate.swift in Sources */,
 				E15DC1DD292A050300FE1818 /* DeviceViewController.swift in Sources */,
 				E10A71712931E93700653EA3 /* DeviceCellDataModel.swift in Sources */,
 				E15DC1D5292A04A000FE1818 /* GroupCell.swift in Sources */,
-				E15DC1E0292A089A00FE1818 /* UIView+Extensions.swift in Sources */,
+				E15DC1E0292A089A00FE1818 /* UIViewExtensions.swift in Sources */,
+<<<<<<< Updated upstream
+=======
+				E18CE63B2933502200533F15 /* UIColorExtention.swift in Sources */,
+>>>>>>> Stashed changes
 				E10A716D2931E88400653EA3 /* DeviceCell.swift in Sources */,
 				E10A716F2931E90100653EA3 /* DeviceCellModel.swift in Sources */,
 				E10A71732931EA0E00653EA3 /* GroupsViewController.swift in Sources */,
