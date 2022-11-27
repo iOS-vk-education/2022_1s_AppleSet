@@ -72,8 +72,9 @@ class AllDevicesViewController: UIViewController {
         setupAddDeviceButton()
         
         tabBarController?.view.addSubview(addDeviceButton)
+        
     }
-    
+
     // MARK: - WiewWillAppear
     
     override func viewWillAppear(_ animated: Bool) {

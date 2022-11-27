@@ -17,6 +17,8 @@
 		E10A71712931E93700653EA3 /* DeviceCellDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10A71702931E93700653EA3 /* DeviceCellDataModel.swift */; };
 		E10A71732931EA0E00653EA3 /* GroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10A71722931EA0E00653EA3 /* GroupsViewController.swift */; };
 		E128A748292924A50005011A /* PinLayout in Frameworks */ = {isa = PBXBuildFile; productRef = E128A747292924A50005011A /* PinLayout */; };
+		E14CC47C2933AD8C0061F262 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14CC47B2933AD8C0061F262 /* TabBarController.swift */; };
+		E14CC47E2933ADD50061F262 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14CC47D2933ADD50061F262 /* UIColorExtensions.swift */; };
 		E15DC1D1292A045600FE1818 /* GroupCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15DC1D0292A045600FE1818 /* GroupCellModel.swift */; };
 		E15DC1D3292A047200FE1818 /* GroupCellDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15DC1D2292A047200FE1818 /* GroupCellDataModel.swift */; };
 		E15DC1D5292A04A000FE1818 /* GroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15DC1D4292A04A000FE1818 /* GroupCell.swift */; };
@@ -24,7 +26,7 @@
 		E15DC1D9292A04D100FE1818 /* FunctionCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15DC1D8292A04D100FE1818 /* FunctionCellModel.swift */; };
 		E15DC1DB292A04E100FE1818 /* FunctionCellDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15DC1DA292A04E100FE1818 /* FunctionCellDataModel.swift */; };
 		E15DC1DD292A050300FE1818 /* DeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15DC1DC292A050300FE1818 /* DeviceViewController.swift */; };
-		E15DC1E0292A089A00FE1818 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15DC1DF292A089A00FE1818 /* UIView+Extensions.swift */; };
+		E15DC1E0292A089A00FE1818 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15DC1DF292A089A00FE1818 /* UIViewExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +41,8 @@
 		E10A716E2931E90100653EA3 /* DeviceCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceCellModel.swift; sourceTree = "<group>"; };
 		E10A71702931E93700653EA3 /* DeviceCellDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceCellDataModel.swift; sourceTree = "<group>"; };
 		E10A71722931EA0E00653EA3 /* GroupsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsViewController.swift; sourceTree = "<group>"; };
+		E14CC47B2933AD8C0061F262 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		E14CC47D2933ADD50061F262 /* UIColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
 		E15DC1D0292A045600FE1818 /* GroupCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCellModel.swift; sourceTree = "<group>"; };
 		E15DC1D2292A047200FE1818 /* GroupCellDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCellDataModel.swift; sourceTree = "<group>"; };
 		E15DC1D4292A04A000FE1818 /* GroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCell.swift; sourceTree = "<group>"; };
@@ -46,7 +50,7 @@
 		E15DC1D8292A04D100FE1818 /* FunctionCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionCellModel.swift; sourceTree = "<group>"; };
 		E15DC1DA292A04E100FE1818 /* FunctionCellDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionCellDataModel.swift; sourceTree = "<group>"; };
 		E15DC1DC292A050300FE1818 /* DeviceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceViewController.swift; sourceTree = "<group>"; };
-		E15DC1DF292A089A00FE1818 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		E15DC1DF292A089A00FE1818 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +111,7 @@
 				A04FFF2E2913034400BC96A7 /* AllDevicesViewController.swift */,
 				E15DC1DC292A050300FE1818 /* DeviceViewController.swift */,
 				E10A71722931EA0E00653EA3 /* GroupsViewController.swift */,
+				E14CC47B2933AD8C0061F262 /* TabBarController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -137,7 +142,8 @@
 		E15DC1DE292A086C00FE1818 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				E15DC1DF292A089A00FE1818 /* UIView+Extensions.swift */,
+				E15DC1DF292A089A00FE1818 /* UIViewExtensions.swift */,
+				E14CC47D2933ADD50061F262 /* UIColorExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -219,17 +225,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				A04FFF2F2913034400BC96A7 /* AllDevicesViewController.swift in Sources */,
+				E14CC47C2933AD8C0061F262 /* TabBarController.swift in Sources */,
 				E15DC1D9292A04D100FE1818 /* FunctionCellModel.swift in Sources */,
 				E15DC1D3292A047200FE1818 /* GroupCellDataModel.swift in Sources */,
 				E15DC1D1292A045600FE1818 /* GroupCellModel.swift in Sources */,
 				E15DC1D7292A04BB00FE1818 /* FunctionCell.swift in Sources */,
 				E15DC1DB292A04E100FE1818 /* FunctionCellDataModel.swift in Sources */,
 				A04FFF2B2913034400BC96A7 /* AppDelegate.swift in Sources */,
+				E14CC47E2933ADD50061F262 /* UIColorExtensions.swift in Sources */,
 				A04FFF2D2913034400BC96A7 /* SceneDelegate.swift in Sources */,
 				E15DC1DD292A050300FE1818 /* DeviceViewController.swift in Sources */,
 				E10A71712931E93700653EA3 /* DeviceCellDataModel.swift in Sources */,
 				E15DC1D5292A04A000FE1818 /* GroupCell.swift in Sources */,
-				E15DC1E0292A089A00FE1818 /* UIView+Extensions.swift in Sources */,
+				E15DC1E0292A089A00FE1818 /* UIViewExtensions.swift in Sources */,
 				E10A716D2931E88400653EA3 /* DeviceCell.swift in Sources */,
 				E10A716F2931E90100653EA3 /* DeviceCellModel.swift in Sources */,
 				E10A71732931EA0E00653EA3 /* GroupsViewController.swift in Sources */,
