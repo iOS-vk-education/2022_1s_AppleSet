@@ -48,16 +48,14 @@ class AllDevicesViewController: UIViewController {
         addDeviceButton.imageView?.tintColor = .white
         addDeviceButton.imageView?.layer.transform = CATransform3DMakeScale(2, 2, 2)
         // background of + button
-        addDeviceButton.backgroundColor = UIColor(red:  0x32 / 255,
-                                                  green:  0x33 / 255,
-                                                  blue:  0x34 / 255,
-                                                  alpha: 1)
+        addDeviceButton.backgroundColor = .customGrey
                
         addDeviceButton.layer.cornerRadius = Constants.AddDeviceButton.cornerRadius
         addDeviceButton.addTarget(self, action: #selector(didTapAddDeviceButton), for: .touchUpInside)
         addDeviceButton.clipsToBounds = true
         
-        view.addSubview(addDeviceButton)
+//        view.addSubview(addDeviceButton)
+        
     }
 
     // MARK: - viewDidLoad
@@ -71,8 +69,6 @@ class AllDevicesViewController: UIViewController {
         loadDevices()
         setupAddDeviceButton()
         
-        tabBarController?.view.addSubview(addDeviceButton)
-        
     }
 
     // MARK: - WiewWillAppear
@@ -81,8 +77,11 @@ class AllDevicesViewController: UIViewController {
         super.viewWillAppear(animated)
         
         setupNavBar()
+        tabBarController?.view.addSubview(addDeviceButton)
+        addDeviceButton.isHidden = false
         
     }
+
     
     // MARK: - viewDidLayoutSubviews
     
@@ -91,6 +90,14 @@ class AllDevicesViewController: UIViewController {
         
         layout()
         
+    }
+    
+    // MARK: - viewWillDisappear
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        
+        addDeviceButton.isHidden = true
     }
     
     // MARK: - Load places
@@ -106,14 +113,13 @@ class AllDevicesViewController: UIViewController {
     
     private func setupNavBar() {
         
-//        navigationItem.title = "Devices"
-        
         let rightBarButtonItem: UIBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "questionmark"),
                                                                   style: .plain,
                                                                   target: self,
                                                                   action: #selector(didTapQuestionButton))
         
         navigationItem.rightBarButtonItem = rightBarButtonItem
+        navigationItem.rightBarButtonItem?.tintColor = .navigationItem
         
         let leftBarButtonItem: UIBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person.circle"),
                                                                  style: .plain,
@@ -121,6 +127,8 @@ class AllDevicesViewController: UIViewController {
                                                                  action: #selector(didTapProfileButton))
         
         navigationItem.leftBarButtonItem = leftBarButtonItem
+        navigationItem.leftBarButtonItem?.tintColor = .navigationItem
+        
     }
     
     // MARK: - Layout
@@ -128,15 +136,14 @@ class AllDevicesViewController: UIViewController {
     private func layout() {
         
         addDeviceButton.pin
-            .bottom()
-            .marginBottom(Constants.AddDeviceButton.marginBottom)
+            .bottom(view.safeAreaInsets.bottom - Constants.AddDeviceButton.marginBottom)
             .height(Constants.AddDeviceButton.height)
             .horizontally((view.frame.width - Constants.AddDeviceButton.height) / 2)
         
         collectionView.pin
-            .top(view.safeAreaInsets.top + 7)
+            .top(view.safeAreaInsets.top)
             .horizontally()
-            .bottom(addDeviceButton.frame.height + Constants.AddDeviceButton.marginBottom * 2)
+            .bottom(view.safeAreaInsets.bottom)
     }
     
     // MARK: - add place cell
@@ -146,7 +153,6 @@ class AllDevicesViewController: UIViewController {
         let model = DeviceCellModel(name: name)
         self.models.append(model)
         
-        // Исправить ошибку!!!
         self.collectionView.insertItems(at: [IndexPath(row: self.models.count - 1, section: 0)])
     }
     
@@ -224,19 +230,16 @@ extension AllDevicesViewController: UICollectionViewDelegate, UICollectionViewDa
         return cell
     }
     
+    // Переход в контроллер ячейки
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let deviceViewController = DeviceViewController()
+        
+        let deviceViewController = DeviceViewController()
+        deviceViewController.title = models[indexPath.row].name
         
         self.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(DeviceViewController(), animated: true)
+        self.navigationController?.pushViewController(deviceViewController, animated: true)
         self.hidesBottomBarWhenPushed = false
         
-//        deviceViewController.title = models[indexPath.row].name
-//
-//        let navigationController = UINavigationController(rootViewController: deviceViewController)
-//        navigationController.modalPresentationStyle = .fullScreen
-//
-//        present(navigationController, animated: true)
     }
 }
 
@@ -255,16 +258,11 @@ extension AllDevicesViewController: UICollectionViewDelegateFlowLayout {
 private extension AllDevicesViewController {
     struct Constants {
         
-        static let customGrey = UIColor(red: 0x32 / 255,
-                                        green: 0x33 / 255,
-                                        blue: 0x34 / 255,
-                                        alpha: 1)
-        
         struct AddDeviceButton {
             static let iconName: String = "plus"
-            static let backgroundColor: UIColor = Constants.customGrey
-            static let marginBottom: CGFloat = 7
-            static let height: CGFloat = 65
+            static let backgroundColor: UIColor = .customGrey
+            static let height: CGFloat = 37
+            static let marginBottom: CGFloat = height + 7
             static let cornerRadius: CGFloat = height / 2
         }
     }

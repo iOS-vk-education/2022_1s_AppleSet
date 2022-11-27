@@ -32,10 +32,7 @@ final class FunctionCell: UICollectionViewCell {
     }
     
     private func setup() {
-        backgroundColor = UIColor(red: 0xce / 255,
-                                  green: 0xdd / 255,
-                                  blue: 0xf0 / 255,
-                                  alpha: 1)
+        backgroundColor = .customBlue
         layer.cornerRadius = Constants.FunctionCell.cornerRadius
         clipsToBounds = true
         
@@ -96,10 +93,6 @@ final class FunctionCell: UICollectionViewCell {
 
 private extension FunctionCell {
     struct Constants {
-        static let customBlue = UIColor(red: 0x27 / 255,
-                                        green: 0x4c / 255,
-                                        blue: 0x77 / 255,
-                                        alpha: 1)
         
         struct FunctionCell {
             static let cornerRadius: CGFloat = 13

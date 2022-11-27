@@ -29,7 +29,7 @@ final class GroupCell: UICollectionViewCell {
     }
     
     private func setup() {
-        backgroundColor = Constants.customBlue
+        backgroundColor = .customBlue
         layer.cornerRadius = Constants.GroupCell.cornerRadius
         clipsToBounds = true
         
@@ -58,10 +58,6 @@ final class GroupCell: UICollectionViewCell {
 
 private extension GroupCell {
     struct Constants {
-        static let customBlue = UIColor(red: 0xce / 255,
-                                        green: 0xdd / 255,
-                                        blue: 0xf0 / 255,
-                                        alpha: 1)
         
         struct GroupCell {
             static let cornerRadius: CGFloat = 13
