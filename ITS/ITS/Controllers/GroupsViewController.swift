@@ -66,6 +66,7 @@ class GroupsViewController: UIViewController {
         setupAddGroupButton()
         
         tabBarController?.view.addSubview(addGroupButton)
+
     }
     
     // MARK: - WiewWillAppear
