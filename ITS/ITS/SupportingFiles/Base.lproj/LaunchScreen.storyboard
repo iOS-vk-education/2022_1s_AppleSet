@@ -15,8 +15,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Загрузка..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mrm-22-aJr">
-                                <rect key="frame" x="120" y="393" width="184" height="59"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mrm-22-aJr">
+                                <rect key="frame" x="132" y="400" width="149" height="44.333333333333314"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="37"/>
                                 <color key="textColor" red="0.1062997356" green="0.2094526887" blue="0.3098167181" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
@@ -25,10 +25,10 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="mrm-22-aJr" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="346" id="2HL-rO-vsD"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="mrm-22-aJr" secondAttribute="bottom" constant="358" id="AbL-sp-RAp"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="mrm-22-aJr" secondAttribute="trailing" constant="86" id="FAx-y2-MW9"/>
-                            <constraint firstItem="mrm-22-aJr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="120" id="nJO-fD-aIf"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="mrm-22-aJr" secondAttribute="trailing" constant="109" id="AZ5-WK-UDg"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="mrm-22-aJr" secondAttribute="bottom" constant="365.67000000000002" id="QyA-oG-TTU"/>
+                            <constraint firstItem="mrm-22-aJr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="132" id="ZRV-fR-QdM"/>
+                            <constraint firstItem="mrm-22-aJr" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="353" id="lwb-2q-shh"/>
                         </constraints>
                     </view>
                 </viewController>

@@ -10,19 +10,19 @@ import UIKit
 // БД должна подгружаться с бэка, но тк бэка пока нет, создаём её сами
 struct GroupCellDataModel {
     func loadGroups() -> [GroupCellModel] {
-        let groups: [GroupCellModel] = [.init(name: "Балкон"),
-                                        .init(name: "Теплица с помидорами"),
-                                        .init(name: "Гостинная"),
-                                        .init(name: "Кухня"),
-                                        .init(name: "Детская"),
-                                        .init(name: "Спальня"),
-                                        .init(name: "Ванная"),
-                                        .init(name: "Гараж"),
-                                        .init(name: "Теплица с огурцами"),
-                                        .init(name: "Коридор"),
-                                        .init(name: "Погреб"),
-                                        .init(name: "Подвал"),
-                                        .init(name: "Чердак")]
+        let groups: [GroupCellModel] = [.init(name: "Group 1"),
+                                        .init(name: "Group 2"),
+                                        .init(name: "Group 3"),
+                                        .init(name: "Group 4"),
+                                        .init(name: "Group 5"),
+                                        .init(name: "Group 6"),
+                                        .init(name: "Group 7"),
+                                        .init(name: "Group 8"),
+                                        .init(name: "Group 9"),
+                                        .init(name: "Group 10"),
+                                        .init(name: "Group 11"),
+                                        .init(name: "Group 12"),
+                                        .init(name: "Group 13")]
         
         return groups
     }
