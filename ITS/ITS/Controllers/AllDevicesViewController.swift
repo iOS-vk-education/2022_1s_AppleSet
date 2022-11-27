@@ -134,9 +134,9 @@ class AllDevicesViewController: UIViewController {
             .horizontally((view.frame.width - Constants.AddDeviceButton.height) / 2)
         
         collectionView.pin
-            .top(view.safeAreaInsets.top + 7)
+            .top(view.safeAreaInsets.top)
             .horizontally()
-            .bottom(addDeviceButton.frame.height + Constants.AddDeviceButton.marginBottom * 2)
+            .bottom(view.safeAreaInsets.bottom)
     }
     
     // MARK: - add place cell
