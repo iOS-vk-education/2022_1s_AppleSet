@@ -59,6 +59,7 @@ final class DeviceViewController: UIViewController {
         setupAddFunctionButton()
         setup()
         loadDevice()
+
     }
     
     override func viewDidLayoutSubviews() {

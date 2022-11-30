@@ -12,7 +12,7 @@ class GroupsViewController: UIViewController {
     
     // MARK: - Create objects
     
-    private let addGroupButton: UIButton = UIButton()
+//    private let addGroupButton: UIButton = UIButton()
 
     private let collectionView: UICollectionView = {
         
@@ -41,18 +41,18 @@ class GroupsViewController: UIViewController {
         view.addSubview(collectionView)
     }
     
-    private func setupAddGroupButton() {
-
-        addGroupButton.setImage(UIImage(systemName: Constants.AddGroupButton.iconName), for: .normal)
-        addGroupButton.imageView?.tintColor = .white
-        addGroupButton.imageView?.layer.transform = CATransform3DMakeScale(2, 2, 2)
-        addGroupButton.backgroundColor = Constants.AddGroupButton.backgroundColor
-        addGroupButton.layer.cornerRadius = Constants.AddGroupButton.cornerRadius
-        addGroupButton.addTarget(self, action: #selector(didTapAddGroupButton), for: .touchUpInside)
-        addGroupButton.clipsToBounds = true
-        
-        view.addSubview(addGroupButton)
-    }
+//    private func setupAddGroupButton() {
+//
+//        addGroupButton.setImage(UIImage(systemName: Constants.AddGroupButton.iconName), for: .normal)
+//        addGroupButton.imageView?.tintColor = .white
+//        addGroupButton.imageView?.layer.transform = CATransform3DMakeScale(2, 2, 2)
+//        addGroupButton.backgroundColor = Constants.AddGroupButton.backgroundColor
+//        addGroupButton.layer.cornerRadius = Constants.AddGroupButton.cornerRadius
+//        addGroupButton.addTarget(self, action: #selector(didTapAddGroupButton), for: .touchUpInside)
+//        addGroupButton.clipsToBounds = true
+//
+//        view.addSubview(addGroupButton)
+//    }
 
     // MARK: - viewDidLoad
 
@@ -63,7 +63,7 @@ class GroupsViewController: UIViewController {
     
         setupCollectionView()
         loadGroups()
-        setupAddGroupButton()
+//        setupAddGroupButton()
         
 //        tabBarController?.view.addSubview(addGroupButton)
 
@@ -75,8 +75,8 @@ class GroupsViewController: UIViewController {
         super.viewWillAppear(animated)
         
         setupNavBar()
-        tabBarController?.view.addSubview(addGroupButton)
-        addGroupButton.isHidden = false
+//        tabBarController?.view.addSubview(addGroupButton)
+//        addGroupButton.isHidden = false
         
     }
     
@@ -89,14 +89,14 @@ class GroupsViewController: UIViewController {
         
     }
     
-    // MARK: - viewWillDisappear
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
-        
-        addGroupButton.isHidden = true
-    }
-    
+//    // MARK: - viewWillDisappear
+//
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(true)
+//
+//        addGroupButton.isHidden = true
+//    }
+//
     // MARK: - Load places
     
     // Загружаем данные из БД
@@ -131,10 +131,10 @@ class GroupsViewController: UIViewController {
     
     private func layout() {
         
-        addGroupButton.pin
-            .bottom(view.safeAreaInsets.bottom - Constants.AddGroupButton.marginBottom)
-            .height(Constants.AddGroupButton.height)
-            .horizontally((view.frame.width - Constants.AddGroupButton.height) / 2)
+//        addGroupButton.pin
+//            .bottom(view.safeAreaInsets.bottom - Constants.AddGroupButton.marginBottom)
+//            .height(Constants.AddGroupButton.height)
+//            .horizontally((view.frame.width - Constants.AddGroupButton.height) / 2)
         
         collectionView.pin
             .top(view.safeAreaInsets.top)
@@ -144,7 +144,7 @@ class GroupsViewController: UIViewController {
     
     // MARK: - add place cell
     
-    private func addGroupCell(with name: String) {
+    func addGroupCell(with name: String) {
         
         let model = GroupCellModel(name: name)
         self.models.append(model)
@@ -177,29 +177,6 @@ class GroupsViewController: UIViewController {
     
     // MARK: - Add button action
     
-    @objc
-    private func didTapAddGroupButton() {
-        
-        let alertController  = UIAlertController(title: "Add group", message: "Input group`s name", preferredStyle: .alert)
-        
-        alertController.addTextField()
-        
-        let okAction = UIAlertAction(title: "Add", style: .default) { _ in
-            guard let text = alertController.textFields?.first?.text else {
-                return
-            }
-    
-            self.addGroupCell(with: text)
-        }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
-        
-        alertController.addAction(okAction)
-        alertController.addAction(cancelAction)
-        
-        present(alertController, animated: true)
-        
-    }
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
@@ -253,15 +230,15 @@ extension GroupsViewController: UICollectionViewDelegateFlowLayout {
 
 // MARK: - Static values
 
-private extension GroupsViewController {
-    struct Constants {
-        
-        struct AddGroupButton {
-            static let iconName: String = "plus"
-            static let backgroundColor: UIColor = .customLightGrey
-            static let height: CGFloat = 37
-            static let marginBottom: CGFloat = height + 7
-            static let cornerRadius: CGFloat = height / 2
-        }
-    }
-}
+//private extension GroupsViewController {
+//    struct Constants {
+//        
+//        struct AddGroupButton {
+//            static let iconName: String = "plus"
+//            static let backgroundColor: UIColor = .customLightGrey
+//            static let height: CGFloat = 37
+//            static let marginBottom: CGFloat = height + 7
+//            static let cornerRadius: CGFloat = height / 2
+//        }
+//    }
+//}

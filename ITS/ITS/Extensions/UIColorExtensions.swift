@@ -36,4 +36,17 @@ extension UIColor {
                                     green: 0xdd / 255,
                                     blue: 0xf0 / 255,
                                     alpha: 1)
+    
+    class func creatImageWithColor(color:UIColor) -> UIImage {
+        
+        let rect = CGRect.init(x: 0, y: 0, width: 1, height: 1)
+        UIGraphicsBeginImageContext(rect.size)
+        let context = UIGraphicsGetCurrentContext()
+        context!.setFillColor(color.cgColor)
+        context?.fill(rect)
+        let colorImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return colorImage!
+    }
 }

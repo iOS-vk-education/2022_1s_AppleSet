@@ -12,8 +12,8 @@ class AllDevicesViewController: UIViewController {
     
     // MARK: - Create objects
     
-    private let addDeviceButton: UIButton = UIButton()
-
+    //    private let addDeviceButton: UIButton = UIButton()
+    
     private let collectionView: UICollectionView = {
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
@@ -24,7 +24,7 @@ class AllDevicesViewController: UIViewController {
                                                    left: .zero,
                                                    bottom: .zero,
                                                    right: .zero)
-
+        
         return collectionView
     }()
     
@@ -33,7 +33,7 @@ class AllDevicesViewController: UIViewController {
     // MARK: - setup
     
     private func setupCollectionView() {
-
+        
         // background of main controller
         collectionView.backgroundColor = .white
         collectionView.delegate = self
@@ -42,24 +42,24 @@ class AllDevicesViewController: UIViewController {
         view.addSubview(collectionView)
     }
     
-    private func setupAddDeviceButton() {
-
-        addDeviceButton.setImage(UIImage(systemName: Constants.AddDeviceButton.iconName), for: .normal)
-        addDeviceButton.imageView?.tintColor = .white
-        addDeviceButton.imageView?.layer.transform = CATransform3DMakeScale(2, 2, 2)
-        // background of + button
-        addDeviceButton.backgroundColor = .customGrey
-               
-        addDeviceButton.layer.cornerRadius = Constants.AddDeviceButton.cornerRadius
-        addDeviceButton.addTarget(self, action: #selector(didTapAddDeviceButton), for: .touchUpInside)
-        addDeviceButton.clipsToBounds = true
-        
-//        view.addSubview(addDeviceButton)
-        
-    }
-
+    //    private func setupAddDeviceButton() {
+    //
+    //        addDeviceButton.setImage(UIImage(systemName: Constants.AddDeviceButton.iconName), for: .normal)
+    //        addDeviceButton.imageView?.tintColor = .white
+    //        addDeviceButton.imageView?.layer.transform = CATransform3DMakeScale(2, 2, 2)
+    //        // background of + button
+    //        addDeviceButton.backgroundColor = .customGrey
+    //
+    //        addDeviceButton.layer.cornerRadius = Constants.AddDeviceButton.cornerRadius
+    //        addDeviceButton.addTarget(self, action: #selector(didTapAddDeviceButton), for: .touchUpInside)
+    //        addDeviceButton.clipsToBounds = true
+    //
+    ////        view.addSubview(addDeviceButton)
+    //
+    //    }
+    
     // MARK: - viewDidLoad
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //navigation bar
@@ -67,21 +67,21 @@ class AllDevicesViewController: UIViewController {
         
         setupCollectionView()
         loadDevices()
-        setupAddDeviceButton()
+        //        setupAddDeviceButton()
         
     }
-
+    
     // MARK: - WiewWillAppear
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         setupNavBar()
-        tabBarController?.view.addSubview(addDeviceButton)
-        addDeviceButton.isHidden = false
+        //        tabBarController?.view.addSubview(addDeviceButton)
+        //        addDeviceButton.isHidden = false
         
     }
-
+    
     
     // MARK: - viewDidLayoutSubviews
     
@@ -92,13 +92,13 @@ class AllDevicesViewController: UIViewController {
         
     }
     
-    // MARK: - viewWillDisappear
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
-        
-        addDeviceButton.isHidden = true
-    }
+    //    // MARK: - viewWillDisappear
+    //
+    //    override func viewWillDisappear(_ animated: Bool) {
+    //        super.viewWillDisappear(true)
+    //
+    //        addDeviceButton.isHidden = true
+    //    }
     
     // MARK: - Load places
     
@@ -135,10 +135,10 @@ class AllDevicesViewController: UIViewController {
     
     private func layout() {
         
-        addDeviceButton.pin
-            .bottom(view.safeAreaInsets.bottom - Constants.AddDeviceButton.marginBottom)
-            .height(Constants.AddDeviceButton.height)
-            .horizontally((view.frame.width - Constants.AddDeviceButton.height) / 2)
+        //        addDeviceButton.pin
+        //            .bottom(view.safeAreaInsets.bottom - Constants.AddDeviceButton.marginBottom)
+        //            .height(Constants.AddDeviceButton.height)
+        //            .horizontally((view.frame.width - Constants.AddDeviceButton.height) / 2)
         
         collectionView.pin
             .top(view.safeAreaInsets.top)
@@ -148,7 +148,7 @@ class AllDevicesViewController: UIViewController {
     
     // MARK: - add place cell
     
-    private func addDeviceCell(with name: String) {
+    func addDeviceCell(with name: String) {
         
         let model = DeviceCellModel(name: name)
         self.models.append(model)
@@ -162,8 +162,8 @@ class AllDevicesViewController: UIViewController {
     private func didTapQuestionButton() {
         
         let alertController: UIAlertController = UIAlertController(title: "Инструкция",
-                                                 message: "Для добавления устройства, нажмите кнопку + внизу экрана. Далее укажите название устройства, его сеть и данные, которые оно будет считывать",
-                                                 preferredStyle: .alert)
+                                                                   message: "Для добавления устройства, нажмите кнопку + внизу экрана. Далее укажите название устройства, его сеть и данные, которые оно будет считывать",
+                                                                   preferredStyle: .alert)
         
         let okAction: UIAlertAction = UIAlertAction(title: "Ок", style: .default)
         
@@ -176,32 +176,6 @@ class AllDevicesViewController: UIViewController {
     
     @objc
     private func didTapProfileButton() {
-        
-    }
-    
-    // MARK: - Add button action
-    
-    @objc
-    private func didTapAddDeviceButton() {
-        
-        let alertController  = UIAlertController(title: "Add device", message: "Input device`s name", preferredStyle: .alert)
-        
-        alertController.addTextField()
-        
-        let okAction = UIAlertAction(title: "Add", style: .default) { _ in
-            guard let text = alertController.textFields?.first?.text else {
-                return
-            }
-    
-            self.addDeviceCell(with: text)
-        }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
-        
-        alertController.addAction(okAction)
-        alertController.addAction(cancelAction)
-        
-        present(alertController, animated: true)
         
     }
 }
@@ -235,9 +209,10 @@ extension AllDevicesViewController: UICollectionViewDelegate, UICollectionViewDa
         
         let deviceViewController = DeviceViewController()
         deviceViewController.title = models[indexPath.row].name
-        
+    
         self.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(deviceViewController, animated: true)
+
         self.hidesBottomBarWhenPushed = false
         
     }
@@ -255,15 +230,15 @@ extension AllDevicesViewController: UICollectionViewDelegateFlowLayout {
 
 // MARK: - Static values
 
-private extension AllDevicesViewController {
-    struct Constants {
-        
-        struct AddDeviceButton {
-            static let iconName: String = "plus"
-            static let backgroundColor: UIColor = .customGrey
-            static let height: CGFloat = 37
-            static let marginBottom: CGFloat = height + 7
-            static let cornerRadius: CGFloat = height / 2
-        }
-    }
-}
+//private extension AllDevicesViewController {
+//    struct Constants {
+//
+//        struct AddDeviceButton {
+//            static let iconName: String = "plus"
+//            static let backgroundColor: UIColor = .customGrey
+//            static let height: CGFloat = 37
+//            static let marginBottom: CGFloat = height + 7
+//            static let cornerRadius: CGFloat = height / 2
+//        }
+//    }
+//}
