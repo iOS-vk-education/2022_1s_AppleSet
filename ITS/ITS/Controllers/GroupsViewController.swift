@@ -11,8 +11,6 @@ import PinLayout
 class GroupsViewController: UIViewController {
     
     // MARK: - Create objects
-    
-//    private let addGroupButton: UIButton = UIButton()
 
     private let collectionView: UICollectionView = {
         
@@ -40,19 +38,6 @@ class GroupsViewController: UIViewController {
         
         view.addSubview(collectionView)
     }
-    
-//    private func setupAddGroupButton() {
-//
-//        addGroupButton.setImage(UIImage(systemName: Constants.AddGroupButton.iconName), for: .normal)
-//        addGroupButton.imageView?.tintColor = .white
-//        addGroupButton.imageView?.layer.transform = CATransform3DMakeScale(2, 2, 2)
-//        addGroupButton.backgroundColor = Constants.AddGroupButton.backgroundColor
-//        addGroupButton.layer.cornerRadius = Constants.AddGroupButton.cornerRadius
-//        addGroupButton.addTarget(self, action: #selector(didTapAddGroupButton), for: .touchUpInside)
-//        addGroupButton.clipsToBounds = true
-//
-//        view.addSubview(addGroupButton)
-//    }
 
     // MARK: - viewDidLoad
 
@@ -63,9 +48,6 @@ class GroupsViewController: UIViewController {
     
         setupCollectionView()
         loadGroups()
-//        setupAddGroupButton()
-        
-//        tabBarController?.view.addSubview(addGroupButton)
 
     }
     
@@ -75,8 +57,6 @@ class GroupsViewController: UIViewController {
         super.viewWillAppear(animated)
         
         setupNavBar()
-//        tabBarController?.view.addSubview(addGroupButton)
-//        addGroupButton.isHidden = false
         
     }
     
@@ -89,14 +69,6 @@ class GroupsViewController: UIViewController {
         
     }
     
-//    // MARK: - viewWillDisappear
-//
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(true)
-//
-//        addGroupButton.isHidden = true
-//    }
-//
     // MARK: - Load places
     
     // Загружаем данные из БД
@@ -130,11 +102,6 @@ class GroupsViewController: UIViewController {
     // MARK: - Layout
     
     private func layout() {
-        
-//        addGroupButton.pin
-//            .bottom(view.safeAreaInsets.bottom - Constants.AddGroupButton.marginBottom)
-//            .height(Constants.AddGroupButton.height)
-//            .horizontally((view.frame.width - Constants.AddGroupButton.height) / 2)
         
         collectionView.pin
             .top(view.safeAreaInsets.top)
@@ -174,8 +141,6 @@ class GroupsViewController: UIViewController {
     private func didTapProfileButton() {
         
     }
-    
-    // MARK: - Add button action
     
 }
 
@@ -227,18 +192,3 @@ extension GroupsViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: view.frame.width - 30, height: 70)
     }
 }
-
-// MARK: - Static values
-
-//private extension GroupsViewController {
-//    struct Constants {
-//        
-//        struct AddGroupButton {
-//            static let iconName: String = "plus"
-//            static let backgroundColor: UIColor = .customLightGrey
-//            static let height: CGFloat = 37
-//            static let marginBottom: CGFloat = height + 7
-//            static let cornerRadius: CGFloat = height / 2
-//        }
-//    }
-//}

@@ -12,17 +12,17 @@ class RootTabBarViewController: UITabBarController, RootTabBarDelegate {
     let tabBarNormalImages = ["folder.badge.person.crop","list.bullet.rectangle"]
     let tabBarTitles = ["Groups","All devices"]
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-
-        UITableView.appearance().tableFooterView = UIView()
-        UITableView.appearance().backgroundColor = .white
-        
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+//    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+//        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+//
+//        UITableView.appearance().tableFooterView = UIView()
+//        UITableView.appearance().backgroundColor = .white
+//    
+//    }
+//    
+//    required init?(coder aDecoder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +31,7 @@ class RootTabBarViewController: UITabBarController, RootTabBarDelegate {
         tabBar.addDelegate = self
         self.setValue(tabBar, forKey: "tabBar")
         self.setRootTabbarConntroller()
-        // Do any additional setup after loading the view.
+
     }
 
     func addClick() {
@@ -80,7 +80,10 @@ class RootTabBarViewController: UITabBarController, RootTabBarDelegate {
     
     func setRootTabbarConntroller(){
         
-        var vc : UIViewController?
+        self.tabBar.tintColor = .customGrey
+        self.tabBar.backgroundColor = .white
+        
+        var vc: UIViewController?
         
         for i in 0..<self.tabBarNormalImages.count {
 
@@ -97,11 +100,8 @@ class RootTabBarViewController: UITabBarController, RootTabBarDelegate {
 
             let barItem = UITabBarItem.init(title: self.tabBarTitles[i], image: UIImage.init(systemName: self.tabBarNormalImages[i])?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage.init(systemName: self.tabBarNormalImages[i])?.withRenderingMode(.alwaysOriginal))
             
-            self.tabBar.tintColor = .customGrey
-
             barItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : UIColor.customLightGrey], for: .normal)
             barItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : UIColor.customGrey], for: .selected)
-
 
             vc?.title = self.tabBarTitles[i]
 
@@ -147,9 +147,6 @@ class RootTabBar: UITabBar {
         
         self.addSubview(addButton)
         
-//        self.shadowImage = UIImage()
-//        self.backgroundImage = UIColor.creatImageWithColor(color: UIColor.white)
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -173,8 +170,8 @@ class RootTabBar: UITabBar {
             if barButton.isKind(of: NSClassFromString("UITabBarButton")!){
                 
                 if index == 1{
-                    addButton.frame.size = CGSize.init(width: (addButton.currentBackgroundImage?.size.width)!, height: (addButton.currentBackgroundImage?.size.height)!)
-                    addButton.center = CGPoint.init(x: self.center.x, y: self.frame.size.height / 2 - 18)
+                    addButton.frame.size = CGSize.init(width: 50, height: 50)
+                    addButton.center = CGPoint.init(x: self.center.x, y: self.frame.size.height / 2 - 7)
                     index += 1
                 }
                 barButton.frame = CGRect.init(x: buttonX * CGFloat(index) + 47
@@ -214,9 +211,9 @@ class RootNavigationController: UINavigationController{
     
     func defaultSetting() {
         
-        view.backgroundColor = .customLightGrey
+        view.backgroundColor = .white
         self.navigationBar.barStyle = .default
-        self.navigationBar.isTranslucent = false
+        self.navigationBar.isTranslucent = true
         self.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.customGrey,
                                                   NSAttributedString.Key.font: UIFont.systemFont(ofSize:17)]
         

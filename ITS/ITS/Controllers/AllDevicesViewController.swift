@@ -78,7 +78,6 @@ class AllDevicesViewController: UIViewController {
         
         setupNavBar()
         //        tabBarController?.view.addSubview(addDeviceButton)
-        //        addDeviceButton.isHidden = false
         
     }
     
@@ -91,14 +90,6 @@ class AllDevicesViewController: UIViewController {
         layout()
         
     }
-    
-    //    // MARK: - viewWillDisappear
-    //
-    //    override func viewWillDisappear(_ animated: Bool) {
-    //        super.viewWillDisappear(true)
-    //
-    //        addDeviceButton.isHidden = true
-    //    }
     
     // MARK: - Load places
     
@@ -227,18 +218,3 @@ extension AllDevicesViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: view.frame.width - 30, height: 70)
     }
 }
-
-// MARK: - Static values
-
-//private extension AllDevicesViewController {
-//    struct Constants {
-//
-//        struct AddDeviceButton {
-//            static let iconName: String = "plus"
-//            static let backgroundColor: UIColor = .customGrey
-//            static let height: CGFloat = 37
-//            static let marginBottom: CGFloat = height + 7
-//            static let cornerRadius: CGFloat = height / 2
-//        }
-//    }
-//}
