@@ -9,7 +9,8 @@ import UIKit
 
 class RootTabBarViewController: UITabBarController, RootTabBarDelegate {
 
-    let tabBarNormalImages = ["folder.badge.person.crop","list.bullet.rectangle"]
+    let tabBarNormalImages = ["folder.badge.person.crop", "list.bullet.rectangle"]
+    let tabBarSelectedImages = ["folder.fill.badge.person.crop", "list.bullet.rectangle.fill"]
     let tabBarTitles = ["Groups","All devices"]
     
 //    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -98,7 +99,7 @@ class RootTabBarViewController: UITabBarController, RootTabBarDelegate {
 
             let nav = RootNavigationController.init(rootViewController: vc!)
 
-            let barItem = UITabBarItem.init(title: self.tabBarTitles[i], image: UIImage.init(systemName: self.tabBarNormalImages[i])?.withRenderingMode(.alwaysOriginal), selectedImage: UIImage.init(systemName: self.tabBarNormalImages[i])?.withRenderingMode(.alwaysOriginal))
+            let barItem = UITabBarItem.init(title: self.tabBarTitles[i], image: UIImage.init(systemName: self.tabBarNormalImages[i])?.withTintColor(.customLightGrey, renderingMode: .alwaysOriginal), selectedImage: UIImage.init(systemName: self.tabBarSelectedImages[i])?.withRenderingMode(.alwaysOriginal))
             
             barItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : UIColor.customLightGrey], for: .normal)
             barItem.setTitleTextAttributes([NSAttributedString.Key.foregroundColor : UIColor.customGrey], for: .selected)
