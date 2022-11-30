@@ -12,17 +12,17 @@ class RootTabBarViewController: UITabBarController, RootTabBarDelegate {
     let tabBarNormalImages = ["folder.badge.person.crop","list.bullet.rectangle"]
     let tabBarTitles = ["Groups","All devices"]
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-
-        UITableView.appearance().tableFooterView = UIView()
-        UITableView.appearance().backgroundColor = .white
-        
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+//    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+//        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+//
+//        UITableView.appearance().tableFooterView = UIView()
+//        UITableView.appearance().backgroundColor = .white
+//    
+//    }
+//    
+//    required init?(coder aDecoder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +31,7 @@ class RootTabBarViewController: UITabBarController, RootTabBarDelegate {
         tabBar.addDelegate = self
         self.setValue(tabBar, forKey: "tabBar")
         self.setRootTabbarConntroller()
-        // Do any additional setup after loading the view.
+
     }
 
     func addClick() {
@@ -81,8 +81,7 @@ class RootTabBarViewController: UITabBarController, RootTabBarDelegate {
     func setRootTabbarConntroller(){
         
         self.tabBar.tintColor = .customGrey
-        self.tabBar.backgroundColor = .customLightGrey
-        let appearance = UITabBarAppearance()
+        self.tabBar.backgroundColor = .white
         
         var vc: UIViewController?
         
@@ -164,8 +163,6 @@ class RootTabBar: UITabBar {
         
         super.layoutSubviews()
         
-        
-        
         let buttonX = self.frame.size.width / 3
         var index = 0
         for barButton in self.subviews{
@@ -214,9 +211,9 @@ class RootNavigationController: UINavigationController{
     
     func defaultSetting() {
         
-        view.backgroundColor = .customLightGrey
+        view.backgroundColor = .white
         self.navigationBar.barStyle = .default
-        self.navigationBar.isTranslucent = false
+        self.navigationBar.isTranslucent = true
         self.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.customGrey,
                                                   NSAttributedString.Key.font: UIFont.systemFont(ofSize:17)]
         
