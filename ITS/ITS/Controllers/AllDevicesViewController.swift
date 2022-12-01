@@ -5,6 +5,9 @@
 //  Created by Всеволод on 02.11.2022.
 //
 
+//self.models.remove(at: indexPath.row)
+//collectionView.deleteItems(at: [indexPath])
+
 import UIKit
 import PinLayout
 
@@ -207,6 +210,13 @@ extension AllDevicesViewController: UICollectionViewDelegate, UICollectionViewDa
         self.hidesBottomBarWhenPushed = false
         
     }
+    
+    func collectionView(_ collectionView: UICollectionView, performPrimaryActionForItemAt indexPath: IndexPath) {
+
+        models.remove(at: indexPath.row)
+        collectionView.deleteItems(at: [indexPath])
+    }
+
 }
 
 // MARK: - Cells size
@@ -217,4 +227,5 @@ extension AllDevicesViewController: UICollectionViewDelegateFlowLayout {
         
         return CGSize(width: view.frame.width - 30, height: 70)
     }
+
 }
