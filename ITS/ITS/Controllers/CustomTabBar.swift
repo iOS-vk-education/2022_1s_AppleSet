@@ -9,9 +9,9 @@ import UIKit
 
 class RootTabBarViewController: UITabBarController, RootTabBarDelegate {
 
-    let tabBarNormalImages = ["folder.badge.person.crop", "list.bullet.rectangle"]
-    let tabBarSelectedImages = ["folder.fill.badge.person.crop", "list.bullet.rectangle.fill"]
-    let tabBarTitles = ["Groups","All devices"]
+    let tabBarNormalImages = ["list.bullet.rectangle", "folder.badge.person.crop"]
+    let tabBarSelectedImages = ["list.bullet.rectangle.fill", "folder.fill.badge.person.crop"]
+    let tabBarTitles = ["All devices", "Groups"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,9 +78,9 @@ class RootTabBarViewController: UITabBarController, RootTabBarDelegate {
 
             switch i {
             case 0:
-                vc = GroupsViewController()
-            case 1:
                 vc = AllDevicesViewController()
+            case 1:
+                vc = GroupsViewController()
             default:
                 break
             }

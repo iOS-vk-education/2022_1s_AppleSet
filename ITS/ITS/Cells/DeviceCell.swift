@@ -33,8 +33,6 @@ final class DeviceCell: UICollectionViewCell {
         layer.cornerRadius = Constants.DeviceCell.cornerRadius
         clipsToBounds = true
         
-      
-        
         nameLabel.font = Constants.DeviceCell.nameLabelFont
         
         addSubview(nameLabel)
