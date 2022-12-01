@@ -20,10 +20,16 @@ extension UIColor {
                                     blue: 0x34 / 255,
                                     alpha: 1)
     
-    // bad7f2
-    static let customBlue = UIColor(red: 0xba / 255,
-                                    green: 0xd7 / 255,
+    // ebfffa
+    static let customBlue = UIColor(red: 0xd6 / 255,
+                                    green: 0xe6 / 255,
                                     blue: 0xf2 / 255,
-                                    alpha: 0.3)
+                                    alpha: 1)
+    
+    // f28482
+    static let customRed = UIColor(red: 0xf2 / 255,
+                                   green: 0x84 / 255,
+                                   blue: 0x82 / 255,
+                                   alpha: 1)
     
 }

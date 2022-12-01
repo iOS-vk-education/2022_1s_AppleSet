@@ -209,8 +209,12 @@ extension AllDevicesViewController: UICollectionViewDelegate, UICollectionViewDa
 
         self.hidesBottomBarWhenPushed = false
         
+    }
     
-        
+    func collectionView(_ collectionView: UICollectionView, performPrimaryActionForItemAt indexPath: IndexPath) {
+
+        models.remove(at: indexPath.row)
+        collectionView.deleteItems(at: [indexPath])
     }
 
 }
@@ -223,4 +227,5 @@ extension AllDevicesViewController: UICollectionViewDelegateFlowLayout {
         
         return CGSize(width: view.frame.width - 30, height: 70)
     }
+
 }
