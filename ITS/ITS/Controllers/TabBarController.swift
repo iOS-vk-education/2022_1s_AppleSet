@@ -86,9 +86,9 @@ final class TabBarController: UITabBarController {
 
         let roundLayer: CAShapeLayer = CAShapeLayer()
         
-        roundLayer.fillColor = UIColor.tabBarColor.cgColor
+        roundLayer.fillColor = UIColor.white.cgColor
         
-        tabBar.tintColor = .tabBarItemAccent
-        tabBar.unselectedItemTintColor = .tabBarItemLight
+        tabBar.tintColor = .customGrey
+        tabBar.unselectedItemTintColor = .customLightGrey
     }
 }
