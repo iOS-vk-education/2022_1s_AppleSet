@@ -88,7 +88,7 @@ class GroupsViewController: UIViewController {
                                                                   action: #selector(didTapQuestionButton))
         
         navigationItem.rightBarButtonItem = rightBarButtonItem
-        navigationItem.rightBarButtonItem?.tintColor = .navigationItem
+        navigationItem.rightBarButtonItem?.tintColor = .customGrey
         
         let leftBarButtonItem: UIBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person.circle"),
                                                                  style: .plain,
@@ -96,7 +96,7 @@ class GroupsViewController: UIViewController {
                                                                  action: #selector(didTapProfileButton))
         
         navigationItem.leftBarButtonItem = leftBarButtonItem
-        navigationItem.leftBarButtonItem?.tintColor = .navigationItem
+        navigationItem.leftBarButtonItem?.tintColor = .customGrey
     }
     
     // MARK: - Layout
