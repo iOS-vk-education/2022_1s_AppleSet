@@ -10,7 +10,7 @@ import PinLayout
 
 final class DeviceCell: UICollectionViewCell, UIGestureRecognizerDelegate {
 
-    private let nameLabel: UILabel = UILabel()
+    var nameLabel: UILabel!
     var pan: UIPanGestureRecognizer!
     var deleteLabel1: UILabel!
     var deleteLabel2: UILabel!
@@ -23,8 +23,11 @@ final class DeviceCell: UICollectionViewCell, UIGestureRecognizerDelegate {
         setup()
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    required init?(coder aDecoder: NSCoder) {
+      super.init(coder: aDecoder)
+        
+        setup()
+        
     }
     
     override func prepareForReuse() {
@@ -37,11 +40,10 @@ final class DeviceCell: UICollectionViewCell, UIGestureRecognizerDelegate {
         layer.cornerRadius = Constants.DeviceCell.cornerRadius
         clipsToBounds = true
         
-        
+        nameLabel = UILabel()
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        
+        nameLabel.textColor = .customGrey
         nameLabel.font = Constants.DeviceCell.nameLabelFont
-        
         addSubview(nameLabel)
         
         // ADD
@@ -74,8 +76,8 @@ final class DeviceCell: UICollectionViewCell, UIGestureRecognizerDelegate {
             let width = self.contentView.frame.width
             let height = self.contentView.frame.height
             self.contentView.frame = CGRect(x: p.x,y: 0, width: width, height: height);
-            self.deleteLabel1.frame = CGRect(x: p.x - deleteLabel1.frame.size.width, y: 0, width: 50, height: height)
-            self.deleteLabel2.frame = CGRect(x: p.x + width + deleteLabel2.frame.size.width, y: 0, width: 50, height: height)
+            self.deleteLabel1.frame = CGRect(x: p.x - deleteLabel1.frame.size.width, y: 37, width: 77, height: height - 37)
+            self.deleteLabel2.frame = CGRect(x: p.x + width + deleteLabel2.frame.size.width, y: 37, width: 77, height: height - 37)
         }
     }
     
