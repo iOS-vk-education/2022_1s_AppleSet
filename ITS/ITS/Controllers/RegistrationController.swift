@@ -56,7 +56,7 @@ class RegistrationController: UIViewController {
     
     private let SignOutbutton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .red
+        button.backgroundColor = .customBlue
         button.setTitleColor(.white, for: .normal)
         button.setTitle("Log Out", for: .normal)
         return button
@@ -74,14 +74,17 @@ class RegistrationController: UIViewController {
         button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
         
         if FirebaseAuth.Auth.auth().currentUser != nil{
-            label.isHidden = true
-            emailField.isHidden = true
-            passwordField.isHidden = true
-            button.isHidden = true
-            
-            view.addSubview(SignOutbutton)
-            SignOutbutton.frame = CGRect(x: 20, y: 150, width: view.frame.size.width-40, height: 52)
-            SignOutbutton.addTarget(self, action: #selector(LogOutTapped), for: .touchUpInside)
+            let toMainController = RootTabBarViewController()
+            present(toMainController, animated: true)
+
+//            label.isHidden = true
+//            emailField.isHidden = true
+//            passwordField.isHidden = true
+//            button.isHidden = true
+
+//            view.addSubview(SignOutbutton)
+//            SignOutbutton.frame = CGRect(x: 20, y: 150, width: view.frame.size.width-40, height: 52)
+//            SignOutbutton.addTarget(self, action: #selector(LogOutTapped), for: .touchUpInside)
         }
     }
     
@@ -133,23 +136,25 @@ class RegistrationController: UIViewController {
         
         Firebase.Auth.auth().signIn(withEmail: email, password: password, completion: { [weak self] result, error in
             guard let strongSelf = self else{
+                
                 return
             }
             guard error == nil else {
                 strongSelf.showCreateAccount(email: email, passwod: password)
+                print("Wrong password")
                 return
             }
             print("singed in")
-            let toMainController = RootTabBarViewController()
             
+            let toMainController = RootTabBarViewController()
+            self?.present(toMainController, animated: true)
             strongSelf.emailField.resignFirstResponder()
             strongSelf.passwordField.resignFirstResponder()
-            
-//           self?.navigationController?.pushViewController(toMainController, animated: true)
-            strongSelf.label.isHidden = true
-            strongSelf.button.isHidden = true
-            strongSelf.emailField.isHidden = true
-            strongSelf.passwordField.isHidden = true
+         
+//            strongSelf.label.isHidden = true
+//            strongSelf.button.isHidden = true
+//            strongSelf.emailField.isHidden = true
+//            strongSelf.passwordField.isHidden = true
             
             
         })
