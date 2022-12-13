@@ -194,7 +194,10 @@ class RootNavigationController: UINavigationController{
         
         view.backgroundColor = .white
         self.navigationBar.barStyle = .default
-        self.navigationBar.isTranslucent = true
+        self.navigationController?.navigationBar.backgroundColor = .white
+        self.navigationBar.tintColor = .white
+        self.toolbar.tintColor = .white
+        self.navigationBar.isTranslucent = false
         self.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.customGrey,
                                                   NSAttributedString.Key.font: UIFont.systemFont(ofSize:17)]
         
