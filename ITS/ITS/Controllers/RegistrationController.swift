@@ -57,10 +57,19 @@ class RegistrationController: UIViewController {
     private let SignOutbutton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .customBlue
-        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(.black, for: .normal)
         button.setTitle("Log Out", for: .normal)
         return button
     }()
+    
+    private let Signbutton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .customBlue
+        button.setTitleColor(.black, for: .normal)
+        button.setTitle("Start!", for: .normal)
+        return button
+    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,20 +83,33 @@ class RegistrationController: UIViewController {
         button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
         
         if FirebaseAuth.Auth.auth().currentUser != nil{
-            let toMainController = RootTabBarViewController()
-            present(toMainController, animated: true)
+            
+//            let toMainController = RootTabBarViewController()
+//            present(toMainController, animated: true)
+//
+            label.isHidden = true
+            emailField.isHidden = true
+            passwordField.isHidden = true
+            button.isHidden = true
+            
+            view.addSubview(SignOutbutton)
+            SignOutbutton.frame = CGRect(x: 20, y: 210, width: view.frame.size.width-40, height: 52)
+            SignOutbutton.addTarget(self, action: #selector(LogOutTapped), for: .touchUpInside)
+            
+            view.addSubview(Signbutton)
+            Signbutton.frame = CGRect(x: 20, y: 150, width: view.frame.size.width-40, height: 52)
+            Signbutton.addTarget(self, action: #selector(LogTapped), for: .touchUpInside)
 
-//            label.isHidden = true
-//            emailField.isHidden = true
-//            passwordField.isHidden = true
-//            button.isHidden = true
-
-//            view.addSubview(SignOutbutton)
-//            SignOutbutton.frame = CGRect(x: 20, y: 150, width: view.frame.size.width-40, height: 52)
-//            SignOutbutton.addTarget(self, action: #selector(LogOutTapped), for: .touchUpInside)
+            
+            
         }
     }
     
+    
+    @objc func LogTapped(){
+        let toMainController = RootTabBarViewController()
+        present(toMainController, animated: true)
+    }
     
     @objc func LogOutTapped(){
         do {
@@ -96,7 +118,8 @@ class RegistrationController: UIViewController {
             emailField.isHidden = false
             passwordField.isHidden = false
             button.isHidden = false
-            
+            Signbutton.isHidden = false
+
             SignOutbutton.removeFromSuperview()
         }
         catch {
@@ -133,45 +156,54 @@ class RegistrationController: UIViewController {
             print("Missing field data")
             return
         }
-        
+
         Firebase.Auth.auth().signIn(withEmail: email, password: password, completion: { [weak self] result, error in
             guard let strongSelf = self else{
-                
+
                 return
             }
             guard error == nil else {
                 strongSelf.showCreateAccount(email: email, passwod: password)
-                print("Wrong password")
+                print("i try create account")
                 return
             }
             print("singed in")
             
-            let toMainController = RootTabBarViewController()
-            self?.present(toMainController, animated: true)
+//            let toMainController = RootTabBarViewController()
             strongSelf.emailField.resignFirstResponder()
             strongSelf.passwordField.resignFirstResponder()
-         
+//            self?.present(toMainController, animated: true)
+            let toMainController = RootTabBarViewController()
+            self?.present(toMainController, animated: true)
+            
 //            strongSelf.label.isHidden = true
 //            strongSelf.button.isHidden = true
 //            strongSelf.emailField.isHidden = true
 //            strongSelf.passwordField.isHidden = true
-            
+//
             
         })
         
     }
     func showCreateAccount(email: String, passwod: String){
-        let alert = UIAlertController(title: "Create account", message: "Would you like to create an account", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: {_ in
-            FirebaseAuth.Auth.auth().createUser(withEmail: email, password: passwod, completion: {[weak self]result, error in
+        let alert = UIAlertController(title: "Create account",
+                                      message: "Would you like to create an account",
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Continue",
+                                      style: .default,
+                                      handler: {_ in
+            FirebaseAuth.Auth.auth().createUser(withEmail: email,
+                                                password: passwod,
+                                                completion: {[weak self]result, error in
                 guard let strongSelf = self else{
+                    print("Account creat")
                     return
                 }
                 guard error == nil else {
                     print("Account creat on failed")
                     return
                 }
-                print("singed in")
+                print("singed in!!!!")
                 strongSelf.label.isHidden = true
                 strongSelf.button.isHidden = true
                 strongSelf.emailField.isHidden = true
