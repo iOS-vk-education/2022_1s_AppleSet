@@ -19,6 +19,7 @@
 		E10A716F2931E90100653EA3 /* DeviceCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10A716E2931E90100653EA3 /* DeviceCellModel.swift */; };
 		E10A71712931E93700653EA3 /* DeviceCellDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10A71702931E93700653EA3 /* DeviceCellDataModel.swift */; };
 		E10A71732931EA0E00653EA3 /* GroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10A71722931EA0E00653EA3 /* GroupsViewController.swift */; };
+		E1178E9629489DFB00DE42CB /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1178E9529489DFB00DE42CB /* DatabaseManager.swift */; };
 		E128A748292924A50005011A /* PinLayout in Frameworks */ = {isa = PBXBuildFile; productRef = E128A747292924A50005011A /* PinLayout */; };
 		E14CC47C2933AD8C0061F262 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14CC47B2933AD8C0061F262 /* TabBarController.swift */; };
 		E14CC47E2933ADD50061F262 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14CC47D2933ADD50061F262 /* UIColorExtensions.swift */; };
@@ -50,6 +51,7 @@
 		E10A716E2931E90100653EA3 /* DeviceCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceCellModel.swift; sourceTree = "<group>"; };
 		E10A71702931E93700653EA3 /* DeviceCellDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceCellDataModel.swift; sourceTree = "<group>"; };
 		E10A71722931EA0E00653EA3 /* GroupsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsViewController.swift; sourceTree = "<group>"; };
+		E1178E9529489DFB00DE42CB /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		E14CC47B2933AD8C0061F262 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		E14CC47D2933ADD50061F262 /* UIColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
 		E158EB6929375E4500597A08 /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 		A04FFF292913034400BC96A7 /* ITS */ = {
 			isa = PBXGroup;
 			children = (
+				E1178E9429489DA800DE42CB /* Managers */,
 				D5E4A515293C85F400F0E9F8 /* GoogleService-Info.plist */,
 				E15DC1DE292A086C00FE1818 /* Extensions */,
 				E128A74A292A01B80005011A /* Cells */,
@@ -122,6 +125,14 @@
 				CABA6EBE88E717B96C3A5747 /* Pods-ITS.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		E1178E9429489DA800DE42CB /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				E1178E9529489DFB00DE42CB /* DatabaseManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		E128A744292912B30005011A /* SupportingFiles */ = {
@@ -314,6 +325,7 @@
 				E14CC47E2933ADD50061F262 /* UIColorExtensions.swift in Sources */,
 				D5E4A518293C954B00F0E9F8 /* RegistrationController.swift in Sources */,
 				A04FFF2D2913034400BC96A7 /* SceneDelegate.swift in Sources */,
+				E1178E9629489DFB00DE42CB /* DatabaseManager.swift in Sources */,
 				E15DC1DD292A050300FE1818 /* DeviceViewController.swift in Sources */,
 				E10A71712931E93700653EA3 /* DeviceCellDataModel.swift in Sources */,
 				E15DC1D5292A04A000FE1818 /* GroupCell.swift in Sources */,

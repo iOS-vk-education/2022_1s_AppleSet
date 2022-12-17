@@ -15,8 +15,6 @@ class AllDevicesViewController: UIViewController {
     
     // MARK: - Create objects
     
-    //    private let addDeviceButton: UIButton = UIButton()
-    
     private let collectionView: UICollectionView = {
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
@@ -29,9 +27,11 @@ class AllDevicesViewController: UIViewController {
                                                    right: .zero)
         
         return collectionView
+        
     }()
     
-    private var models: [DeviceCellModel] = []
+    var models: [DeviceCellModel] = []
+    let databaseManager = DatabaseManager.shared
     
     // MARK: - setup
     
@@ -43,23 +43,8 @@ class AllDevicesViewController: UIViewController {
         collectionView.dataSource = self
         
         view.addSubview(collectionView)
+        
     }
-    
-    //    private func setupAddDeviceButton() {
-    //
-    //        addDeviceButton.setImage(UIImage(systemName: Constants.AddDeviceButton.iconName), for: .normal)
-    //        addDeviceButton.imageView?.tintColor = .white
-    //        addDeviceButton.imageView?.layer.transform = CATransform3DMakeScale(2, 2, 2)
-    //        // background of + button
-    //        addDeviceButton.backgroundColor = .customGrey
-    //
-    //        addDeviceButton.layer.cornerRadius = Constants.AddDeviceButton.cornerRadius
-    //        addDeviceButton.addTarget(self, action: #selector(didTapAddDeviceButton), for: .touchUpInside)
-    //        addDeviceButton.clipsToBounds = true
-    //
-    ////        view.addSubview(addDeviceButton)
-    //
-    //    }
     
     // MARK: - viewDidLoad
     
@@ -70,7 +55,6 @@ class AllDevicesViewController: UIViewController {
         
         setupCollectionView()
         loadDevices()
-        //        setupAddDeviceButton()
         
     }
     
@@ -80,7 +64,6 @@ class AllDevicesViewController: UIViewController {
         super.viewWillAppear(animated)
         
         setupNavBar()
-        //        tabBarController?.view.addSubview(addDeviceButton)
         
     }
     
@@ -99,8 +82,11 @@ class AllDevicesViewController: UIViewController {
     // Загружаем данные из БД
     private func loadDevices() {
         
-        let deviceModel = DeviceCellDataModel()
-        models = deviceModel.loadDevices()
+        databaseManager.loadDevices { devices in
+            self.models = devices
+            self.collectionView.reloadData()
+            
+        }
     }
     
     // MARK: - set up navigation bar
@@ -129,25 +115,26 @@ class AllDevicesViewController: UIViewController {
     
     private func layout() {
         
-        //        addDeviceButton.pin
-        //            .bottom(view.safeAreaInsets.bottom - Constants.AddDeviceButton.marginBottom)
-        //            .height(Constants.AddDeviceButton.height)
-        //            .horizontally((view.frame.width - Constants.AddDeviceButton.height) / 2)
-        
         collectionView.pin
             .top(view.safeAreaInsets.top)
             .horizontally()
             .bottom(view.safeAreaInsets.bottom)
+        
     }
     
     // MARK: - add place cell
     
     func addDeviceCell(with name: String) {
         
-        let model = DeviceCellModel(name: name)
-        self.models.append(model)
+//        let model = DeviceCellModel(name: name)
         
-        self.collectionView.insertItems(at: [IndexPath(row: self.models.count - 1, section: 0)])
+        databaseManager.addDevice(name: name)
+        loadDevices()
+        self.collectionView.reloadData()
+        
+//        models.append(model)
+        
+//        self.collectionView.insertItems(at: [IndexPath(row: models.count - 1, section: 0)])
     }
     
     // MARK: - Question button action
@@ -164,6 +151,7 @@ class AllDevicesViewController: UIViewController {
         alertController.addAction(okAction)
         
         present(alertController, animated: true)
+        
     }
     
     // MARK: - Profile button action
@@ -180,7 +168,9 @@ extension AllDevicesViewController: UICollectionViewDelegate, UICollectionViewDa
     
     // Количество ячеек
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+
         return models.count
+        
     }
     
     // Создание ячейки
@@ -211,12 +201,14 @@ extension AllDevicesViewController: UICollectionViewDelegate, UICollectionViewDa
         
     }
     
+    // Удаление ячейки
     func collectionView(_ collectionView: UICollectionView, performPrimaryActionForItemAt indexPath: IndexPath) {
 
+        databaseManager.delDevice(document: models[indexPath.row].name)
         models.remove(at: indexPath.row)
         collectionView.deleteItems(at: [indexPath])
+        
     }
-
 }
 
 // MARK: - Cells size
@@ -226,6 +218,6 @@ extension AllDevicesViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         return CGSize(width: view.frame.width - 30, height: 70)
+        
     }
-
 }
