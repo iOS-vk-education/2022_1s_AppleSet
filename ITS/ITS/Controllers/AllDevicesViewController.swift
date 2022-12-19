@@ -53,6 +53,9 @@ class AllDevicesViewController: UIViewController {
         //navigation bar
         view.backgroundColor = .white
         
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        
         setupCollectionView()
         loadDevices()
         
@@ -85,8 +88,8 @@ class AllDevicesViewController: UIViewController {
         databaseManager.loadDevices { devices in
             self.models = devices
             self.collectionView.reloadData()
-            
         }
+        
     }
     
     // MARK: - set up navigation bar
@@ -122,15 +125,14 @@ class AllDevicesViewController: UIViewController {
         
     }
     
-    // MARK: - add place cell
+    // MARK: - add device cell
     
     func addDeviceCell(with name: String) {
         
-//        let model = DeviceCellModel(name: name)
-        
         databaseManager.addDevice(name: name)
         loadDevices()
-        self.collectionView.reloadData()
+        
+//        let model = DeviceCellModel(name: name)
         
 //        models.append(model)
         
@@ -160,11 +162,18 @@ class AllDevicesViewController: UIViewController {
     private func didTapProfileButton() {
         
     }
+    
+    func delDeviceCell(name: String) {
+        
+        databaseManager.delDevice(document: name)
+        loadDevices()
+        
+    }
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 
-extension AllDevicesViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension AllDevicesViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     // Количество ячеек
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -175,6 +184,7 @@ extension AllDevicesViewController: UICollectionViewDelegate, UICollectionViewDa
     
     // Создание ячейки
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         
         guard
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DeviceCell", for: indexPath) as? DeviceCell,
@@ -190,25 +200,25 @@ extension AllDevicesViewController: UICollectionViewDelegate, UICollectionViewDa
     
     // Переход в контроллер ячейки
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+
         let deviceViewController = DeviceViewController()
         deviceViewController.title = models[indexPath.row].name
-    
+
         self.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(deviceViewController, animated: true)
-
         self.hidesBottomBarWhenPushed = false
-        
+
     }
     
     // Удаление ячейки
     func collectionView(_ collectionView: UICollectionView, performPrimaryActionForItemAt indexPath: IndexPath) {
 
-        databaseManager.delDevice(document: models[indexPath.row].name)
-        models.remove(at: indexPath.row)
-        collectionView.deleteItems(at: [indexPath])
-        
+//        databaseManager.delDevice(document: models[indexPath.row].name)
+//        models.remove(at: indexPath.row)
+//        collectionView.deleteItems(at: [indexPath])
+//
     }
+    
 }
 
 // MARK: - Cells size
