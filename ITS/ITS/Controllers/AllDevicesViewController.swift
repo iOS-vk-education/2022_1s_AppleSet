@@ -130,11 +130,32 @@ class AllDevicesViewController: UIViewController {
     func addDeviceCell(with name: String) {
         
         databaseManager.addDevice(name: name)
+        
         loadDevices()
+        
+//        self.collectionView.reloadData()
+//        self.collectionView.performBatchUpdates({ [weak self] in
+//          let visibleItems = self?.collectionView.indexPathsForVisibleItems ?? []
+//          self?.collectionView.reloadItems(at: visibleItems)
+//        }, completion: { (_) in
+//        })
+        
+//        view = nil
+//        setupCollectionView()
+//        loadDevices()
+        
+//        let parent = self.view.superview
+//        self.view.removeFromSuperview()
+//        self.view = nil
+        // unloads the entire view
+//        parent?.addSubview(self.view)
+        // reloads the view
         
 //        let model = DeviceCellModel(name: name)
         
-//        models.append(model)
+//        self.models.append(model)
+        
+        print(self.models)
         
 //        self.collectionView.insertItems(at: [IndexPath(row: models.count - 1, section: 0)])
     }
@@ -208,15 +229,6 @@ extension AllDevicesViewController: UICollectionViewDataSource, UICollectionView
         self.navigationController?.pushViewController(deviceViewController, animated: true)
         self.hidesBottomBarWhenPushed = false
 
-    }
-    
-    // Удаление ячейки
-    func collectionView(_ collectionView: UICollectionView, performPrimaryActionForItemAt indexPath: IndexPath) {
-
-//        databaseManager.delDevice(document: models[indexPath.row].name)
-//        models.remove(at: indexPath.row)
-//        collectionView.deleteItems(at: [indexPath])
-//
     }
     
 }
