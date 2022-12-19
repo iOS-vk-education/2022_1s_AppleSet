@@ -19,6 +19,7 @@ class RegistrationController: UIViewController {
         return label
     }()
     
+    
     private let emailField: UITextField = {
         let emailField = UITextField()
         emailField.textColor = .black
@@ -30,6 +31,19 @@ class RegistrationController: UIViewController {
         emailField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
         
         return emailField
+    }()
+    
+    private let userName: UITextField = {
+        let userName = UITextField()
+        userName.textColor = .black
+        userName.placeholder = "User name"
+        userName.layer.borderWidth = 1
+        userName.autocapitalizationType = .none
+        userName.layer.backgroundColor = UIColor.white.cgColor
+        userName.leftViewMode = .always
+        userName.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
+        
+        return userName
     }()
     
     
@@ -49,7 +63,7 @@ class RegistrationController: UIViewController {
         let button = UIButton()
         button.backgroundColor = .customBlue
         button.setTitleColor(.black, for: .normal)
-        button.setTitle("Continue", for: .normal)
+        button.setTitle("Signin", for: .normal)
         return button
     }()
     
@@ -58,7 +72,7 @@ class RegistrationController: UIViewController {
         let button = UIButton()
         button.backgroundColor = .customBlue
         button.setTitleColor(.black, for: .normal)
-        button.setTitle("Log Out", for: .normal)
+        button.setTitle("Logout", for: .normal)
         return button
     }()
     
@@ -70,6 +84,14 @@ class RegistrationController: UIViewController {
         return button
     }()
     
+        private let CreateAccount: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .white
+        button.setTitleColor(.black, for: .normal)
+        button.setTitle("Create account!", for: .normal)
+        return button
+    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,11 +99,18 @@ class RegistrationController: UIViewController {
         view.addSubview(emailField)
         view.addSubview(passwordField)
         view.addSubview(button)
+        view.addSubview(CreateAccount)
+        view.addSubview(userName)
+
         
         view.backgroundColor = .white
         
-        button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
         
+        userName.isHidden = true
+        
+        button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+        CreateAccount.addTarget(self, action: #selector(showCreateAccount), for: .touchUpInside)
+    
         if FirebaseAuth.Auth.auth().currentUser != nil{
             
 //            let toMainController = RootTabBarViewController()
@@ -105,6 +134,7 @@ class RegistrationController: UIViewController {
         }
     }
     
+
     
     @objc func LogTapped(){
         let toMainController = RootTabBarViewController()
@@ -118,7 +148,7 @@ class RegistrationController: UIViewController {
             emailField.isHidden = false
             passwordField.isHidden = false
             button.isHidden = false
-            Signbutton.isHidden = false
+            Signbutton.isHidden = true
 
             SignOutbutton.removeFromSuperview()
         }
@@ -130,8 +160,11 @@ class RegistrationController: UIViewController {
         super.viewDidLayoutSubviews()
         
         label.frame = CGRect(x: 0, y: 100, width: view.frame.size.width, height: 80)
+         
+        userName.frame = CGRect(x: 20, y: label.frame.origin.y+label.frame.size.height+10,
+                                  width: view.frame.size.width-40, height: 50)
         
-        emailField.frame = CGRect(x: 20, y: label.frame.origin.y+label.frame.size.height+10,
+        emailField.frame = CGRect(x: 20, y: userName.frame.origin.y+userName.frame.size.height+10,
                                   width: view.frame.size.width-40, height: 50)
         
         passwordField.frame = CGRect(x: 20, y: emailField.frame.origin.y+emailField.frame.size.height+10,
@@ -139,6 +172,9 @@ class RegistrationController: UIViewController {
         
         button.frame = CGRect(x: 20, y:  passwordField.frame.origin.y+passwordField.frame.size.height+30,
                               width: view.frame.size.width-40, height: 50)
+        
+        CreateAccount.frame = CGRect(x: 20, y:  button.frame.origin.y+passwordField.frame.size.height+30,
+                                    width: view.frame.size.width-40, height: 50)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -153,21 +189,23 @@ class RegistrationController: UIViewController {
         print("tap tap tap!!!")
         guard let email = emailField.text, !email.isEmpty,
               let password = passwordField.text, !password.isEmpty else  {
-            print("Missing field data")
+            
             return
         }
-
+        
         Firebase.Auth.auth().signIn(withEmail: email, password: password, completion: { [weak self] result, error in
             guard let strongSelf = self else{
 
                 return
             }
             guard error == nil else {
-                strongSelf.showCreateAccount(email: email, passwod: password)
-                print("i try create account")
+                self?.label.text = "Check password or username"
+                self?.label.textColor = .red
+                print("not such user")
                 return
             }
             print("singed in")
+           
             
 //            let toMainController = RootTabBarViewController()
             strongSelf.emailField.resignFirstResponder()
@@ -185,7 +223,19 @@ class RegistrationController: UIViewController {
         })
         
     }
-    func showCreateAccount(email: String, passwod: String){
+    @objc private func showCreateAccount(){ //должна быть кнопкой, пока отсылается на кнопку входа
+        CreateAccount.isHidden = true
+        userName.isHidden = false
+        button.setTitle("Registrate", for: .normal)
+        label.text = "Registration"
+        
+        guard let email = emailField.text, !email.isEmpty,
+              let password = passwordField.text, !password.isEmpty,
+              let username = userName.text, !username.isEmpty  else  {
+            print("Missing field data")
+            return
+        }
+        
         let alert = UIAlertController(title: "Create account",
                                       message: "Would you like to create an account",
                                       preferredStyle: .alert)
@@ -193,7 +243,7 @@ class RegistrationController: UIViewController {
                                       style: .default,
                                       handler: {_ in
             FirebaseAuth.Auth.auth().createUser(withEmail: email,
-                                                password: passwod,
+                                                password: password,
                                                 completion: {[weak self]result, error in
                 guard let strongSelf = self else{
                     print("Account creat")
@@ -208,7 +258,7 @@ class RegistrationController: UIViewController {
                 strongSelf.button.isHidden = true
                 strongSelf.emailField.isHidden = true
                 strongSelf.passwordField.isHidden = true
-                
+
                 strongSelf.emailField.resignFirstResponder()
                 strongSelf.passwordField.resignFirstResponder()
             })
@@ -216,7 +266,7 @@ class RegistrationController: UIViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: {_ in }))
         present(alert, animated: true)
     }
-   
+//
     
 }
 
