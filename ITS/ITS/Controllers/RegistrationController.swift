@@ -161,6 +161,7 @@ class RegistrationController: UIViewController {
             passwordField.isHidden = false
             button.isHidden = false
             Signbutton.isHidden = true
+            ShowCreateAccount.isHidden = false
 
             SignOutbutton.removeFromSuperview()
         }
@@ -279,10 +280,12 @@ class RegistrationController: UIViewController {
                 strongSelf.passwordField.isHidden = true
                 strongSelf.Regbutton.isHidden = true
                 strongSelf.userName.isHidden = true
-                strongSelf.
+                
 
                 strongSelf.emailField.resignFirstResponder()
                 strongSelf.passwordField.resignFirstResponder()
+                let toMainController = RootTabBarViewController()
+                self?.present(toMainController, animated: true)
             })
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: {_ in }))
