@@ -84,7 +84,15 @@ class RegistrationController: UIViewController {
         return button
     }()
     
-        private let CreateAccount: UIButton = {
+    private let Regbutton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .customBlue
+        button.setTitleColor(.black, for: .normal)
+        button.setTitle("Registrated", for: .normal)
+        return button
+    }()
+    
+        private let ShowCreateAccount: UIButton = {
         let button = UIButton()
         button.backgroundColor = .white
         button.setTitleColor(.black, for: .normal)
@@ -99,17 +107,20 @@ class RegistrationController: UIViewController {
         view.addSubview(emailField)
         view.addSubview(passwordField)
         view.addSubview(button)
-        view.addSubview(CreateAccount)
+        view.addSubview(ShowCreateAccount)
         view.addSubview(userName)
+        view.addSubview(Regbutton)
 
         
         view.backgroundColor = .white
         
         
         userName.isHidden = true
+        Regbutton.isHidden = true
         
         button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
-        CreateAccount.addTarget(self, action: #selector(showCreateAccount), for: .touchUpInside)
+        ShowCreateAccount.addTarget(self, action: #selector(showCreateAccount), for: .touchUpInside)
+        Regbutton.addTarget(self, action: #selector(RegistrationButton), for: .touchUpInside)
     
         if FirebaseAuth.Auth.auth().currentUser != nil{
             
@@ -120,6 +131,7 @@ class RegistrationController: UIViewController {
             emailField.isHidden = true
             passwordField.isHidden = true
             button.isHidden = true
+            ShowCreateAccount.isHidden = true
             
             view.addSubview(SignOutbutton)
             SignOutbutton.frame = CGRect(x: 20, y: 210, width: view.frame.size.width-40, height: 52)
@@ -173,7 +185,10 @@ class RegistrationController: UIViewController {
         button.frame = CGRect(x: 20, y:  passwordField.frame.origin.y+passwordField.frame.size.height+30,
                               width: view.frame.size.width-40, height: 50)
         
-        CreateAccount.frame = CGRect(x: 20, y:  button.frame.origin.y+passwordField.frame.size.height+30,
+        Regbutton.frame = CGRect(x: 20, y:  passwordField.frame.origin.y+passwordField.frame.size.height+30,
+                              width: view.frame.size.width-40, height: 50)
+        
+        ShowCreateAccount.frame = CGRect(x: 20, y:  button.frame.origin.y+passwordField.frame.size.height+30,
                                     width: view.frame.size.width-40, height: 50)
     }
     
@@ -224,11 +239,15 @@ class RegistrationController: UIViewController {
         
     }
     @objc private func showCreateAccount(){ //должна быть кнопкой, пока отсылается на кнопку входа
-        CreateAccount.isHidden = true
+        ShowCreateAccount.isHidden = true
         userName.isHidden = false
-        button.setTitle("Registrate", for: .normal)
-        label.text = "Registration"
+        button.isHidden = true
+        Regbutton.isHidden = false
         
+        
+    }
+    
+    @objc private func RegistrationButton(){
         guard let email = emailField.text, !email.isEmpty,
               let password = passwordField.text, !password.isEmpty,
               let username = userName.text, !username.isEmpty  else  {
@@ -258,6 +277,9 @@ class RegistrationController: UIViewController {
                 strongSelf.button.isHidden = true
                 strongSelf.emailField.isHidden = true
                 strongSelf.passwordField.isHidden = true
+                strongSelf.Regbutton.isHidden = true
+                strongSelf.userName.isHidden = true
+                strongSelf.
 
                 strongSelf.emailField.resignFirstResponder()
                 strongSelf.passwordField.resignFirstResponder()
@@ -266,7 +288,6 @@ class RegistrationController: UIViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: {_ in }))
         present(alert, animated: true)
     }
-//
     
 }
 
