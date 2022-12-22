@@ -80,18 +80,6 @@ class AllDevicesViewController: UIViewController {
         
     }
     
-    // MARK: - Load places
-    
-    // Загружаем данные из БД
-    private func loadDevices() {
-        
-        databaseManager.loadDevices { devices in
-            self.models = devices
-            self.collectionView.reloadData()
-        }
-        
-    }
-    
     // MARK: - set up navigation bar
     
     private func setupNavBar() {
@@ -125,13 +113,39 @@ class AllDevicesViewController: UIViewController {
         
     }
     
+    // MARK: - Load places
+    
+    // Загружаем данные из БД
+    private func loadDevices() {
+        
+        databaseManager.loadDevices { result in
+            switch result {
+            case .success(let devices):
+                self.models = devices
+                self.collectionView.reloadData()
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
     // MARK: - add device cell
     
     func addDeviceCell(with name: String) {
         
-        databaseManager.addDevice(name: name)
+        databaseManager.addDevice(device: CreateDeviceData(name: name)) { result in
+            switch result {
+            case .success:
+                break
+            case .failure(let error):
+                print(error)
+            }
+            
+        }
         
-        loadDevices()
+//        databaseManager.addDevice(name: name)
+//
+//        loadDevices()
         
 //        self.collectionView.reloadData()
 //        self.collectionView.performBatchUpdates({ [weak self] in
@@ -155,9 +169,23 @@ class AllDevicesViewController: UIViewController {
         
 //        self.models.append(model)
         
-        print(self.models)
+//        print(self.models)
         
 //        self.collectionView.insertItems(at: [IndexPath(row: models.count - 1, section: 0)])
+    }
+    
+    func delDeviceCell(name: String) {
+        
+        databaseManager.delDevice(device: CreateDeviceData(name: name)) { result in
+            switch result {
+            case .success:
+                break
+            case .failure(let error):
+                print(error)
+            }
+            
+        }
+        
     }
     
     // MARK: - Question button action
@@ -181,13 +209,6 @@ class AllDevicesViewController: UIViewController {
     
     @objc
     private func didTapProfileButton() {
-        
-    }
-    
-    func delDeviceCell(name: String) {
-        
-        databaseManager.delDevice(document: name)
-        loadDevices()
         
     }
 }
