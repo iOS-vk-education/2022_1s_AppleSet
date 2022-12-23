@@ -202,7 +202,7 @@ class RegistrationController: UIViewController {
     }
     
     @objc private func didTapButton(){
-        print("tap tap tap!!!")
+//        print("tap tap tap!!!")
         guard let email = emailField.text, !email.isEmpty,
               let password = passwordField.text, !password.isEmpty else  {
             
@@ -215,30 +215,32 @@ class RegistrationController: UIViewController {
                 return
             }
             guard error == nil else {
-                self?.label.text = "Check password or username"
-                self?.label.textColor = .red
-                print("not such user")
+                self?.label.text = "Log in"
+                self?.label.textColor = .black
+                if error?._code == AuthErrorCode.wrongPassword.rawValue{
+                    self?.label.text = "Wrong Password"
+                    self?.label.textColor = .red
+                } else if error?._code == AuthErrorCode.invalidEmail.rawValue{
+                    self?.label.text = "Mail is in the wrong format"
+                    self?.label.textColor = .red
+                } else {
+                    self?.label.text = "Wrong username or password"
+                    self?.label.textColor = .red
+                }
+//
                 return
             }
-            print("singed in")
-           
-            
-//            let toMainController = RootTabBarViewController()
             strongSelf.emailField.resignFirstResponder()
             strongSelf.passwordField.resignFirstResponder()
-//            self?.present(toMainController, animated: true)
             let toMainController = RootTabBarViewController()
             self?.present(toMainController, animated: true)
-            
-//            strongSelf.label.isHidden = true
-//            strongSelf.button.isHidden = true
-//            strongSelf.emailField.isHidden = true
-//            strongSelf.passwordField.isHidden = true
-//
-            
+                
         })
         
     }
+    
+    
+    
     @objc private func showCreateAccount(){ //должна быть кнопкой, пока отсылается на кнопку входа
         ShowCreateAccount.isHidden = true
         userName.isHidden = false
@@ -262,7 +264,7 @@ class RegistrationController: UIViewController {
         alert.addAction(UIAlertAction(title: "Continue",
                                       style: .default,
                                       handler: {_ in
-            FirebaseAuth.Auth.auth().createUser(withEmail: email,
+            Auth.auth().createUser(withEmail: email,
                                                 password: password,
                                                 completion: {[weak self]result, error in
                 guard let strongSelf = self else{
@@ -270,7 +272,15 @@ class RegistrationController: UIViewController {
                     return
                 }
                 guard error == nil else {
-                    print("Account creat on failed")
+                    if error?._code == AuthErrorCode.invalidEmail.rawValue{
+                        self?.label.text = "Mail is in the wrong format"
+                        self?.label.textColor = .red
+                    }
+                    else if error?._code == AuthErrorCode.weakPassword.rawValue{
+                        self?.label.text = "Password too weak"
+                        self?.label.textColor = .red
+                    }
+                    
                     return
                 }
                 print("singed in!!!!")
@@ -291,6 +301,5 @@ class RegistrationController: UIViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: {_ in }))
         present(alert, animated: true)
     }
-    
 }
 
