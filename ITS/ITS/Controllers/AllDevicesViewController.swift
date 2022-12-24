@@ -170,7 +170,11 @@ class AllDevicesViewController: UIViewController {
     
     @objc
     private func didTapProfileButton() {
+        let profileController = ProfileViewController()
         
+        let navigationController = UINavigationController(rootViewController: profileController)
+        navigationController.modalPresentationStyle = .fullScreen
+        present(navigationController, animated: true)
     }
 }
 

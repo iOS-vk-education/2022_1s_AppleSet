@@ -150,7 +150,11 @@ class RegistrationController: UIViewController {
     
     @objc func LogTapped(){
         let toMainController = RootTabBarViewController()
-        present(toMainController, animated: true)
+        
+        let navigationController = UINavigationController(rootViewController: toMainController)
+        navigationController.modalPresentationStyle = .fullScreen
+        present(navigationController, animated: true)
+//        present(toMainController, animated: true)
     }
     
     @objc func LogOutTapped(){
