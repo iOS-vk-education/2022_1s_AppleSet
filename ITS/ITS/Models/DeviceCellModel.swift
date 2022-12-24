@@ -14,3 +14,13 @@ final class DeviceCellModel {
         self.name = name
     }
 }
+
+struct CreateDeviceData {
+    let name : String
+    
+    func dict() -> [String: Any] {
+        return [
+            "name": name
+        ]
+    }
+}

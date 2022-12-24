@@ -88,9 +88,11 @@ final class DeviceCell: UICollectionViewCell, UIGestureRecognizerDelegate {
             self.setNeedsLayout()
         } else {
             if abs(pan.velocity(in: self).x) > 500 {
-                let collectionView: UICollectionView = self.superview as! UICollectionView
-                let indexPath: IndexPath = collectionView.indexPathForItem(at: self.center)!
-                collectionView.delegate?.collectionView?(collectionView, performPrimaryActionForItemAt: indexPath)
+//                let collectionView: UICollectionView = self.superview as! UICollectionView
+//                let indexPath: IndexPath = collectionView.indexPathForItem(at: self.center)!
+
+                AllDevicesViewController().delDeviceCell(name: nameLabel.text!)
+//                collectionView.delegate?.collectionView?(collectionView, performPrimaryActionForItemAt: indexPath)
 //                collectionView.delegate?.collectionView!(collectionView, performAction: #selector(onPan(_:)), forItemAt: indexPath, withSender: nil)
             } else {
                 UIView.animate(withDuration: 0.2, animations: {
