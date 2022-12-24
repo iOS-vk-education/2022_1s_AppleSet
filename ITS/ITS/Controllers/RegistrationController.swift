@@ -237,7 +237,10 @@ class RegistrationController: UIViewController {
             strongSelf.emailField.resignFirstResponder()
             strongSelf.passwordField.resignFirstResponder()
             let toMainController = RootTabBarViewController()
-            self?.present(toMainController, animated: true)
+            
+            let navigationController = UINavigationController(rootViewController: toMainController)
+            navigationController.modalPresentationStyle = .fullScreen
+            self?.present(navigationController, animated: true)
                 
         })
         
@@ -299,7 +302,10 @@ class RegistrationController: UIViewController {
                 strongSelf.emailField.resignFirstResponder()
                 strongSelf.passwordField.resignFirstResponder()
                 let toMainController = RootTabBarViewController()
-                self?.present(toMainController, animated: true)
+                
+                let navigationController = UINavigationController(rootViewController: toMainController)
+                navigationController.modalPresentationStyle = .fullScreen
+                self?.present(navigationController, animated: true)
             })
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: {_ in }))
