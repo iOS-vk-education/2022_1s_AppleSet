@@ -14,8 +14,8 @@
             filePath = "ITS/Controllers/AllDevicesViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "238"
-            endingLineNumber = "238"
+            startingLineNumber = "205"
+            endingLineNumber = "205"
             landmarkName = "collectionView(_:cellForItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -30,8 +30,8 @@
             filePath = "ITS/Controllers/AllDevicesViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "223"
-            endingLineNumber = "223"
+            startingLineNumber = "190"
+            endingLineNumber = "190"
             landmarkName = "AllDevicesViewController"
             landmarkType = "21">
          </BreakpointContent>

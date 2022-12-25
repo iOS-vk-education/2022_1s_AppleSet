@@ -39,6 +39,7 @@ class AllDevicesViewController: UIViewController {
         
         // background of main controller
         collectionView.backgroundColor = .white
+        
         collectionView.delegate = self
         collectionView.dataSource = self
         
@@ -52,9 +53,6 @@ class AllDevicesViewController: UIViewController {
         super.viewDidLoad()
         //navigation bar
         view.backgroundColor = .white
-        
-        collectionView.dataSource = self
-        collectionView.delegate = self
         
         setupCollectionView()
         loadDevices()
@@ -140,38 +138,7 @@ class AllDevicesViewController: UIViewController {
             case .failure(let error):
                 print(error)
             }
-            
         }
-        
-//        databaseManager.addDevice(name: name)
-//
-//        loadDevices()
-        
-//        self.collectionView.reloadData()
-//        self.collectionView.performBatchUpdates({ [weak self] in
-//          let visibleItems = self?.collectionView.indexPathsForVisibleItems ?? []
-//          self?.collectionView.reloadItems(at: visibleItems)
-//        }, completion: { (_) in
-//        })
-        
-//        view = nil
-//        setupCollectionView()
-//        loadDevices()
-        
-//        let parent = self.view.superview
-//        self.view.removeFromSuperview()
-//        self.view = nil
-        // unloads the entire view
-//        parent?.addSubview(self.view)
-        // reloads the view
-        
-//        let model = DeviceCellModel(name: name)
-        
-//        self.models.append(model)
-        
-//        print(self.models)
-        
-//        self.collectionView.insertItems(at: [IndexPath(row: models.count - 1, section: 0)])
     }
     
     func delDeviceCell(name: String) {

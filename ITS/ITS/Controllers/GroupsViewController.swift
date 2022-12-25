@@ -27,12 +27,14 @@ class GroupsViewController: UIViewController {
     }()
     
     private var models: [GroupCellModel] = []
+    let databaseManager = DatabaseManager.shared
     
     // MARK: - setup
     
     private func setupCollectionView() {
 
         collectionView.backgroundColor = .white
+        
         collectionView.delegate = self
         collectionView.dataSource = self
         
@@ -69,14 +71,14 @@ class GroupsViewController: UIViewController {
         
     }
     
-    // MARK: - Load places
-    
-    // Загружаем данные из БД
-    private func loadGroups() {
-        
-        let groupModel = GroupCellDataModel()
-        models = groupModel.loadGroups()
-    }
+//    // MARK: - Load places
+//
+//    // Загружаем данные из БД
+//    private func loadGroups() {
+//
+//        let groupModel = GroupCellDataModel()
+//        models = groupModel.loadGroups()
+//    }
     
     // MARK: - set up navigation bar
     
@@ -108,15 +110,58 @@ class GroupsViewController: UIViewController {
             .horizontally()
             .bottom(view.safeAreaInsets.bottom)
     }
+//
+//    // MARK: - add place cell
+//
+//    func addGroupCell(with name: String) {
+//
+//        let model = GroupCellModel(name: name)
+//        self.models.append(model)
+//
+//        self.collectionView.insertItems(at: [IndexPath(row: self.models.count - 1, section: 0)])
+//    }
+//
     
-    // MARK: - add place cell
+    // Загружаем данные из БД
+    private func loadGroups() {
+        
+        databaseManager.loadGroups { result in
+            switch result {
+            case .success(let groups):
+                self.models = groups
+                self.collectionView.reloadData()
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    // MARK: - add device cell
     
     func addGroupCell(with name: String) {
         
-        let model = GroupCellModel(name: name)
-        self.models.append(model)
+        databaseManager.addGroup(group: CreateGroupData(name: name, devices: [])) { result in
+            switch result {
+            case .success:
+                break
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    func delGroupCell(name: String) {
         
-        self.collectionView.insertItems(at: [IndexPath(row: self.models.count - 1, section: 0)])
+        databaseManager.delGroup(group: CreateGroupData(name: name, devices: [])) { result in
+            switch result {
+            case .success:
+                break
+            case .failure(let error):
+                print(error)
+            }
+            
+        }
+        
     }
     
     // MARK: - Question button action
@@ -139,7 +184,11 @@ class GroupsViewController: UIViewController {
     
     @objc
     private func didTapProfileButton() {
+        let profileController = ProfileViewController()
         
+        let navigationController = UINavigationController(rootViewController: profileController)
+        navigationController.modalPresentationStyle = .fullScreen
+        present(navigationController, animated: true)
     }
     
 }
@@ -168,19 +217,16 @@ extension GroupsViewController: UICollectionViewDelegate, UICollectionViewDataSo
         return cell
     }
     
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        
-//        self.hidesBottomBarWhenPushed = true
-//        self.navigationController?.pushViewController(GroupsViewController(), animated: true)
-//        self.hidesBottomBarWhenPushed = false
-//        
-//        deviceViewController.title = models[indexPath.row].name
-//
-//        let navigationController = UINavigationController(rootViewController: deviceViewController)
-//        navigationController.modalPresentationStyle = .fullScreen
-//        
-//        present(navigationController, animated: true)
-//    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let deviceViewController = DeviceViewController()
+        deviceViewController.title = models[indexPath.row].name
+
+        self.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(deviceViewController, animated: true)
+        self.hidesBottomBarWhenPushed = false
+
+    }
 }
 
 // MARK: - Cells size

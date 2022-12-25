@@ -12,6 +12,10 @@ protocol DatabaseManagerDescription {
     func loadDevices(completion: @escaping (Result<[DeviceCellModel], Error>) -> Void)
     func addDevice(device: CreateDeviceData, completion: @escaping (Result<Void, Error>) -> Void)
     func delDevice(device: CreateDeviceData, completion: @escaping (Result<Void, Error>) -> Void)
+    
+    func loadGroups(completion: @escaping (Result<[GroupCellModel], Error>) -> Void)
+    func addGroup(group: CreateGroupData, completion: @escaping (Result<Void, Error>) -> Void)
+    func delGroup(group: CreateGroupData, completion: @escaping (Result<Void, Error>) -> Void)
 }
 
 enum DatabaseManagerError: Error {
@@ -32,6 +36,8 @@ class DatabaseManager {
         return db
         
     }
+    
+    // MARK: - devices
     
     func loadDevices(completion: @escaping (Result<[DeviceCellModel], Error>) -> Void) {
         
@@ -76,6 +82,56 @@ class DatabaseManager {
         let name: String = device.dict()["name"] as! String
         
         db.collection("allDevices").document(name).delete()
+        
+    }
+    
+    // MARK: - groups
+    
+    func loadGroups(completion: @escaping (Result<[GroupCellModel], Error>) -> Void) {
+        
+        let db = configureFB()
+        
+        db.collection("allGroups").addSnapshotListener { snap, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let groups = snap?.documents else {
+                completion(.failure(DatabaseManagerError.noDocuments))
+                return
+            }
+            
+            var groupsList = [GroupCellModel]()
+            
+            for group in groups {
+                let data = group.data()
+                let name = data["name"] as! String
+                let devices = data["devices"] as! [String]
+                let model = GroupCellModel.init(name: name, devices: devices)
+                groupsList.append(model)
+            }
+            
+            completion(.success(groupsList))
+        }
+    }
+    
+    func addGroup(group: CreateGroupData, completion: @escaping (Result<Void, Error>) -> Void) {
+        
+        let db = configureFB()
+        let name: String = group.dict()["name"] as! String
+        let devices: [String] = group.dict()["devices"] as! [String]
+        
+        db.collection("allGroups").document(name).setData(["name": name, "devices": devices])
+        
+    }
+    
+    func delGroup(group: CreateGroupData, completion: @escaping (Result<Void, Error>) -> Void) {
+        
+        let db = configureFB()
+        let name: String = group.dict()["name"] as! String
+        
+        db.collection("allGroups").document(name).delete()
         
     }
 }
