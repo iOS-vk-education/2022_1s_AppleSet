@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
 
 class RegistrationController: UIViewController {
     
@@ -250,7 +251,7 @@ class RegistrationController: UIViewController {
             let navigationController = UINavigationController(rootViewController: toMainController)
             
             let safeAreaInsets = toMainController.tabBar.safeAreaInsets
-            let safeAreaCompensation = UIEdgeInsets(top: -safeAreaInsets.top,
+            let safeAreaCompensation = UIEdgeInsets(top: -100,
                                                     left: -safeAreaInsets.left,
                                                     bottom: -safeAreaInsets.bottom,
                                                     right: -safeAreaInsets.right)
@@ -325,10 +326,10 @@ class RegistrationController: UIViewController {
                 let navigationController = UINavigationController(rootViewController: toMainController)
                 
                 let safeAreaInsets = toMainController.tabBar.safeAreaInsets
-                let safeAreaCompensation = UIEdgeInsets(top: safeAreaInsets.top,
-                                                        left: safeAreaInsets.left,
-                                                        bottom: safeAreaInsets.bottom,
-                                                        right: safeAreaInsets.right)
+                let safeAreaCompensation = UIEdgeInsets(top: -100,
+                                                        left: -safeAreaInsets.left,
+                                                        bottom: -safeAreaInsets.bottom,
+                                                        right: -safeAreaInsets.right)
                 
                 navigationController.additionalSafeAreaInsets = safeAreaCompensation
                 
