@@ -6,73 +6,96 @@
 //
 
 import UIKit
+import PinLayout
+import Firebase
 
 final class ProfileViewController: UIViewController
 {
-    private let avatar: UIImageView = UIImageView()
-//    private let label: UILabel = UILabel()
-//    private  let username: UILabel = UILabel()
-//    private  let logOutButton: UIButton = UIButton()
-//    private  let ChangePassword: UIButton = UIButton()
-//
-    private let label: UILabel = {
-        let label = UILabel()
-//        label.backgroundColor = .white
-        label.textAlignment = .center
-        label.text = "Profile"
-        label.font = .systemFont(ofSize: 24, weight: .semibold)
-        return label
-    }()
-
-    private let UserName: UILabel = {
-        let username = UILabel()
-//        label.backgroundColor = .white
-        username.textAlignment = .center
-        username.text = " "
-        username.font = .systemFont(ofSize: 24, weight: .semibold)
-        return username
-    }()
-
-    private let LogOutbutton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .white
-        button.setTitleColor(.black, for: .normal)
-        button.setTitle("logout", for: .normal)
-        return button
-    }()
-
-    private let ChangePassword: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .white
-        button.setTitleColor(.black, for: .normal)
-        button.setTitle("ChangePassword", for: .normal)
-        return button
-    }()
-
-//    private let UserImage: UIImageView = {
-//       let image = UIImageView()
-//        image.image = UIImage(named: "avatar")
-//        return image
-//    }()
-//
+    
+   @Published var list = [users]()
+    private let avatarImage: UIImageView = UIImageView()
+    private let mail: UILabel = UILabel()
+    private  let username: UILabel = UILabel()
+    private  let logOutButton: UIButton = UIButton()
+    private  let ChangePassword: UIButton = UIButton()
+    private let UserPhoto: UIButton = UIButton()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        avatar.image = UIImage(named: "avatar")
+        avatarImage.image = UIImage(named: "avatar")
+        avatarImage.layer.cornerRadius = 75
+        avatarImage.contentMode = .scaleToFill
+        avatarImage.clipsToBounds = true
         
+        username.text = "Username"
+        username.font = UIFont(name: "Noteworthy", size: 32)
+        username.textColor = .black
         
-        view.addSubview(label)
-            view.addSubview(avatar)
-        view.addSubview(UserName)
-        view.addSubview(LogOutbutton)
+        mail.text = "Mail"
+        mail.font = UIFont(name: "Noteworthy", size: 32)
+        mail.textColor = .black
+        
+        logOutButton.backgroundColor = .customBlue.withAlphaComponent(0.8)
+        logOutButton.setTitleColor(.black, for: .normal)
+        logOutButton.layer.cornerRadius = Constans.EditButton.cornerRadius
+        logOutButton.setTitle("Logout", for: .normal)
+        
+        ChangePassword.backgroundColor = .customBlue.withAlphaComponent(0.8)
+        ChangePassword.setTitleColor(.black, for: .normal)
+        ChangePassword.layer.cornerRadius = Constans.EditButton.cornerRadius
+        ChangePassword.setTitle("Change password", for: .normal)
+        
+        UserPhoto.backgroundColor = .white
+        UserPhoto.setTitleColor(.customDarkBlue, for: .normal)
+        UserPhoto.setTitle("Choose photo", for: .normal)
+        
+        view.addSubview(mail)
+        view.addSubview(avatarImage)
+        view.addSubview(username)
+        view.addSubview(logOutButton)
         view.addSubview(ChangePassword)
-        
-        
-//        label.text = "Profile"
-//        username.text = "Username"
+        view.addSubview(UserPhoto)
+//
+        logOutButton.addTarget(self, action: #selector(logOut), for: .touchUpInside)
+        UserPhoto.addTarget(self, action: #selector(ChooseUserPhoto), for: .touchUpInside)
+        username.text = "Username"
         
         
         view.backgroundColor = .white
+        
+        if FirebaseAuth.Auth.auth().currentUser != nil{
+            let user =  Auth.auth().currentUser
+            if let user = user {
+                mail.text = user.email
+            }
+            
+            let db = Firestore.firestore()
+            db.collection("users").getDocuments { QuerySnapshot, error in
+                if error == nil {
+
+                    if let QuerySnapshot = QuerySnapshot {
+
+                        DispatchQueue.main.async {
+                            self.list = QuerySnapshot.documents.map { d in
+                                users(id: d.documentID, username: d["username"] as? String ?? "", email: d["email"] as? String ?? "")
+                            }
+                        }
+                    }
+                    else {
+                        print ("error9")
+                    }
+                }
+            }
+        }
+    
+    
+        view.addSubview(mail)
+        view.addSubview(avatarImage)
+        view.addSubview(username)
+        view.addSubview(logOutButton)
+        view.addSubview(ChangePassword)
+        view.addSubview(UserPhoto)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -81,7 +104,7 @@ final class ProfileViewController: UIViewController
         setupNavBar()
     }
     
-    private func setupNavBar(){
+        private func setupNavBar(){
         let backButton = UIBarButtonItem(image: UIImage(systemName: "xmark"),
                                          style: .plain,
                                          target: self,
@@ -89,31 +112,105 @@ final class ProfileViewController: UIViewController
         
         navigationItem.leftBarButtonItem = backButton
         navigationController?.navigationBar.tintColor = .black
+        title = "Profile"
     }
     
-//    private func layout(){
-//        avatar.pin
-//            .top()
-//            .size(Constans.avatar.size)
-//    }
+   
     
-    override func viewDidLayoutSubviews() {
+        override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+       
 
 
-        label.frame = CGRect(x: 0, y: 100, width: view.frame.size.width, height: 80)
-//        UserImage.frame = CGRect(x: 20, y: label.frame.origin.y+label.frame.size.height+10,
-//                                 width: view.frame.size.width-40, height: 50)
-        UserName.frame = CGRect(x: 20, y:  label.frame.origin.y+label.frame.size.height+100,
-                                width: view.frame.size.width-40, height: 50)
-        LogOutbutton.frame = CGRect(x: 20, y:  UserName.frame.origin.y+UserName.frame.size.height+10,
-                                    width: view.frame.size.width-40, height: 50)
-        ChangePassword.frame = CGRect(x: 20, y:  LogOutbutton.frame.origin.y+LogOutbutton.frame.size.height+10,
-                                      width: view.frame.size.width-40, height: 50)
+//        label.frame = CGRect(x: 0, y: 100, width: view.frame.size.width, height: 80)
+        layout()
     }
     
-    @objc func didTapBackButton()
+    private func layout(){
+        avatarImage.pin
+            .top()
+            .marginTop(view.safeAreaInsets.top)
+            .hCenter()
+            .size(CGSize(width: 150, height: 150))
+        
+        UserPhoto.pin
+            .below(of: avatarImage)
+            .height(Constans.EditButton.height)
+            .horizontally(Constans.EditButton.marginHorizontal)
+
+        username.pin
+            .below(of:  UserPhoto)
+            .marginTop(Constans.NameTitle.marginTop)
+            .horizontally(Constans.NameTitle.marginHorizontal)
+            .sizeToFit(.width)
+            .hCenter()
+        
+        mail.pin
+            .below(of: username)
+            .marginTop(Constans.NameTitle.marginTop)
+            .horizontally(Constans.NameTitle.marginHorizontal)
+            .sizeToFit(.width)
+            .hCenter()
+        
+        ChangePassword.pin
+            .bottom()
+            .marginBottom(view.safeAreaInsets.bottom + Constans.EditButton.marginBottom + 110)
+            .height(Constans.EditButton.height)
+            .horizontally(Constans.EditButton.marginHorizontal)
+        
+        logOutButton.pin
+            .bottom()
+            .marginBottom(view.safeAreaInsets.bottom + Constans.EditButton.marginBottom + 60)
+            .height(Constans.EditButton.height)
+            .horizontally(Constans.EditButton.marginHorizontal)
+            
+        
+    }
+        @objc func didTapBackButton()
     {
         dismiss(animated: true)
+    }
+    
+    @objc func logOut()
+    {
+        do {
+            try FirebaseAuth.Auth.auth().signOut()
+            logOutButton.removeFromSuperview()
+            
+            let toMainController = RegistrationController()
+            let navigationController = UINavigationController(rootViewController: toMainController)
+            navigationController.modalPresentationStyle = .fullScreen
+            self.present(navigationController, animated: true)
+        }
+        catch {
+            print("An error occurred")
+        }
+    }
+    
+    @objc func ChooseUserPhoto()
+    {
+        
+    }
+    
+//   private extension ProfileViewController {
+    struct Constans {
+
+        struct AvatarImage {
+            static let marginTop: CGFloat = 10
+            static let size: CGSize = CGSize(width: 150, height: 150)
+        }
+        
+        struct NameTitle {
+            static let marginTop: CGFloat = 16
+            static let marginHorizontal: CGFloat = 50
+        }
+        
+        
+        struct EditButton {
+            static let cornerRadius: CGFloat = 8
+            static let height: CGFloat = 42
+            static let marginHorizontal: CGFloat = 52
+            static let marginBottom: CGFloat = 10
+        }
     }
 }
