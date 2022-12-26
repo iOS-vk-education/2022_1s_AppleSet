@@ -189,7 +189,7 @@ final class ProfileViewController: UIViewController
     
     @objc func ChooseUserPhoto()
     {
-        
+        showImagePickerController()
     }
     
 //   private extension ProfileViewController {
@@ -213,4 +213,26 @@ final class ProfileViewController: UIViewController
             static let marginBottom: CGFloat = 10
         }
     }
+}
+ 
+extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    func showImagePickerController() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.allowsEditing = true
+        imagePickerController.sourceType = .photoLibrary
+        present(imagePickerController, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        if let editedImage = info[UIImagePickerController.InfoKey.editedImage ] as? UIImage {
+            avatarImage.image = editedImage
+        } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage ] as? UIImage {
+            avatarImage.image = originalImage
+        }
+        
+        dismiss(animated: true, completion: nil )
+    }
+
 }
