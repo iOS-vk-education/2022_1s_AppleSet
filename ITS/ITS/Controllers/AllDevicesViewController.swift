@@ -131,8 +131,20 @@ class AllDevicesViewController: UIViewController {
     
     func addDeviceCell(with name: String) {
         
-        for device in self.models {
-            if device.name == name {
+        databaseManager.seeAllDevices { result in
+            switch result {
+            case .success(let devices):
+                self.models = devices
+                
+                for device in self.models {
+                    if device.name == name {
+                        self.errorMessage(error: "This device was already add")
+                        return
+                    }
+                }
+                
+            case .failure(let error):
+                print(error)
                 return
             }
         }
@@ -156,8 +168,15 @@ class AllDevicesViewController: UIViewController {
             case .failure(let error):
                 print(error)
             }
-            
         }
+    }
+    
+    func errorMessage(error: String) {
+        let errorAlertController  = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
+        
+        let errorOkAction = UIAlertAction(title: "Ok", style: .default)
+        errorAlertController.addAction(errorOkAction)
+        present(errorAlertController, animated: true)
         
     }
     

@@ -182,6 +182,7 @@ class GroupViewController: UIViewController  {
             
             for device in self.models {
                 if device.name == text {
+                    self.errorMessage(error: "This device already add")
                     return
                 }
             }
@@ -196,6 +197,15 @@ class GroupViewController: UIViewController  {
         
         present(alertController, animated: true)
         
+    }
+    
+    func errorMessage(error: String)
+    {
+        let errorAlertController  = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
+        
+        let errorOkAction = UIAlertAction(title: "Ok", style: .default)
+        errorAlertController .addAction(errorOkAction)
+        present(errorAlertController, animated: true)
     }
 
 }

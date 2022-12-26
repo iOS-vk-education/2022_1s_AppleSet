@@ -12,6 +12,7 @@ protocol DatabaseManagerDescription {
     func loadDevices(completion: @escaping (Result<[DeviceCellModel], Error>) -> Void)
     func addDevice(device: CreateDeviceData, completion: @escaping (Result<Void, Error>) -> Void)
     func delDevice(device: CreateDeviceData, completion: @escaping (Result<Void, Error>) -> Void)
+    func seeAllDevices(completion: @escaping (Result<[DeviceCellModel], Error>) -> Void)
     
     func loadGroups(completion: @escaping (Result<[GroupCellModel], Error>) -> Void)
     func addGroup(group: CreateGroupData, completion: @escaping (Result<Void, Error>) -> Void)
@@ -87,6 +88,37 @@ class DatabaseManager {
         
         db.collection("allDevices").document(name).delete()
         
+    }
+    
+    func seeAllDevices(completion: @escaping (Result<[DeviceCellModel], Error>) -> Void) {
+        
+        let db = configureFB()
+        var devicesList: [DeviceCellModel] = []
+        
+        db.collection("allDevices").getDocuments { snap, error in
+            
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let devices = snap?.documents else {
+                completion(.failure(DatabaseManagerError.noDocuments))
+                return
+            }
+            
+            for device in devices {
+                let data = device.data()
+                let name = data["name"] as! String
+                let model = DeviceCellModel.init(name: name)
+                devicesList.append(model)
+                
+            }
+            
+            completion(.success(devicesList))
+            
+        }
+
     }
     
     // MARK: - groups
@@ -186,13 +218,11 @@ class DatabaseManager {
         db.collection("allGroups").getDocuments { snap, error in
             
             if let error = error {
-                print("?")
                 completion(.failure(error))
                 return
             }
             
             guard let groups = snap?.documents else {
-                print("??")
                 completion(.failure(DatabaseManagerError.noDocuments))
                 return
             }
@@ -214,8 +244,6 @@ class DatabaseManager {
                 }
             }
             
-            print("!", ["devices": devicesList], "!")
-            
             db.collection("allGroups").document(group).updateData(["devices": devicesList])
             
         }
@@ -230,13 +258,11 @@ class DatabaseManager {
         db.collection("allGroups").getDocuments { snap, error in
             
             if let error = error {
-                print("?")
                 completion(.failure(error))
                 return
             }
             
             guard let groups = snap?.documents else {
-                print("??")
                 completion(.failure(DatabaseManagerError.noDocuments))
                 return
             }

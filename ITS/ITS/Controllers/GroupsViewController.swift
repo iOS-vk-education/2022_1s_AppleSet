@@ -110,17 +110,6 @@ class GroupsViewController: UIViewController {
             .horizontally()
             .bottom(view.safeAreaInsets.bottom)
     }
-//
-//    // MARK: - add place cell
-//
-//    func addGroupCell(with name: String) {
-//
-//        let model = GroupCellModel(name: name)
-//        self.models.append(model)
-//
-//        self.collectionView.insertItems(at: [IndexPath(row: self.models.count - 1, section: 0)])
-//    }
-//
     
     // Загружаем данные из БД
     private func loadGroups() {
@@ -140,8 +129,11 @@ class GroupsViewController: UIViewController {
     
     func addGroupCell(with name: String) {
         
+        print(self.models)
+        
         for group in self.models {
             if group.name == name {
+                errorMessage(error: "This group already add")
                 return
             }
         }
@@ -168,6 +160,15 @@ class GroupsViewController: UIViewController {
             
         }
         
+    }
+    
+    func errorMessage(error: String)
+    {
+        let errorAlertController  = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
+        
+        let errorOkAction = UIAlertAction(title: "Ok", style: .default)
+        errorAlertController .addAction(errorOkAction)
+        present(errorAlertController, animated: true)
     }
     
     // MARK: - Question button action
