@@ -129,7 +129,7 @@ class GroupViewController: UIViewController  {
     
     private func loadDevices() {
         
-        databaseManager.loadDevicesInGroup(group: self.title!) { result in
+        databaseManager.loadDevicesInGroup(group: groupTitle) { result in
             switch result {
             case .success(let devices):
                 self.models = devices
@@ -142,19 +142,30 @@ class GroupViewController: UIViewController  {
     
     func addDeviceCell(with name: String) {
         
-        for device in self.models {
-            if device.name == text {
-                self.errorMessage(error: "This device already add")
-                return
-            }
-        }
-        
-        databaseManager.addDeviceToGroup(group: self.title!, device: CreateDeviceData(name: name)) { result in
+        databaseManager.seeDevicesInGroup(group: groupTitle) { result in
             switch result {
-            case .success:
-                break
+            case .success(let devices):
+                self.models = devices
+                
+                for device in self.models {
+                    if device.name == name {
+                        self.errorMessage(error: "This device was already add to this group")
+                        return
+                    }
+                }
+                
+                self.databaseManager.addDeviceToGroup(group: self.groupTitle, device: CreateDeviceData(name: name)) { result in
+                    switch result {
+                    case .success:
+                        break
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+                
             case .failure(let error):
                 print(error)
+                return
             }
         }
     }
@@ -204,6 +215,7 @@ class GroupViewController: UIViewController  {
         let errorOkAction = UIAlertAction(title: "Ok", style: .default)
         errorAlertController .addAction(errorOkAction)
         present(errorAlertController, animated: true)
+        print(error)
     }
 
 }

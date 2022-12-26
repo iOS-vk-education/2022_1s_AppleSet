@@ -22,7 +22,7 @@ protocol DatabaseManagerDescription {
     func loadDevicesInGroup(group: String, completion: @escaping (Result<[DeviceCellModel], Error>) -> Void)
     func addDeviceToGroup(group: String, device: CreateDeviceData, completion: @escaping (Result<Void, Error>) -> Void)
     func delDeviceFromGroup(group: String, device: CreateDeviceData, completion: @escaping (Result<Void, Error>) -> Void)
-    func seeDevicesInGroup(completion: @escaping (Result<[DeviceCellModel], Error>) -> Void)
+    func seeDevicesInGroup(group: String, completion: @escaping (Result<[DeviceCellModel], Error>) -> Void)
 }
 
 enum DatabaseManagerError: Error {
@@ -318,6 +318,42 @@ class DatabaseManager {
             
             db.collection("allGroups").document(group).updateData(["devices": devicesList])
             
+        }
+    }
+    
+    func seeDevicesInGroup(group: String, completion: @escaping (Result<[DeviceCellModel], Error>) -> Void) {
+        let db = configureFB()
+        
+        db.collection("allGroups").getDocuments { snap, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let groups = snap?.documents else {
+                completion(.failure(DatabaseManagerError.noDocuments))
+                return
+            }
+            
+            var devicesList = [DeviceCellModel]()
+            
+            for g in groups {
+                let data = g.data()
+                let name = data["name"] as! String
+                
+                if (name == group) {
+                    let devices = data["devices"] as! [String]
+                    
+                    for device in devices {
+                        let model = DeviceCellModel.init(name: device)
+                        devicesList.append(model)
+                    }
+                    
+                    break
+                }
+            }
+            
+            completion(.success(devicesList))
         }
     }
 }
