@@ -1,17 +1,26 @@
 //
-//  ViewController.swift
+//  GroupViewController.swift
 //  ITS
 //
-//  Created by Всеволод on 02.11.2022.
+//  Created by Natalia on 25.12.2022.
 //
-
-//self.models.remove(at: indexPath.row)
-//collectionView.deleteItems(at: [indexPath])
 
 import UIKit
 import PinLayout
 
-class AllDevicesViewController: UIViewController {
+class GroupViewController: UIViewController  {
+    
+    let addButton: UIButton = UIButton()
+    var groupTitle: String
+    
+    init(title: String) {
+        groupTitle = title
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Create objects
     
@@ -19,7 +28,7 @@ class AllDevicesViewController: UIViewController {
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         let collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(DeviceCell.self, forCellWithReuseIdentifier: "DeviceCell")
+        collectionView.register(DeviceInGroupCell.self, forCellWithReuseIdentifier: "DeviceInGroupCell")
         
         collectionView.contentInset = UIEdgeInsets(top: 7,
                                                    left: .zero,
@@ -47,14 +56,29 @@ class AllDevicesViewController: UIViewController {
         
     }
     
+    private func setupAddButton() {
+
+        addButton.setImage(UIImage(systemName: Constants.AddButton.iconName), for: .normal)
+        addButton.imageView?.tintColor = .customGrey
+        addButton.imageView?.layer.transform = CATransform3DMakeScale(2.7, 2.7, 2.7)
+        addButton.backgroundColor = Constants.AddButton.backgroundColor
+        addButton.layer.cornerRadius = Constants.AddButton.cornerRadius
+        addButton.addTarget(self, action: #selector(didTapAddButton), for: .touchUpInside)
+        addButton.clipsToBounds = true
+        
+        view.addSubview(addButton)
+    }
+    
     // MARK: - viewDidLoad
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //navigation bar
         view.backgroundColor = .white
         
+        title = groupTitle
+        
         setupCollectionView()
+        setupAddButton()
         loadDevices()
         
     }
@@ -82,27 +106,19 @@ class AllDevicesViewController: UIViewController {
     
     private func setupNavBar() {
         
-        let rightBarButtonItem: UIBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "questionmark"),
-                                                                  style: .plain,
-                                                                  target: self,
-                                                                  action: #selector(didTapQuestionButton))
-        
-        navigationItem.rightBarButtonItem = rightBarButtonItem
-        navigationItem.rightBarButtonItem?.tintColor = .customGrey
-        
-        let leftBarButtonItem: UIBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person.circle"),
-                                                                 style: .plain,
-                                                                 target: self,
-                                                                 action: #selector(didTapProfileButton))
-        
-        navigationItem.leftBarButtonItem = leftBarButtonItem
-        navigationItem.leftBarButtonItem?.tintColor = .customGrey
+        navigationController?.navigationBar.tintColor = .customGrey
         
     }
     
     // MARK: - Layout
     
     private func layout() {
+        
+        addButton.pin
+            .bottom()
+            .marginBottom(view.safeAreaInsets.bottom + Constants.AddButton.marginBottom)
+            .height(Constants.AddButton.height)
+            .horizontally((view.frame.width - Constants.AddButton.height) / 2)
         
         collectionView.pin
             .top(view.safeAreaInsets.top)
@@ -111,12 +127,9 @@ class AllDevicesViewController: UIViewController {
         
     }
     
-    // MARK: - Load places
-    
-    // Загружаем данные из БД
     private func loadDevices() {
         
-        databaseManager.loadDevices { result in
+        databaseManager.loadDevicesInGroup(group: groupTitle) { result in
             switch result {
             case .success(let devices):
                 self.models = devices
@@ -127,23 +140,21 @@ class AllDevicesViewController: UIViewController {
         }
     }
     
-    // MARK: - add device cell
-    
     func addDeviceCell(with name: String) {
         
-        databaseManager.seeAllDevices { result in
+        databaseManager.seeDevicesInGroup(group: groupTitle) { result in
             switch result {
             case .success(let devices):
                 self.models = devices
                 
                 for device in self.models {
                     if device.name == name {
-                        self.errorMessage(error: "This device was already add")
+                        self.errorMessage(error: "This device was already add to this group")
                         return
                     }
                 }
                 
-                self.databaseManager.addDevice(device: CreateDeviceData(name: name)) { result in
+                self.databaseManager.addDeviceToGroup(group: self.groupTitle, device: CreateDeviceData(name: name)) { result in
                     switch result {
                     case .success:
                         break
@@ -160,59 +171,58 @@ class AllDevicesViewController: UIViewController {
     }
     
     func delDeviceCell(name: String) {
-        
-        databaseManager.delDevice(device: CreateDeviceData(name: name)) { result in
+
+        databaseManager.delDeviceFromGroup(group: groupTitle, device: CreateDeviceData(name: name)) { result in
             switch result {
             case .success:
                 break
             case .failure(let error):
                 print(error)
             }
+
         }
-    }
-    
-    func errorMessage(error: String) {
-        let errorAlertController  = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
-        
-        let errorOkAction = UIAlertAction(title: "Ok", style: .default)
-        errorAlertController.addAction(errorOkAction)
-        present(errorAlertController, animated: true)
-        print(error)
         
     }
-    
-    // MARK: - Question button action
     
     @objc
-    private func didTapQuestionButton() {
+    private func didTapAddButton() {
         
-        let alertController: UIAlertController = UIAlertController(title: "Инструкция",
-                                                                   message: "Для добавления устройства, нажмите кнопку + внизу экрана. Далее укажите название устройства, его сеть и данные, которые оно будет считывать",
-                                                                   preferredStyle: .alert)
+        let alertController  = UIAlertController(title: "Add device", message: "Input device`s name", preferredStyle: .alert)
         
-        let okAction: UIAlertAction = UIAlertAction(title: "Ок", style: .default)
+        alertController.addTextField()
+        
+        let okAction = UIAlertAction(title: "Add", style: .default) { _ in
+            guard let text = alertController.textFields?.first?.text else {
+                return
+            }
+    
+            self.addDeviceCell(with: text)
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
         
         alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
         
         present(alertController, animated: true)
         
     }
     
-    // MARK: - Profile button action
-    
-    @objc
-    private func didTapProfileButton() {
-        let profileController = ProfileViewController()
+    func errorMessage(error: String)
+    {
+        let errorAlertController  = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
         
-        let navigationController = UINavigationController(rootViewController: profileController)
-        navigationController.modalPresentationStyle = .fullScreen
-        present(navigationController, animated: true)
+        let errorOkAction = UIAlertAction(title: "Ok", style: .default)
+        errorAlertController .addAction(errorOkAction)
+        present(errorAlertController, animated: true)
+        print(error)
     }
+
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 
-extension AllDevicesViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+extension GroupViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     // Количество ячеек
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -226,13 +236,13 @@ extension AllDevicesViewController: UICollectionViewDataSource, UICollectionView
         
         
         guard
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DeviceCell", for: indexPath) as? DeviceCell,
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DeviceInGroupCell", for: indexPath) as? DeviceInGroupCell,
             models.count > indexPath.row
         else {
             return UICollectionViewCell()
         }
         
-        cell.configure(with: models[indexPath.row])
+        cell.configure(with: models[indexPath.row], title: groupTitle)
         
         return cell
     }
@@ -245,7 +255,7 @@ extension AllDevicesViewController: UICollectionViewDataSource, UICollectionView
 
         self.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(deviceViewController, animated: true)
-        self.hidesBottomBarWhenPushed = false
+        self.hidesBottomBarWhenPushed = true
 
     }
     
@@ -253,7 +263,7 @@ extension AllDevicesViewController: UICollectionViewDataSource, UICollectionView
 
 // MARK: - Cells size
 
-extension AllDevicesViewController: UICollectionViewDelegateFlowLayout {
+extension GroupViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
@@ -261,3 +271,17 @@ extension AllDevicesViewController: UICollectionViewDelegateFlowLayout {
         
     }
 }
+
+private extension GroupViewController {
+    struct Constants {
+        
+        struct AddButton {
+            static let iconName: String = "plus.circle"
+            static let backgroundColor: UIColor = .white
+            static let marginBottom: CGFloat = 0
+            static let height: CGFloat = 50
+            static let cornerRadius: CGFloat = height / 2
+        }
+    }
+}
+

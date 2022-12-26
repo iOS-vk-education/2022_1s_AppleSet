@@ -104,7 +104,6 @@ class RootTabBarViewController: UITabBarController, RootTabBarDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 }
 
 protocol RootTabBarDelegate: NSObjectProtocol {

@@ -7,12 +7,24 @@
 
 import UIKit
 
-// Данные приходят с бэка
 final class GroupCellModel {
     let name: String
+    let devices: [String]
     
-    // Инициализация ячейки
-    init(name: String = "") {
+    init(name: String = "", devices: [String] = []) {
         self.name = name
+        self.devices = devices
+    }
+}
+
+struct CreateGroupData {
+    let name: String
+    let devices: [String]
+    
+    func dict() -> [String: Any] {
+        return [
+            "name": name,
+            "devices": devices
+        ]
     }
 }

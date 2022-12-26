@@ -33,6 +33,8 @@
 		E15DC1DB292A04E100FE1818 /* FunctionCellDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15DC1DA292A04E100FE1818 /* FunctionCellDataModel.swift */; };
 		E15DC1DD292A050300FE1818 /* DeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15DC1DC292A050300FE1818 /* DeviceViewController.swift */; };
 		E15DC1E0292A089A00FE1818 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15DC1DF292A089A00FE1818 /* UIViewExtensions.swift */; };
+		E1DC0C9E2958E9F40090FDAE /* DeviceInGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DC0C9D2958E9F40090FDAE /* DeviceInGroupCell.swift */; };
+		E1DC0CA02958EA360090FDAE /* GroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DC0C9F2958EA360090FDAE /* GroupViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +67,8 @@
 		E15DC1DA292A04E100FE1818 /* FunctionCellDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionCellDataModel.swift; sourceTree = "<group>"; };
 		E15DC1DC292A050300FE1818 /* DeviceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceViewController.swift; sourceTree = "<group>"; };
 		E15DC1DF292A089A00FE1818 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
+		E1DC0C9D2958E9F40090FDAE /* DeviceInGroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInGroupCell.swift; sourceTree = "<group>"; };
+		E1DC0C9F2958EA360090FDAE /* GroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +159,7 @@
 				A04FFF2E2913034400BC96A7 /* AllDevicesViewController.swift */,
 				E15DC1DC292A050300FE1818 /* DeviceViewController.swift */,
 				E10A71722931EA0E00653EA3 /* GroupsViewController.swift */,
+				E1DC0C9F2958EA360090FDAE /* GroupViewController.swift */,
 				E14CC47B2933AD8C0061F262 /* TabBarController.swift */,
 				E158EB6929375E4500597A08 /* CustomTabBar.swift */,
 				D5E4A517293C954B00F0E9F8 /* RegistrationController.swift */,
@@ -182,6 +187,7 @@
 				E15DC1D4292A04A000FE1818 /* GroupCell.swift */,
 				E15DC1D6292A04BB00FE1818 /* FunctionCell.swift */,
 				E10A716C2931E88400653EA3 /* DeviceCell.swift */,
+				E1DC0C9D2958E9F40090FDAE /* DeviceInGroupCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -316,11 +322,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1DC0C9E2958E9F40090FDAE /* DeviceInGroupCell.swift in Sources */,
 				A04FFF2F2913034400BC96A7 /* AllDevicesViewController.swift in Sources */,
 				E14CC47C2933AD8C0061F262 /* TabBarController.swift in Sources */,
 				D560D7E929573E2900C2BE5E /* ProfileViewController.swift in Sources */,
 				E15DC1D9292A04D100FE1818 /* FunctionCellModel.swift in Sources */,
 				E15DC1D3292A047200FE1818 /* GroupCellDataModel.swift in Sources */,
+				E1DC0CA02958EA360090FDAE /* GroupViewController.swift in Sources */,
 				E158EB6A29375E4500597A08 /* CustomTabBar.swift in Sources */,
 				E15DC1D1292A045600FE1818 /* GroupCellModel.swift in Sources */,
 				E15DC1D7292A04BB00FE1818 /* FunctionCell.swift in Sources */,

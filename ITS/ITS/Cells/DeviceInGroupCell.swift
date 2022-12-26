@@ -1,21 +1,22 @@
 //
-//  PlaceCell.swift
+//  DeviceInGroupCell.swift
 //  ITS
 //
-//  Created by Natalia on 20.11.2022.
+//  Created by Natalia on 25.12.2022.
 //
 
 import UIKit
 import PinLayout
 
-final class GroupCell: UICollectionViewCell, UIGestureRecognizerDelegate {
+final class DeviceInGroupCell: UICollectionViewCell, UIGestureRecognizerDelegate {
 
     var nameLabel: UILabel!
     var pan: UIPanGestureRecognizer!
     var deleteLabel1: UILabel!
     var deleteLabel2: UILabel!
+    var groupTitle: String?
     
-    private var model: GroupCellModel?
+    private var model: DeviceCellModel?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,15 +38,15 @@ final class GroupCell: UICollectionViewCell, UIGestureRecognizerDelegate {
     private func setup() {
         contentView.backgroundColor = .customBlue
         backgroundColor = .customRed
-        layer.cornerRadius = Constants.GroupCell.cornerRadius
+        layer.cornerRadius = Constants.DeviceInGroupCell.cornerRadius
         clipsToBounds = true
         
         nameLabel = UILabel()
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.textColor = .customGrey
-        nameLabel.font = Constants.GroupCell.nameLabelFont
+        nameLabel.font = Constants.DeviceInGroupCell.nameLabelFont
         addSubview(nameLabel)
-        
+
         deleteLabel1 = UILabel()
         deleteLabel1.text = "delete"
         deleteLabel1.textColor = UIColor.white
@@ -87,7 +88,7 @@ final class GroupCell: UICollectionViewCell, UIGestureRecognizerDelegate {
         } else {
             if abs(pan.velocity(in: self).x) > 500 {
                 
-                GroupsViewController().delGroupCell(name: nameLabel.text!)
+                GroupViewController(title: groupTitle ?? "").delDeviceCell(name: nameLabel.text!)
                 
             } else {
                 UIView.animate(withDuration: 0.2, animations: {
@@ -106,19 +107,22 @@ final class GroupCell: UICollectionViewCell, UIGestureRecognizerDelegate {
       return abs((pan.velocity(in: pan.view)).x) > abs((pan.velocity(in: pan.view)).y)
     }
     
-    func configure(with model: GroupCellModel) {
+    // NOT ADD
+    
+    func configure(with model: DeviceCellModel, title: String?) {
         self.model = model
         nameLabel.text = model.name
         nameLabel.textColor = .black
+        groupTitle = title
     }
 }
 
 // MARK: - Static values
 
-private extension GroupCell {
+private extension DeviceInGroupCell {
     struct Constants {
         
-        struct GroupCell {
+        struct DeviceInGroupCell {
             static let cornerRadius: CGFloat = 13
             static let nameLabelFont: UIFont = UIFont(name: "Menlo-Bold", size: 17)!
         }
