@@ -143,18 +143,18 @@ class AllDevicesViewController: UIViewController {
                     }
                 }
                 
+                self.databaseManager.addDevice(device: CreateDeviceData(name: name)) { result in
+                    switch result {
+                    case .success:
+                        break
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+                
             case .failure(let error):
                 print(error)
                 return
-            }
-        }
-        
-        databaseManager.addDevice(device: CreateDeviceData(name: name)) { result in
-            switch result {
-            case .success:
-                break
-            case .failure(let error):
-                print(error)
             }
         }
     }
@@ -177,6 +177,7 @@ class AllDevicesViewController: UIViewController {
         let errorOkAction = UIAlertAction(title: "Ok", style: .default)
         errorAlertController.addAction(errorOkAction)
         present(errorAlertController, animated: true)
+        print(error)
         
     }
     

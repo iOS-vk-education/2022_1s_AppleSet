@@ -129,8 +129,6 @@ class GroupViewController: UIViewController  {
     
     private func loadDevices() {
         
-        print("!!", self)
-        
         databaseManager.loadDevicesInGroup(group: self.title!) { result in
             switch result {
             case .success(let devices):
@@ -143,6 +141,13 @@ class GroupViewController: UIViewController  {
     }
     
     func addDeviceCell(with name: String) {
+        
+        for device in self.models {
+            if device.name == text {
+                self.errorMessage(error: "This device already add")
+                return
+            }
+        }
         
         databaseManager.addDeviceToGroup(group: self.title!, device: CreateDeviceData(name: name)) { result in
             switch result {
@@ -178,13 +183,6 @@ class GroupViewController: UIViewController  {
         let okAction = UIAlertAction(title: "Add", style: .default) { _ in
             guard let text = alertController.textFields?.first?.text else {
                 return
-            }
-            
-            for device in self.models {
-                if device.name == text {
-                    self.errorMessage(error: "This device already add")
-                    return
-                }
             }
     
             self.addDeviceCell(with: text)

@@ -17,10 +17,12 @@ protocol DatabaseManagerDescription {
     func loadGroups(completion: @escaping (Result<[GroupCellModel], Error>) -> Void)
     func addGroup(group: CreateGroupData, completion: @escaping (Result<Void, Error>) -> Void)
     func delGroup(group: CreateGroupData, completion: @escaping (Result<Void, Error>) -> Void)
+    func seeAllGroups(completion: @escaping (Result<[GroupCellModel], Error>) -> Void)
     
     func loadDevicesInGroup(group: String, completion: @escaping (Result<[DeviceCellModel], Error>) -> Void)
     func addDeviceToGroup(group: String, device: CreateDeviceData, completion: @escaping (Result<Void, Error>) -> Void)
     func delDeviceFromGroup(group: String, device: CreateDeviceData, completion: @escaping (Result<Void, Error>) -> Void)
+    func seeDevicesInGroup(completion: @escaping (Result<[DeviceCellModel], Error>) -> Void)
 }
 
 enum DatabaseManagerError: Error {
@@ -169,6 +171,36 @@ class DatabaseManager {
         
         db.collection("allGroups").document(name).delete()
         
+    }
+    
+    func seeAllGroups(completion: @escaping (Result<[GroupCellModel], Error>) -> Void) {
+        
+        let db = configureFB()
+        var groupsList: [GroupCellModel] = []
+        
+        db.collection("allGroups").getDocuments { snap, error in
+            
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let groups = snap?.documents else {
+                completion(.failure(DatabaseManagerError.noDocuments))
+                return
+            }
+            
+            for group in groups {
+                let data = group.data()
+                let name = data["name"] as! String
+                let model = GroupCellModel.init(name: name, devices: [])
+                groupsList.append(model)
+                
+            }
+            
+            completion(.success(groupsList))
+            
+        }
     }
     
     // MARK: - devices in group

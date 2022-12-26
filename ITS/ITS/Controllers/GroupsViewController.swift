@@ -129,21 +129,30 @@ class GroupsViewController: UIViewController {
     
     func addGroupCell(with name: String) {
         
-        print(self.models)
-        
-        for group in self.models {
-            if group.name == name {
-                errorMessage(error: "This group already add")
-                return
-            }
-        }
-        
-        databaseManager.addGroup(group: CreateGroupData(name: name, devices: [])) { result in
+        databaseManager.seeAllGroups { result in
             switch result {
-            case .success:
-                break
+            case .success(let groups):
+                self.models = groups
+                
+                for group in self.models {
+                    if group.name == name {
+                        self.errorMessage(error: "This group was already add")
+                        return
+                    }
+                }
+                
+                self.databaseManager.addGroup(group: CreateGroupData(name: name, devices: [])) { result in
+                    switch result {
+                    case .success:
+                        break
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+                
             case .failure(let error):
                 print(error)
+                return
             }
         }
     }
@@ -169,6 +178,7 @@ class GroupsViewController: UIViewController {
         let errorOkAction = UIAlertAction(title: "Ok", style: .default)
         errorAlertController .addAction(errorOkAction)
         present(errorAlertController, animated: true)
+        print(error)
     }
     
     // MARK: - Question button action
