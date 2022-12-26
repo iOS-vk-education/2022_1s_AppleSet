@@ -154,12 +154,36 @@ class GroupViewController: UIViewController  {
                     }
                 }
                 
-                self.databaseManager.addDeviceToGroup(group: self.groupTitle, device: CreateDeviceData(name: name)) { result in
+                self.databaseManager.seeAllDevices { result in
                     switch result {
-                    case .success:
-                        break
+                    case .success(let allDevices):
+                        
+                        var is_dev = false
+                        
+                        for dev in allDevices {
+                            if dev.name == name {
+                                is_dev = true
+                                break
+                            }
+                        }
+                        
+                        if (!is_dev) {
+                            self.errorMessage(error: "Ther is not this device")
+                            return
+                        }
+                        
+                        self.databaseManager.addDeviceToGroup(group: self.groupTitle, device: CreateDeviceData(name: name)) { result in
+                            switch result {
+                            case .success:
+                                break
+                            case .failure(let error):
+                                print(error)
+                            }
+                        }
+                        
                     case .failure(let error):
                         print(error)
+                        return
                     }
                 }
                 
