@@ -20,22 +20,10 @@ final class ProfileViewController: UIViewController
     private  let ChangePassword: UIButton = UIButton()
     private let UserPhoto: UIButton = UIButton()
     
-    let pr: CGFloat = 100
-    
-//    lazy var profileImage: UIImageView = {
-//        let iv = UIImageView()
-//        iv.image = .withRenderingMode(.alwaysOriginal)
-//        iv.contentMode = .scaleAspectFill
-//        iv.layer.cornerRadius = pr
-//        iv.layer.masksToBounds = true
-//        return iv
-//    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         avatarImage.image = UIImage(named: "avatar")
-//        avatarImage.image = .withRenderingMode(.alwaysOriginal)
         avatarImage.layer.cornerRadius = 75
         avatarImage.contentMode = .scaleToFill
         avatarImage.clipsToBounds = true
@@ -201,8 +189,6 @@ final class ProfileViewController: UIViewController
     
     @objc func ChooseUserPhoto()
     {
-        print("tap photo")
-//        avatarImage.image = UIImage()
         showImagePickerController()
     }
     
