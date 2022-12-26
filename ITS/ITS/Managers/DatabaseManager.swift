@@ -11,7 +11,7 @@ import FirebaseFirestore
 protocol DatabaseManagerDescription {
     func loadDevices(completion: @escaping (Result<[DeviceCellModel], Error>) -> Void)
     func addDevice(device: CreateDeviceData, completion: @escaping (Result<Void, Error>) -> Void)
-    func delDevice(device: CreateDeviceData, completion: @escaping (Result<Void, Error>) -> Void)
+    func delDevice(device: CreateDeviceData, completion: @escaping (Result<String, Error>) -> Void)
     func seeAllDevices(completion: @escaping (Result<[DeviceCellModel], Error>) -> Void)
     
     func loadGroups(completion: @escaping (Result<[GroupCellModel], Error>) -> Void)
@@ -83,12 +83,14 @@ class DatabaseManager {
         
     }
     
-    func delDevice(device: CreateDeviceData, completion: @escaping (Result<Void, Error>) -> Void) {
+    func delDevice(device: CreateDeviceData, completion: @escaping (Result<String, Error>) -> Void) {
         
         let db = configureFB()
         let name: String = device.dict()["name"] as! String
         
         db.collection("allDevices").document(name).delete()
+        
+        completion(.success("Success"))
         
     }
     
