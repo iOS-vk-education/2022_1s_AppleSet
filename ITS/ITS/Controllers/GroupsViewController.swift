@@ -140,6 +140,12 @@ class GroupsViewController: UIViewController {
     
     func addGroupCell(with name: String) {
         
+        for group in self.models {
+            if group.name == name {
+                return
+            }
+        }
+        
         databaseManager.addGroup(group: CreateGroupData(name: name, devices: [])) { result in
             switch result {
             case .success:
@@ -219,7 +225,7 @@ extension GroupsViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let groupViewController = GroupViewController()
+        let groupViewController = GroupViewController(title: models[indexPath.row].name)
         groupViewController.title = models[indexPath.row].name
 
         self.hidesBottomBarWhenPushed = true

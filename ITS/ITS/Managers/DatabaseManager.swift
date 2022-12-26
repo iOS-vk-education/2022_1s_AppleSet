@@ -16,6 +16,10 @@ protocol DatabaseManagerDescription {
     func loadGroups(completion: @escaping (Result<[GroupCellModel], Error>) -> Void)
     func addGroup(group: CreateGroupData, completion: @escaping (Result<Void, Error>) -> Void)
     func delGroup(group: CreateGroupData, completion: @escaping (Result<Void, Error>) -> Void)
+    
+    func loadDevicesInGroup(group: String, completion: @escaping (Result<[DeviceCellModel], Error>) -> Void)
+    func addDeviceToGroup(group: String, device: CreateDeviceData, completion: @escaping (Result<Void, Error>) -> Void)
+    func delDeviceFromGroup(group: String, device: CreateDeviceData, completion: @escaping (Result<Void, Error>) -> Void)
 }
 
 enum DatabaseManagerError: Error {
@@ -133,5 +137,129 @@ class DatabaseManager {
         
         db.collection("allGroups").document(name).delete()
         
+    }
+    
+    // MARK: - devices in group
+    
+    func loadDevicesInGroup(group: String, completion: @escaping (Result<[DeviceCellModel], Error>) -> Void) {
+        
+        let db = configureFB()
+        
+        db.collection("allGroups").addSnapshotListener { snap, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let groups = snap?.documents else {
+                completion(.failure(DatabaseManagerError.noDocuments))
+                return
+            }
+            
+            var devicesList = [DeviceCellModel]()
+            
+            for g in groups {
+                let data = g.data()
+                let name = data["name"] as! String
+                
+                if (name == group) {
+                    let devices = data["devices"] as! [String]
+                    
+                    for device in devices {
+                        let model = DeviceCellModel.init(name: device)
+                        devicesList.append(model)
+                    }
+                    
+                    break
+                }
+            }
+            
+            completion(.success(devicesList))
+        }
+    }
+    
+    func addDeviceToGroup(group: String, device: CreateDeviceData, completion: @escaping (Result<Void, Error>) -> Void) {
+
+        let db = configureFB()
+        var devicesList: [String] = []
+        
+        db.collection("allGroups").getDocuments { snap, error in
+            
+            if let error = error {
+                print("?")
+                completion(.failure(error))
+                return
+            }
+            
+            guard let groups = snap?.documents else {
+                print("??")
+                completion(.failure(DatabaseManagerError.noDocuments))
+                return
+            }
+            
+            for g in groups {
+                let data = g.data()
+                let name = data["name"] as! String
+                
+                if (name == group) {
+                    let devices = data["devices"] as! [String]
+                    
+                    for d in devices {
+                        devicesList.append(d)
+                    }
+                    
+                    devicesList.append(device.dict()["name"] as! String)
+                    
+                    break
+                }
+            }
+            
+            print("!", ["devices": devicesList], "!")
+            
+            db.collection("allGroups").document(group).updateData(["devices": devicesList])
+            
+        }
+
+    }
+
+    func delDeviceFromGroup(group: String, device: CreateDeviceData, completion: @escaping (Result<Void, Error>) -> Void) {
+
+        let db = configureFB()
+        var devicesList: [String] = []
+        
+        db.collection("allGroups").getDocuments { snap, error in
+            
+            if let error = error {
+                print("?")
+                completion(.failure(error))
+                return
+            }
+            
+            guard let groups = snap?.documents else {
+                print("??")
+                completion(.failure(DatabaseManagerError.noDocuments))
+                return
+            }
+            
+            for g in groups {
+                let data = g.data()
+                let name = data["name"] as! String
+                
+                if (name == group) {
+                    let devices = data["devices"] as! [String]
+                    
+                    for d in devices {
+                        if d != device.dict()["name"] as! String {
+                            devicesList.append(d)
+                        }
+                    }
+                    
+                    break
+                }
+            }
+            
+            db.collection("allGroups").document(group).updateData(["devices": devicesList])
+            
+        }
     }
 }

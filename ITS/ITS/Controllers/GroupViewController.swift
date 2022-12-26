@@ -10,13 +10,25 @@ import PinLayout
 
 class GroupViewController: UIViewController  {
     
+    let addButton: UIButton = UIButton()
+    var groupTitle: String
+    
+    init(title: String) {
+        groupTitle = title
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - Create objects
     
     private let collectionView: UICollectionView = {
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         let collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(DeviceCell.self, forCellWithReuseIdentifier: "DeviceCell")
+        collectionView.register(DeviceInGroupCell.self, forCellWithReuseIdentifier: "DeviceInGroupCell")
         
         collectionView.contentInset = UIEdgeInsets(top: 7,
                                                    left: .zero,
@@ -44,13 +56,29 @@ class GroupViewController: UIViewController  {
         
     }
     
+    private func setupAddButton() {
+
+        addButton.setImage(UIImage(systemName: Constants.AddButton.iconName), for: .normal)
+        addButton.imageView?.tintColor = .customGrey
+        addButton.imageView?.layer.transform = CATransform3DMakeScale(2.7, 2.7, 2.7)
+        addButton.backgroundColor = Constants.AddButton.backgroundColor
+        addButton.layer.cornerRadius = Constants.AddButton.cornerRadius
+        addButton.addTarget(self, action: #selector(didTapAddButton), for: .touchUpInside)
+        addButton.clipsToBounds = true
+        
+        view.addSubview(addButton)
+    }
+    
     // MARK: - viewDidLoad
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         
+        title = groupTitle
+        
         setupCollectionView()
+        setupAddButton()
         loadDevices()
         
     }
@@ -86,6 +114,12 @@ class GroupViewController: UIViewController  {
     
     private func layout() {
         
+        addButton.pin
+            .bottom()
+            .marginBottom(view.safeAreaInsets.bottom + Constants.AddButton.marginBottom)
+            .height(Constants.AddButton.height)
+            .horizontally((view.frame.width - Constants.AddButton.height) / 2)
+        
         collectionView.pin
             .top(view.safeAreaInsets.top)
             .horizontally()
@@ -95,7 +129,9 @@ class GroupViewController: UIViewController  {
     
     private func loadDevices() {
         
-        databaseManager.loadDevices { result in
+        print("!!", self)
+        
+        databaseManager.loadDevicesInGroup(group: self.title!) { result in
             switch result {
             case .success(let devices):
                 self.models = devices
@@ -108,7 +144,7 @@ class GroupViewController: UIViewController  {
     
     func addDeviceCell(with name: String) {
         
-        databaseManager.addDevice(device: CreateDeviceData(name: name)) { result in
+        databaseManager.addDeviceToGroup(group: self.title!, device: CreateDeviceData(name: name)) { result in
             switch result {
             case .success:
                 break
@@ -119,16 +155,46 @@ class GroupViewController: UIViewController  {
     }
     
     func delDeviceCell(name: String) {
-        
-        databaseManager.delDevice(device: CreateDeviceData(name: name)) { result in
+
+        databaseManager.delDeviceFromGroup(group: groupTitle, device: CreateDeviceData(name: name)) { result in
             switch result {
             case .success:
                 break
             case .failure(let error):
                 print(error)
             }
-            
+
         }
+        
+    }
+    
+    @objc
+    private func didTapAddButton() {
+        
+        let alertController  = UIAlertController(title: "Add device", message: "Input device`s name", preferredStyle: .alert)
+        
+        alertController.addTextField()
+        
+        let okAction = UIAlertAction(title: "Add", style: .default) { _ in
+            guard let text = alertController.textFields?.first?.text else {
+                return
+            }
+            
+            for device in self.models {
+                if device.name == text {
+                    return
+                }
+            }
+    
+            self.addDeviceCell(with: text)
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
+        
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true)
         
     }
 
@@ -150,13 +216,13 @@ extension GroupViewController: UICollectionViewDataSource, UICollectionViewDeleg
         
         
         guard
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DeviceCell", for: indexPath) as? DeviceCell,
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DeviceInGroupCell", for: indexPath) as? DeviceInGroupCell,
             models.count > indexPath.row
         else {
             return UICollectionViewCell()
         }
         
-        cell.configure(with: models[indexPath.row])
+        cell.configure(with: models[indexPath.row], title: groupTitle)
         
         return cell
     }
@@ -169,7 +235,7 @@ extension GroupViewController: UICollectionViewDataSource, UICollectionViewDeleg
 
         self.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(deviceViewController, animated: true)
-        self.hidesBottomBarWhenPushed = false
+        self.hidesBottomBarWhenPushed = true
 
     }
     
@@ -185,3 +251,17 @@ extension GroupViewController: UICollectionViewDelegateFlowLayout {
         
     }
 }
+
+private extension GroupViewController {
+    struct Constants {
+        
+        struct AddButton {
+            static let iconName: String = "plus.circle"
+            static let backgroundColor: UIColor = .white
+            static let marginBottom: CGFloat = 0
+            static let height: CGFloat = 50
+            static let cornerRadius: CGFloat = height / 2
+        }
+    }
+}
+

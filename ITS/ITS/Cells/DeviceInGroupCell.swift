@@ -14,6 +14,7 @@ final class DeviceInGroupCell: UICollectionViewCell, UIGestureRecognizerDelegate
     var pan: UIPanGestureRecognizer!
     var deleteLabel1: UILabel!
     var deleteLabel2: UILabel!
+    var groupTitle: String?
     
     private var model: DeviceCellModel?
     
@@ -87,7 +88,7 @@ final class DeviceInGroupCell: UICollectionViewCell, UIGestureRecognizerDelegate
         } else {
             if abs(pan.velocity(in: self).x) > 500 {
                 
-                GroupViewController().delDeviceCell(name: nameLabel.text!)
+                GroupViewController(title: groupTitle ?? "").delDeviceCell(name: nameLabel.text!)
                 
             } else {
                 UIView.animate(withDuration: 0.2, animations: {
@@ -108,10 +109,11 @@ final class DeviceInGroupCell: UICollectionViewCell, UIGestureRecognizerDelegate
     
     // NOT ADD
     
-    func configure(with model: DeviceCellModel) {
+    func configure(with model: DeviceCellModel, title: String?) {
         self.model = model
         nameLabel.text = model.name
         nameLabel.textColor = .black
+        groupTitle = title
     }
 }
 

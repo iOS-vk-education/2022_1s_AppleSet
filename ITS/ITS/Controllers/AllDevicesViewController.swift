@@ -131,6 +131,12 @@ class AllDevicesViewController: UIViewController {
     
     func addDeviceCell(with name: String) {
         
+        for device in self.models {
+            if device.name == name {
+                return
+            }
+        }
+        
         databaseManager.addDevice(device: CreateDeviceData(name: name)) { result in
             switch result {
             case .success:
