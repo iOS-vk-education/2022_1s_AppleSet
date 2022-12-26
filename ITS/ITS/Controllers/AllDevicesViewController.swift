@@ -39,6 +39,7 @@ class AllDevicesViewController: UIViewController {
         
         // background of main controller
         collectionView.backgroundColor = .white
+        
         collectionView.delegate = self
         collectionView.dataSource = self
         
@@ -52,9 +53,6 @@ class AllDevicesViewController: UIViewController {
         super.viewDidLoad()
         //navigation bar
         view.backgroundColor = .white
-        
-        collectionView.dataSource = self
-        collectionView.delegate = self
         
         setupCollectionView()
         loadDevices()
@@ -133,58 +131,90 @@ class AllDevicesViewController: UIViewController {
     
     func addDeviceCell(with name: String) {
         
-        databaseManager.addDevice(device: CreateDeviceData(name: name)) { result in
+        databaseManager.seeAllDevices { result in
             switch result {
-            case .success:
-                break
+            case .success(let devices):
+                self.models = devices
+                
+                for device in self.models {
+                    if device.name == name {
+                        self.errorMessage(error: "This device was already add")
+                        return
+                    }
+                }
+                
+                self.databaseManager.addDevice(device: CreateDeviceData(name: name)) { result in
+                    switch result {
+                    case .success:
+                        break
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+                
             case .failure(let error):
                 print(error)
+                return
             }
-            
         }
-        
-//        databaseManager.addDevice(name: name)
-//
-//        loadDevices()
-        
-//        self.collectionView.reloadData()
-//        self.collectionView.performBatchUpdates({ [weak self] in
-//          let visibleItems = self?.collectionView.indexPathsForVisibleItems ?? []
-//          self?.collectionView.reloadItems(at: visibleItems)
-//        }, completion: { (_) in
-//        })
-        
-//        view = nil
-//        setupCollectionView()
-//        loadDevices()
-        
-//        let parent = self.view.superview
-//        self.view.removeFromSuperview()
-//        self.view = nil
-        // unloads the entire view
-//        parent?.addSubview(self.view)
-        // reloads the view
-        
-//        let model = DeviceCellModel(name: name)
-        
-//        self.models.append(model)
-        
-//        print(self.models)
-        
-//        self.collectionView.insertItems(at: [IndexPath(row: models.count - 1, section: 0)])
     }
     
     func delDeviceCell(name: String) {
         
         databaseManager.delDevice(device: CreateDeviceData(name: name)) { result in
             switch result {
-            case .success:
-                break
+            case .success(_):
+                self.databaseManager.seeAllGroups { result in
+                    
+                    switch result {
+                    case .success(let groups):
+                        
+                        for group in groups {
+                            
+                            self.databaseManager.seeDevicesInGroup(group: group.name) { result in
+                                
+                                switch result {
+                                case .success(let devices):
+                                    
+                                    for device in devices{
+                                        if device.name == name {
+                                            self.databaseManager.delDeviceFromGroup(group: group.name, device: CreateDeviceData(name: name)) { result in
+                                                switch result {
+                                                case .success:
+                                                    break
+                                                case .failure(let error):
+                                                    print(error)
+                                                    return
+                                                }
+                                                
+                                            }
+                                        }
+                                    }
+                                case .failure(let error):
+                                    print(error)
+                                    return
+                                }
+                            }
+                        }
+                    case .failure(let error):
+                        print(error)
+                        return
+                    }
+                }
+                
             case .failure(let error):
                 print(error)
             }
-            
         }
+    }
+    
+    func errorMessage(error: String) {
+        let errorAlertController  = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
+        
+        let errorOkAction = UIAlertAction(title: "Ok", style: .default)
+        errorAlertController.addAction(errorOkAction)
+        present(errorAlertController, animated: true)
+        print(error)
         
     }
     

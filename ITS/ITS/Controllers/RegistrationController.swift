@@ -152,8 +152,17 @@ class RegistrationController: UIViewController {
         let toMainController = RootTabBarViewController()
         
         let navigationController = UINavigationController(rootViewController: toMainController)
+        
+        let safeAreaInsets = toMainController.tabBar.safeAreaInsets
+        let safeAreaCompensation = UIEdgeInsets(top: -100,
+                                                left: -safeAreaInsets.left,
+                                                bottom: -safeAreaInsets.bottom,
+                                                right: -safeAreaInsets.right)
+        
+        navigationController.additionalSafeAreaInsets = safeAreaCompensation
+        
         navigationController.modalPresentationStyle = .fullScreen
-        present(navigationController, animated: true)
+        self.present(navigationController, animated: true)
 //        present(toMainController, animated: true)
     }
     
@@ -239,6 +248,15 @@ class RegistrationController: UIViewController {
             let toMainController = RootTabBarViewController()
             
             let navigationController = UINavigationController(rootViewController: toMainController)
+            
+            let safeAreaInsets = toMainController.tabBar.safeAreaInsets
+            let safeAreaCompensation = UIEdgeInsets(top: -safeAreaInsets.top,
+                                                    left: -safeAreaInsets.left,
+                                                    bottom: -safeAreaInsets.bottom,
+                                                    right: -safeAreaInsets.right)
+            
+            navigationController.additionalSafeAreaInsets = safeAreaCompensation
+            
             navigationController.modalPresentationStyle = .fullScreen
             self?.present(navigationController, animated: true)
                 
@@ -304,9 +322,19 @@ class RegistrationController: UIViewController {
 
                 strongSelf.emailField.resignFirstResponder()
                 strongSelf.passwordField.resignFirstResponder()
+                
                 let toMainController = RootTabBarViewController()
                 
                 let navigationController = UINavigationController(rootViewController: toMainController)
+                
+                let safeAreaInsets = toMainController.tabBar.safeAreaInsets
+                let safeAreaCompensation = UIEdgeInsets(top: safeAreaInsets.top,
+                                                        left: safeAreaInsets.left,
+                                                        bottom: safeAreaInsets.bottom,
+                                                        right: safeAreaInsets.right)
+                
+                navigationController.additionalSafeAreaInsets = safeAreaCompensation
+                
                 navigationController.modalPresentationStyle = .fullScreen
                 self?.present(navigationController, animated: true)
             })
