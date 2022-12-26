@@ -275,7 +275,7 @@ class RegistrationController: UIViewController {
                                                 password: password,
                                                 completion: {[weak self]result, error in
                 guard let strongSelf = self else{
-                    print("Account creat")
+                    
                     return
                 }
                 guard error == nil else {
@@ -290,6 +290,9 @@ class RegistrationController: UIViewController {
                     
                     return
                 }
+                let db = Firestore.firestore()
+                db.collection("users").addDocument(data: ["username": username, "email": email, "uid":result!.user.uid])
+                
                 print("singed in!!!!")
                 strongSelf.label.isHidden = true
                 strongSelf.button.isHidden = true

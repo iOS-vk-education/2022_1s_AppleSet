@@ -31,5 +31,9 @@ extension UIColor {
                                    green: 0x84 / 255,
                                    blue: 0x82 / 255,
                                    alpha: 1)
-    
+    //2B709E
+    static let customDarkBlue = UIColor(red: 0x2b / 255,
+                                        green: 0x70 / 255,
+                                        blue: 0x9e / 255,
+                                        alpha: 1)
 }
