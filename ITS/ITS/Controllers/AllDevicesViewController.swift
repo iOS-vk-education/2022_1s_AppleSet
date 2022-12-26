@@ -163,8 +163,45 @@ class AllDevicesViewController: UIViewController {
         
         databaseManager.delDevice(device: CreateDeviceData(name: name)) { result in
             switch result {
-            case .success:
-                break
+            case .success(_):
+                self.databaseManager.seeAllGroups { result in
+                    
+                    switch result {
+                    case .success(let groups):
+                        
+                        for group in groups {
+                            
+                            self.databaseManager.seeDevicesInGroup(group: group.name) { result in
+                                
+                                switch result {
+                                case .success(let devices):
+                                    
+                                    for device in devices{
+                                        if device.name == name {
+                                            self.databaseManager.delDeviceFromGroup(group: group.name, device: CreateDeviceData(name: name)) { result in
+                                                switch result {
+                                                case .success:
+                                                    break
+                                                case .failure(let error):
+                                                    print(error)
+                                                    return
+                                                }
+                                                
+                                            }
+                                        }
+                                    }
+                                case .failure(let error):
+                                    print(error)
+                                    return
+                                }
+                            }
+                        }
+                    case .failure(let error):
+                        print(error)
+                        return
+                    }
+                }
+                
             case .failure(let error):
                 print(error)
             }
