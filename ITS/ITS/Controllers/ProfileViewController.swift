@@ -96,12 +96,13 @@ final class ProfileViewController: UIViewController
                                         case .success(let image):
                                             
                                             self.avatarImage.image = image
-//                                            return users(id: d["uid"] as? String ?? "", username: d["username"] as? String ?? "", email: d["email"] as? String ?? "", avatarImageName: d["avatarImageName"] as? String ?? "")
                                             
                                         case .failure(let error):
                                             print(error)
                                         }
                                     }
+                                    
+                                    return users(id: d["uid"] as? String ?? "", username: d["username"] as? String ?? "", email: d["email"] as? String ?? "", avatarImageName: d["avatarImageName"] as? String ?? "")
                                 }
                                 
                                 return users(id: "", username: "", email: "", avatarImageName: "")
