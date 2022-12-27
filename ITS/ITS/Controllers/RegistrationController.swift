@@ -68,13 +68,6 @@ class RegistrationController: UIViewController {
     }()
     
     
-    private let SignOutbutton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .customBlue
-        button.setTitleColor(.black, for: .normal)
-        button.setTitle("Logout", for: .normal)
-        return button
-    }()
     
     private let Signbutton: UIButton = {
         let button = UIButton()
@@ -133,12 +126,9 @@ class RegistrationController: UIViewController {
             button.isHidden = true
             ShowCreateAccount.isHidden = true
             
-            view.addSubview(SignOutbutton)
-            SignOutbutton.frame = CGRect(x: 20, y: 210, width: view.frame.size.width-40, height: 52)
-            SignOutbutton.addTarget(self, action: #selector(LogOutTapped), for: .touchUpInside)
             
             view.addSubview(Signbutton)
-            Signbutton.frame = CGRect(x: 20, y: 150, width: view.frame.size.width-40, height: 52)
+            Signbutton.frame = CGRect(x: 20, y: 380, width: view.frame.size.width-40, height: 52)
             Signbutton.addTarget(self, action: #selector(LogTapped), for: .touchUpInside)
 
             
@@ -166,22 +156,7 @@ class RegistrationController: UIViewController {
 //        present(toMainController, animated: true)
     }
     
-    @objc func LogOutTapped(){
-        do {
-            try FirebaseAuth.Auth.auth().signOut()
-            label.isHidden = false
-            emailField.isHidden = false
-            passwordField.isHidden = false
-            button.isHidden = false
-            Signbutton.isHidden = true
-            ShowCreateAccount.isHidden = false
-
-            SignOutbutton.removeFromSuperview()
-        }
-        catch {
-            print("An error occurred")
-        }
-    }
+   
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
