@@ -85,6 +85,13 @@ class RegistrationController: UIViewController {
         return button
     }()
     
+    private let SinginButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .customBlue
+        button.setTitleColor(.black, for: .normal)
+        button.setTitle("Return to Authorization", for: .normal)
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,6 +102,7 @@ class RegistrationController: UIViewController {
         view.addSubview(ShowCreateAccount)
         view.addSubview(userName)
         view.addSubview(Regbutton)
+        view.addSubview(SinginButton)
 
         
         view.backgroundColor = .white
@@ -102,10 +110,13 @@ class RegistrationController: UIViewController {
         
         userName.isHidden = true
         Regbutton.isHidden = true
+        SinginButton.isHidden = true
         
         button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
         ShowCreateAccount.addTarget(self, action: #selector(showCreateAccount), for: .touchUpInside)
         Regbutton.addTarget(self, action: #selector(RegistrationButton), for: .touchUpInside)
+        
+        SinginButton.addTarget(self, action: #selector(SinginButtonTap), for: .touchUpInside)
 
     }
     
@@ -126,7 +137,6 @@ class RegistrationController: UIViewController {
         
         navigationController.modalPresentationStyle = .fullScreen
         self.present(navigationController, animated: true)
-//        present(toMainController, animated: true)
     }
     
    
@@ -151,6 +161,9 @@ class RegistrationController: UIViewController {
                               width: view.frame.size.width-40, height: 50)
         
         ShowCreateAccount.frame = CGRect(x: 20, y:  button.frame.origin.y+passwordField.frame.size.height+30,
+                                    width: view.frame.size.width-40, height: 50)
+      
+        SinginButton.frame = CGRect(x: 20, y:  button.frame.origin.y+ShowCreateAccount.frame.size.height+10,
                                     width: view.frame.size.width-40, height: 50)
     }
     
@@ -221,6 +234,16 @@ class RegistrationController: UIViewController {
         
         
     }
+                               
+    @objc private func SinginButtonTap(){ // обратный переход на вход если почта существует
+            userName.isHidden = true
+            Regbutton.isHidden = true
+        button.isHidden = false
+        SinginButton.isHidden = true
+        label.text = "Log In"
+        label.textColor = .black
+        passwordField.text = ""
+    }
     
     @objc private func RegistrationButton(){
         guard let email = emailField.text, !email.isEmpty,
@@ -229,6 +252,8 @@ class RegistrationController: UIViewController {
             print("Missing field data")
             return
         }
+            
+          
         
         let alert = UIAlertController(title: "Create account",
                                       message: "Would you like to create an account",
@@ -248,6 +273,11 @@ class RegistrationController: UIViewController {
                         self?.label.text = "Mail is in the wrong format"
                         self?.label.textColor = .red
                     }
+                    else if error?._code == 17007 {
+                        self?.label.text = "This email is already registered"
+                        self?.label.textColor = .red
+                        self?.SinginButton.isHidden = false
+                    }
                     else if error?._code == AuthErrorCode.weakPassword.rawValue{
                         self?.label.text = "Password too weak"
                         self?.label.textColor = .red
@@ -258,7 +288,7 @@ class RegistrationController: UIViewController {
                 let db = Firestore.firestore()
                 db.collection("users").document(email).setData(["username": username, "email": email, "uid":result!.user.uid, "avatarImageName": "avatar"])
                 
-                print("singed in!!!!")
+
                 strongSelf.label.isHidden = true
                 strongSelf.button.isHidden = true
                 strongSelf.emailField.isHidden = true
