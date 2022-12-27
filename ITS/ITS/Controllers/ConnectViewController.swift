@@ -44,6 +44,22 @@ class ConnectViewController: UIViewController, ConnectViewControllerDelegate  {
         view.addSubview(connectLabel)
     }
     
+    private func setupNavBar() {
+        let backButtonItem = UIBarButtonItem(image: UIImage(systemName: "xmark"),
+                                             style: .plain,
+                                             target: self,
+                                             action: #selector(didTapButton))
+        
+        navigationItem.leftBarButtonItem = backButtonItem
+        navigationController?.navigationBar.tintColor = .systemPink
+        title = "Profile"
+    }
+    
+    @objc
+    private func didTapButton() {
+        dismissAll()
+    }
+    
     func update(isAdded: Bool) {
         self.isAdded = isAdded
     }
@@ -55,6 +71,8 @@ class ConnectViewController: UIViewController, ConnectViewControllerDelegate  {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        setupNavBar()
         
         udplistener = UDPListener(on: 54321)
         
@@ -74,6 +92,7 @@ class ConnectViewController: UIViewController, ConnectViewControllerDelegate  {
     
     private func dismissAll() {
         timer.invalidate()
+        udplistener?.cancel()
         dismiss(animated: true)
     }
     
