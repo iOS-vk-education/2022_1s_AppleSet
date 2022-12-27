@@ -13,17 +13,17 @@ final class ProfileViewController: UIViewController
 {
     
    @Published var list = [users]()
-    private let avatarImage: UIImageView = UIImageView()
+    private var avatarImage: UIImageView = UIImageView()
     private let mail: UILabel = UILabel()
-    private  let username: UILabel = UILabel()
-    private  let logOutButton: UIButton = UIButton()
-    private  let ChangePassword: UIButton = UIButton()
+    private let username: UILabel = UILabel()
+    private let logOutButton: UIButton = UIButton()
+    private let ChangePassword: UIButton = UIButton()
     private let UserPhoto: UIButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        avatarImage.image = UIImage(named: "avatar")
+        avatarImage.image = UIImage(named: "")
         avatarImage.layer.cornerRadius = 75
         avatarImage.contentMode = .scaleToFill
         avatarImage.clipsToBounds = true
@@ -78,7 +78,14 @@ final class ProfileViewController: UIViewController
 
                         DispatchQueue.main.async {
                             self.list = QuerySnapshot.documents.map { d in
-                                users(id: d.documentID, username: d["username"] as? String ?? "", email: d["email"] as? String ?? "")
+                                
+                                if ((d["email"] as? String ?? "") == self.mail.text) {
+                                    self.username.text = d["username"] as? String ?? ""
+                                    self.avatarImage.image = UIImage(named: d["avatarImageName"] as? String ?? "")
+                                    return users(id: d["uid"] as? String ?? "", username: d["username"] as? String ?? "", email: d["email"] as? String ?? "", avatarImageName: d["avatarImageName"] as? String ?? "")
+                                }
+                                
+                                return users(id: "", username: "", email: "", avatarImageName: "")
                             }
                         }
                     }
