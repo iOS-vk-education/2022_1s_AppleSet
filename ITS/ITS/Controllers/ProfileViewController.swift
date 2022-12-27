@@ -20,10 +20,12 @@ final class ProfileViewController: UIViewController
     private let ChangePassword: UIButton = UIButton()
     private let UserPhoto: UIButton = UIButton()
     
+    private let imageService = ImageService()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        avatarImage.image = UIImage(named: "")
+        avatarImage.image = UIImage(named: "avatar")
         avatarImage.layer.cornerRadius = 75
         avatarImage.contentMode = .scaleToFill
         avatarImage.clipsToBounds = true
@@ -80,9 +82,26 @@ final class ProfileViewController: UIViewController
                             self.list = QuerySnapshot.documents.map { d in
                                 
                                 if ((d["email"] as? String ?? "") == self.mail.text) {
+                                    
                                     self.username.text = d["username"] as? String ?? ""
-                                    self.avatarImage.image = UIImage(named: d["avatarImageName"] as? String ?? "")
-                                    return users(id: d["uid"] as? String ?? "", username: d["username"] as? String ?? "", email: d["email"] as? String ?? "", avatarImageName: d["avatarImageName"] as? String ?? "")
+                                    
+                                    let imageName = d["avatarImageName"] as? String ?? ""
+                                    
+                                    self.imageService.download(imageName: imageName) { result in
+//                                        guard self?.imageName == viewObject.imageName else {
+//                                            return
+//                                        }
+                                        
+                                        switch result {
+                                        case .success(let image):
+                                            
+                                            self.avatarImage.image = image
+//                                            return users(id: d["uid"] as? String ?? "", username: d["username"] as? String ?? "", email: d["email"] as? String ?? "", avatarImageName: d["avatarImageName"] as? String ?? "")
+                                            
+                                        case .failure(let error):
+                                            print(error)
+                                        }
+                                    }
                                 }
                                 
                                 return users(id: "", username: "", email: "", avatarImageName: "")
@@ -235,8 +254,31 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         
         if let editedImage = info[UIImagePickerController.InfoKey.editedImage ] as? UIImage {
             avatarImage.image = editedImage
+            
+            imageService.upload(image: editedImage) { result in
+                switch result {
+                case .success(let imageName):
+                    let user =  Auth.auth().currentUser
+                    let db = Firestore.firestore()
+                    db.collection("users").document(user?.email ?? "").updateData(["avatarImageName": imageName])
+                case .failure(let error):
+                    print(error)
+                }
+            }
+            
         } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage ] as? UIImage {
             avatarImage.image = originalImage
+            
+            imageService.upload(image: originalImage) { result in
+                switch result {
+                case .success(let imageName):
+                    let user =  Auth.auth().currentUser
+                    let db = Firestore.firestore()
+                    db.collection("users").document(user?.email ?? "").updateData(["avatarImageName": imageName])
+                case .failure(let error):
+                    print(error)
+                }
+            }
         }
         
         dismiss(animated: true, completion: nil )
