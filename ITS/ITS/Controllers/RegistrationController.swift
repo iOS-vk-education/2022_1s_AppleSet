@@ -137,7 +137,6 @@ class RegistrationController: UIViewController {
         
         navigationController.modalPresentationStyle = .fullScreen
         self.present(navigationController, animated: true)
-//        present(toMainController, animated: true)
     }
     
    
