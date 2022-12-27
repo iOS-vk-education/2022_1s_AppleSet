@@ -35,4 +35,24 @@ final class ImageService {
             }
         }
     }
+    
+    func download(imageName: String, completion: @escaping (Result<UIImage, Error>) -> Void) {
+        if let image = Self.cache[imageName] {
+            completion(.success(image))
+            return
+        }
+        
+        let maxSize: Int64 = 10 * 1024 * 1024
+        
+        storageRef.child(imageName).getData(maxSize: maxSize) { data, error in
+            if let error = error {
+                completion(.failure(error))
+            } else if let data = data, let image = UIImage(data: data) {
+                Self.cache[imageName] = image
+                completion(.success(image))
+            } else {
+                completion(.failure(ImageServiceError.jpegDataError))
+            }
+        }
+    }
 }
