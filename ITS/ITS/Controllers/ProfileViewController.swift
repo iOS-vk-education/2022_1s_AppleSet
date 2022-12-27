@@ -78,7 +78,13 @@ final class ProfileViewController: UIViewController
 
                         DispatchQueue.main.async {
                             self.list = QuerySnapshot.documents.map { d in
-                                users(id: d.documentID, username: d["username"] as? String ?? "", email: d["email"] as? String ?? "")
+                                
+                                if ((d["email"] as? String ?? "") == self.mail.text) {
+                                    self.username.text = d["username"] as? String ?? ""
+                                    return users(id: d["uid"] as? String ?? "", username: d["username"] as? String ?? "", email: d["email"] as? String ?? "")
+                                }
+                                
+                                return users(id: "Error", username: "Error", email: "Error")
                             }
                         }
                     }

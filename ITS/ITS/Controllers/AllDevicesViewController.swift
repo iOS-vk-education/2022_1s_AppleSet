@@ -224,7 +224,7 @@ class AllDevicesViewController: UIViewController {
     private func didTapQuestionButton() {
         
         let alertController: UIAlertController = UIAlertController(title: "Инструкция",
-                                                                   message: "Для добавления устройства, нажмите кнопку + внизу экрана. Далее укажите название устройства, его сеть и данные, которые оно будет считывать",
+                                                                   message: "Для добавления устройства, нажмите кнопку + внизу экрана. Далее укажите название устройства.",
                                                                    preferredStyle: .alert)
         
         let okAction: UIAlertAction = UIAlertAction(title: "Ок", style: .default)
