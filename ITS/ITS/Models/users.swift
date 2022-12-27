@@ -12,4 +12,5 @@ struct users: Identifiable {
     var id: String
     var username: String
     var email: String
+    var avatarImageName: String
 }
