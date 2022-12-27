@@ -187,7 +187,7 @@ class GroupsViewController: UIViewController {
     private func didTapQuestionButton() {
         
         let alertController: UIAlertController = UIAlertController(title: "Инструкция",
-                                                 message: "Для добавления устройства, нажмите кнопку + внизу экрана. Далее укажите название устройства, его сеть и данные, которые оно будет считывать",
+                                                 message: "Для добавления группы, нажмите кнопку + внизу экрана. Далее укажите название группы",
                                                  preferredStyle: .alert)
         
         let okAction: UIAlertAction = UIAlertAction(title: "Ок", style: .default)

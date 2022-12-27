@@ -310,7 +310,7 @@ class RegistrationController: UIViewController {
                     return
                 }
                 let db = Firestore.firestore()
-                db.collection("users").addDocument(data: ["username": username, "email": email, "uid":result!.user.uid])
+                db.collection("users").document(email).setData(["username": username, "email": email, "uid":result!.user.uid])
                 
                 print("singed in!!!!")
                 strongSelf.label.isHidden = true
