@@ -93,6 +93,22 @@ class RegistrationController: UIViewController {
         return button
     }()
     
+    private let ResetPassword: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .white
+        button.setTitleColor(.black, for: .normal)
+        button.setTitle("Fogot password?", for: .normal)
+        return button
+    }()
+    
+    private let ResetPasswordButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .customBlue
+        button.setTitleColor(.black, for: .normal)
+        button.setTitle("Change password", for: .normal)
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(label)
@@ -103,6 +119,8 @@ class RegistrationController: UIViewController {
         view.addSubview(userName)
         view.addSubview(Regbutton)
         view.addSubview(SinginButton)
+        view.addSubview(ResetPassword)
+        view.addSubview(ResetPasswordButton)
 
         
         view.backgroundColor = .white
@@ -111,12 +129,15 @@ class RegistrationController: UIViewController {
         userName.isHidden = true
         Regbutton.isHidden = true
         SinginButton.isHidden = true
+        ResetPasswordButton.isHidden = true
         
         button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
         ShowCreateAccount.addTarget(self, action: #selector(showCreateAccount), for: .touchUpInside)
         Regbutton.addTarget(self, action: #selector(RegistrationButton), for: .touchUpInside)
         
         SinginButton.addTarget(self, action: #selector(SinginButtonTap), for: .touchUpInside)
+        ResetPassword.addTarget(self, action: #selector(ResetPasswordTap), for: .touchUpInside)
+        ResetPasswordButton.addTarget(self, action: #selector(ResetPasswordTapButton), for: .touchUpInside)
 
     }
     
@@ -159,8 +180,14 @@ class RegistrationController: UIViewController {
         
         Regbutton.frame = CGRect(x: 20, y:  passwordField.frame.origin.y+passwordField.frame.size.height+30,
                               width: view.frame.size.width-40, height: 50)
+       
+        ResetPasswordButton.frame = CGRect(x: 20, y: emailField.frame.origin.y+emailField.frame.size.height+10,
+                                           width: view.frame.size.width-40, height: 50)
         
-        ShowCreateAccount.frame = CGRect(x: 20, y:  button.frame.origin.y+passwordField.frame.size.height+30,
+        ShowCreateAccount.frame = CGRect(x: 20, y:  Regbutton.frame.origin.y+passwordField.frame.size.height+30,
+                                    width: view.frame.size.width-40, height: 50)
+        
+        ResetPassword.frame = CGRect(x: 20, y:  ShowCreateAccount.frame.origin.y+passwordField.frame.size.height+180,
                                     width: view.frame.size.width-40, height: 50)
       
         SinginButton.frame = CGRect(x: 20, y:  button.frame.origin.y+ShowCreateAccount.frame.size.height+10,
@@ -173,6 +200,47 @@ class RegistrationController: UIViewController {
             emailField.becomeFirstResponder()
         }
        
+    }
+    
+    @objc private func ResetPasswordTap(){
+        passwordField.isHidden = true
+        button.isHidden = true
+        ResetPasswordButton.isHidden = false
+        ResetPassword.isHidden = true
+        ShowCreateAccount.isHidden = true
+        
+        label.text = "Reset password"
+    }
+    
+    @objc private func ResetPasswordTapButton(){
+        guard let email = emailField.text, !email.isEmpty else  {
+            return
+        }
+        
+        let alert = UIAlertController(title: "Change password",
+                                      message: "Check your email",
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Continue",
+                                      style: .default,
+                                      handler: {_ in
+            Auth.auth().sendPasswordReset(withEmail: email) {Error in
+                if Error != nil {
+                    self.label.text = "Wrong Email"
+                    self.label.textColor = .red
+                } else {
+                    self.label.text = "Log in"
+                    self.label.textColor = .black
+                    self.passwordField.isHidden = false
+                    self.ResetPasswordButton.isHidden = true
+                    self.button.isHidden = false
+                    self.ResetPassword.isHidden = false
+                    self.ShowCreateAccount.isHidden = false
+                }
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: {_ in }))
+        present(alert, animated: true)
+      
     }
     
     @objc private func didTapButton(){
