@@ -25,7 +25,7 @@ final class ProfileViewController: UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        avatarImage.image = UIImage(named: "")
+        avatarImage.image = UIImage(named: "avatar")
         avatarImage.layer.cornerRadius = 75
         avatarImage.contentMode = .scaleToFill
         avatarImage.clipsToBounds = true
@@ -83,6 +83,8 @@ final class ProfileViewController: UIViewController
                                 
                                 if ((d["email"] as? String ?? "") == self.mail.text) {
                                     
+                                    self.username.text = d["username"] as? String ?? ""
+                                    
                                     let imageName = d["avatarImageName"] as? String ?? ""
                                     
                                     self.imageService.download(imageName: imageName) { result in
@@ -93,7 +95,6 @@ final class ProfileViewController: UIViewController
                                         switch result {
                                         case .success(let image):
                                             
-                                            self.username.text = d["username"] as? String ?? ""
                                             self.avatarImage.image = image
 //                                            return users(id: d["uid"] as? String ?? "", username: d["username"] as? String ?? "", email: d["email"] as? String ?? "", avatarImageName: d["avatarImageName"] as? String ?? "")
                                             
