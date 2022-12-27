@@ -36,6 +36,7 @@
 		E15DC1E0292A089A00FE1818 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15DC1DF292A089A00FE1818 /* UIViewExtensions.swift */; };
 		E1DC0C9E2958E9F40090FDAE /* DeviceInGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DC0C9D2958E9F40090FDAE /* DeviceInGroupCell.swift */; };
 		E1DC0CA02958EA360090FDAE /* GroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DC0C9F2958EA360090FDAE /* GroupViewController.swift */; };
+		E1DC0CA2295A9CFD0090FDAE /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DC0CA1295A9CFD0090FDAE /* StorageManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +72,7 @@
 		E15DC1DF292A089A00FE1818 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		E1DC0C9D2958E9F40090FDAE /* DeviceInGroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceInGroupCell.swift; sourceTree = "<group>"; };
 		E1DC0C9F2958EA360090FDAE /* GroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewController.swift; sourceTree = "<group>"; };
+		E1DC0CA1295A9CFD0090FDAE /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				E1178E9529489DFB00DE42CB /* DatabaseManager.swift */,
+				E1DC0CA1295A9CFD0090FDAE /* StorageManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -327,6 +330,7 @@
 			files = (
 				E1DC0C9E2958E9F40090FDAE /* DeviceInGroupCell.swift in Sources */,
 				A04FFF2F2913034400BC96A7 /* AllDevicesViewController.swift in Sources */,
+				E1DC0CA2295A9CFD0090FDAE /* StorageManager.swift in Sources */,
 				E14CC47C2933AD8C0061F262 /* TabBarController.swift in Sources */,
 				D560D7E929573E2900C2BE5E /* ProfileViewController.swift in Sources */,
 				E15DC1D9292A04D100FE1818 /* FunctionCellModel.swift in Sources */,
