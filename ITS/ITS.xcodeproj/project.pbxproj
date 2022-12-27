@@ -19,6 +19,8 @@
 		A0A77AF1295AF838005CD9B5 /* NetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A77AF0295AF838005CD9B5 /* NetworkViewController.swift */; };
 		A0A77AF4295AF9DA005CD9B5 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = A0A77AF3295AF9DA005CD9B5 /* Alamofire */; };
 		A0A77AF6295AFA34005CD9B5 /* NetworkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A77AF5295AFA34005CD9B5 /* NetworkCell.swift */; };
+		A0A77AFA295B27B0005CD9B5 /* TopicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A77AF9295B27B0005CD9B5 /* TopicModel.swift */; };
+		A0A77AFC295B28D8005CD9B5 /* ForNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A77AFB295B28D8005CD9B5 /* ForNetwork.swift */; };
 		D511F79A295A1B2D005862AA /* users.swift in Sources */ = {isa = PBXBuildFile; fileRef = D511F799295A1B2D005862AA /* users.swift */; };
 		D560D7E929573E2900C2BE5E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D560D7E829573E2900C2BE5E /* ProfileViewController.swift */; };
 		D5E4A516293C85F400F0E9F8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D5E4A515293C85F400F0E9F8 /* GoogleService-Info.plist */; };
@@ -60,6 +62,8 @@
 		A0A77AEE295AF7FE005CD9B5 /* ConnectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectViewController.swift; sourceTree = "<group>"; };
 		A0A77AF0295AF838005CD9B5 /* NetworkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkViewController.swift; sourceTree = "<group>"; };
 		A0A77AF5295AFA34005CD9B5 /* NetworkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCell.swift; sourceTree = "<group>"; };
+		A0A77AF9295B27B0005CD9B5 /* TopicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicModel.swift; sourceTree = "<group>"; };
+		A0A77AFB295B28D8005CD9B5 /* ForNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForNetwork.swift; sourceTree = "<group>"; };
 		CABA6EBE88E717B96C3A5747 /* Pods-ITS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ITS.release.xcconfig"; path = "Target Support Files/Pods-ITS/Pods-ITS.release.xcconfig"; sourceTree = "<group>"; };
 		D511F799295A1B2D005862AA /* users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = users.swift; sourceTree = "<group>"; };
 		D560D7E829573E2900C2BE5E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -146,6 +150,7 @@
 			children = (
 				A0A77AEA295AF675005CD9B5 /* Connectivity.swift */,
 				A0A77AEC295AF763005CD9B5 /* UDPListener.swift */,
+				A0A77AFB295B28D8005CD9B5 /* ForNetwork.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -207,6 +212,7 @@
 				E10A716E2931E90100653EA3 /* DeviceCellModel.swift */,
 				E10A71702931E93700653EA3 /* DeviceCellDataModel.swift */,
 				D511F799295A1B2D005862AA /* users.swift */,
+				A0A77AF9295B27B0005CD9B5 /* TopicModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -357,6 +363,7 @@
 			files = (
 				E1DC0C9E2958E9F40090FDAE /* DeviceInGroupCell.swift in Sources */,
 				A04FFF2F2913034400BC96A7 /* AllDevicesViewController.swift in Sources */,
+				A0A77AFA295B27B0005CD9B5 /* TopicModel.swift in Sources */,
 				E1DC0CA2295A9CFD0090FDAE /* StorageManager.swift in Sources */,
 				E14CC47C2933AD8C0061F262 /* TabBarController.swift in Sources */,
 				A0A77AF6295AFA34005CD9B5 /* NetworkCell.swift in Sources */,
@@ -382,6 +389,7 @@
 				E10A71712931E93700653EA3 /* DeviceCellDataModel.swift in Sources */,
 				E15DC1D5292A04A000FE1818 /* GroupCell.swift in Sources */,
 				E15DC1E0292A089A00FE1818 /* UIViewExtensions.swift in Sources */,
+				A0A77AFC295B28D8005CD9B5 /* ForNetwork.swift in Sources */,
 				E10A716D2931E88400653EA3 /* DeviceCell.swift in Sources */,
 				E10A716F2931E90100653EA3 /* DeviceCellModel.swift in Sources */,
 				E10A71732931EA0E00653EA3 /* GroupsViewController.swift in Sources */,
@@ -524,7 +532,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 353HXK8998;
+				DEVELOPMENT_TEAM = V57K6D8W6N;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ITS/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ITService;
@@ -553,7 +561,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 353HXK8998;
+				DEVELOPMENT_TEAM = V57K6D8W6N;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ITS/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ITService;

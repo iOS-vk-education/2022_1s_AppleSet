@@ -26,24 +26,6 @@ class RootTabBarViewController: UITabBarController, RootTabBarDelegate {
     func addClick() {
         if (self.tabBar.selectedItem?.title == "All devices") {
             
-//            let alertController  = UIAlertController(title: "Add device", message: "Input device`s name", preferredStyle: .alert)
-//
-//            alertController.addTextField()
-//
-//            let okAction = UIAlertAction(title: "Add", style: .default) { _ in
-//                guard let text = alertController.textFields?.first?.text else {
-//                    return
-//                }
-//
-//                AllDevicesViewController().addDeviceCell(with: text)
-//            }
-//
-//            let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
-//
-//            alertController.addAction(okAction)
-//            alertController.addAction(cancelAction)
-//
-//            present(alertController, animated: true)
             let connectController = ConnectViewController()
             
             let navigationController = UINavigationController(rootViewController: connectController)

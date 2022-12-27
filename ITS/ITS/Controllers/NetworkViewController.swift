@@ -10,34 +10,9 @@ import Alamofire
 import PinLayout
 
 
-struct WiFiModel: Decodable {
-    let ssid: String
-    let isOpen: Bool
-}
-
-struct Networks: Decodable {
-    let networks: [WiFiModel]
-}
-
-struct Status: Decodable {
-    let status: StatusName
-}
-
-struct DeviceInfo: Decodable {
-    let topic: String
-    let ip: String
-}
-
-enum StatusName: Int, Decodable {
-    case WL_IDLE_STATUS = 0
-    case WL_NO_SSID_AVAIL = 1
-    case WL_CONNECTED = 3
-    case WL_CONNECT_FAILED = 4
-    case WL_CONNECT_WRONG_PASSWORD = 6
-    case WL_DISCONNECTED = 7
-}
-
 class NetworkViewController: UIViewController {
+    
+    var delegate: ConnectViewControllerDelegate?
 
     private let tableView = UITableView()
     private let networkTextField = UITextField()
@@ -135,16 +110,48 @@ class NetworkViewController: UIViewController {
     }
     
     private func getDeviceInfo() {
+        var topic: String = ""
         DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
             AF.request("http://" + Connectivity.getRouteIP()! + ":80/getInfo", method: .get).responseDecodable(of: DeviceInfo.self) { response in
                 guard let deviceInfo = response.value else {
-                    print(response)
                     print("no response")
                     return
                 }
-                print(deviceInfo.topic, deviceInfo.ip)
+                print(deviceInfo.topic)
+                topic = deviceInfo.topic
             }
         })
+        
+        var alertController: UIAlertController
+        
+        if topic.count == 0 {
+            alertController  = UIAlertController(title: "Error", message: "Smth with device", preferredStyle: .alert)
+            
+            let okAction = UIAlertAction(title: "OK", style: .default)
+            alertController.addAction(okAction)
+            
+        } else {
+            alertController  = UIAlertController(title: "Add device", message: "Input device`s name", preferredStyle: .alert)
+
+            alertController.addTextField()
+
+            let okAction = UIAlertAction(title: "Add", style: .default) { _ in
+                guard let text = alertController.textFields?.first?.text else {
+                    return
+                }
+
+                AllDevicesViewController().addDeviceCell(with: text, topic: topic)
+                self.delegate?.update(isAdded: true)
+                self.dismissAll()
+            }
+
+            let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
+
+            alertController.addAction(okAction)
+            alertController.addAction(cancelAction)
+        }
+
+        present(alertController, animated: true)
     }
     
     private func getStatusOfConnection() {
@@ -159,6 +166,8 @@ class NetworkViewController: UIViewController {
                     self.getStatusOfConnection()
                 } else if status == StatusName.WL_CONNECTED {
                     self.getDeviceInfo()
+                } else {
+                    self.timer.fire()
                 }
             }
         }

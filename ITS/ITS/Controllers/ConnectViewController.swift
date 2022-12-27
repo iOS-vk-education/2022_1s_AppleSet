@@ -11,7 +11,14 @@ import Alamofire
 import Network
 
 
-class ConnectViewController: UIViewController  {
+protocol ConnectViewControllerDelegate {
+    func update(isAdded: Bool)
+}
+
+
+class ConnectViewController: UIViewController, ConnectViewControllerDelegate  {
+    
+    private var isAdded = false
     
     private var udplistener: UDPListener?
 
@@ -37,6 +44,15 @@ class ConnectViewController: UIViewController  {
         view.addSubview(connectLabel)
     }
     
+    func update(isAdded: Bool) {
+        self.isAdded = isAdded
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let destination = segue.destination as? NetworkViewController else { return }
+        destination.delegate = self
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -46,6 +62,19 @@ class ConnectViewController: UIViewController  {
         timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true, block: { _ in
             self.updateConnection()
         })
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if isAdded {
+            dismissAll()
+        }
+    }
+    
+    private func dismissAll() {
+        timer.invalidate()
+        dismiss(animated: true)
     }
     
     override func viewDidLayoutSubviews() {

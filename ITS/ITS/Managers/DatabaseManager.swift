@@ -74,12 +74,13 @@ class DatabaseManager {
         }
     }
     
-    func addDevice(device: CreateDeviceData, completion: @escaping (Result<Void, Error>) -> Void) {
+    func addDevice(device: CreateDeviceData, topic: CreateTopicData, completion: @escaping (Result<Void, Error>) -> Void) {
         
         let db = configureFB()
         let name: String = device.dict()["name"] as! String
         
         db.collection("allDevices").document(name).setData(["name": name])
+        db.collection("deviceTopics").document(name).setData(["topic": topic])
         
     }
     
@@ -89,10 +90,12 @@ class DatabaseManager {
         let name: String = device.dict()["name"] as! String
         
         db.collection("allDevices").document(name).delete()
+        db.collection("deviceTopics").document(name).delete()
         
         completion(.success("Success"))
         
     }
+    
     
     func seeAllDevices(completion: @escaping (Result<[DeviceCellModel], Error>) -> Void) {
         
