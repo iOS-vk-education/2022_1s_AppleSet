@@ -67,16 +67,7 @@ class RegistrationController: UIViewController {
         button.setTitle("Signin", for: .normal)
         return button
     }()
-    
-    
-    
-    private let Signbutton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .customBlue
-        button.setTitleColor(.black, for: .normal)
-        button.setTitle("Start!", for: .normal)
-        return button
-    }()
+
     
     private let Regbutton: UIButton = {
         let button = UIButton()
@@ -115,26 +106,7 @@ class RegistrationController: UIViewController {
         button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
         ShowCreateAccount.addTarget(self, action: #selector(showCreateAccount), for: .touchUpInside)
         Regbutton.addTarget(self, action: #selector(RegistrationButton), for: .touchUpInside)
-    
-        if FirebaseAuth.Auth.auth().currentUser != nil{
-            
-//            let toMainController = RootTabBarViewController()
-//            present(toMainController, animated: true)
-//
-            label.isHidden = true
-            emailField.isHidden = true
-            passwordField.isHidden = true
-            button.isHidden = true
-            ShowCreateAccount.isHidden = true
-            
-            
-            view.addSubview(Signbutton)
-            Signbutton.frame = CGRect(x: 20, y: 380, width: view.frame.size.width-40, height: 52)
-            Signbutton.addTarget(self, action: #selector(LogTapped), for: .touchUpInside)
 
-            
-            
-        }
     }
     
 
@@ -191,7 +163,6 @@ class RegistrationController: UIViewController {
     }
     
     @objc private func didTapButton(){
-//        print("tap tap tap!!!")
         guard let email = emailField.text, !email.isEmpty,
               let password = passwordField.text, !password.isEmpty else  {
             
