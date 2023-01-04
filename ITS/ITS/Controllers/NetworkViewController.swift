@@ -110,21 +110,21 @@ class NetworkViewController: UIViewController {
     }
     
     private func getDeviceInfo() {
-        var topic: String = ""
+        var topics: [String] = []
         DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
             AF.request("http://" + Connectivity.getRouteIP()! + ":80/getInfo", method: .get).responseDecodable(of: DeviceInfo.self) { response in
                 guard let deviceInfo = response.value else {
                     print("no response")
                     return
                 }
-                print(deviceInfo.topic)
-                topic = deviceInfo.topic
+                print(deviceInfo.topics)
+                topics = deviceInfo.topics
             }
         })
         
         var alertController: UIAlertController
         
-        if topic.count == 0 {
+        if topics.count == 0 {
             alertController  = UIAlertController(title: "Error", message: "Smth with device", preferredStyle: .alert)
             
             let okAction = UIAlertAction(title: "OK", style: .default)
@@ -140,7 +140,7 @@ class NetworkViewController: UIViewController {
                     return
                 }
 
-                AllDevicesViewController().addDeviceCell(with: text, topic: topic)
+                AllDevicesViewController().addDeviceCell(with: text, topics: topics)
                 self.delegate?.update(isAdded: true)
                 self.dismissAll()
             }

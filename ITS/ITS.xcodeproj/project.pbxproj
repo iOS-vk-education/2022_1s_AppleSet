@@ -20,7 +20,7 @@
 		A0A77AF4295AF9DA005CD9B5 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = A0A77AF3295AF9DA005CD9B5 /* Alamofire */; };
 		A0A77AF6295AFA34005CD9B5 /* NetworkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A77AF5295AFA34005CD9B5 /* NetworkCell.swift */; };
 		A0A77AFA295B27B0005CD9B5 /* TopicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A77AF9295B27B0005CD9B5 /* TopicModel.swift */; };
-		A0A77AFC295B28D8005CD9B5 /* ForNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A77AFB295B28D8005CD9B5 /* ForNetwork.swift */; };
+		A0A77AFC295B28D8005CD9B5 /* DecodeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A77AFB295B28D8005CD9B5 /* DecodeModels.swift */; };
 		D511F79A295A1B2D005862AA /* users.swift in Sources */ = {isa = PBXBuildFile; fileRef = D511F799295A1B2D005862AA /* users.swift */; };
 		D560D7E929573E2900C2BE5E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D560D7E829573E2900C2BE5E /* ProfileViewController.swift */; };
 		D5E4A516293C85F400F0E9F8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D5E4A515293C85F400F0E9F8 /* GoogleService-Info.plist */; };
@@ -63,7 +63,7 @@
 		A0A77AF0295AF838005CD9B5 /* NetworkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkViewController.swift; sourceTree = "<group>"; };
 		A0A77AF5295AFA34005CD9B5 /* NetworkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCell.swift; sourceTree = "<group>"; };
 		A0A77AF9295B27B0005CD9B5 /* TopicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicModel.swift; sourceTree = "<group>"; };
-		A0A77AFB295B28D8005CD9B5 /* ForNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForNetwork.swift; sourceTree = "<group>"; };
+		A0A77AFB295B28D8005CD9B5 /* DecodeModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodeModels.swift; sourceTree = "<group>"; };
 		CABA6EBE88E717B96C3A5747 /* Pods-ITS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ITS.release.xcconfig"; path = "Target Support Files/Pods-ITS/Pods-ITS.release.xcconfig"; sourceTree = "<group>"; };
 		D511F799295A1B2D005862AA /* users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = users.swift; sourceTree = "<group>"; };
 		D560D7E829573E2900C2BE5E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -133,7 +133,7 @@
 		A04FFF292913034400BC96A7 /* ITS */ = {
 			isa = PBXGroup;
 			children = (
-				A0A77AE9295AF62E005CD9B5 /* Other */,
+				A0A77AFD295F13CF005CD9B5 /* NetworkExtensions */,
 				E1178E9429489DA800DE42CB /* Managers */,
 				D5E4A515293C85F400F0E9F8 /* GoogleService-Info.plist */,
 				E15DC1DE292A086C00FE1818 /* Extensions */,
@@ -145,14 +145,13 @@
 			path = ITS;
 			sourceTree = "<group>";
 		};
-		A0A77AE9295AF62E005CD9B5 /* Other */ = {
+		A0A77AFD295F13CF005CD9B5 /* NetworkExtensions */ = {
 			isa = PBXGroup;
 			children = (
 				A0A77AEA295AF675005CD9B5 /* Connectivity.swift */,
 				A0A77AEC295AF763005CD9B5 /* UDPListener.swift */,
-				A0A77AFB295B28D8005CD9B5 /* ForNetwork.swift */,
 			);
-			path = Other;
+			path = NetworkExtensions;
 			sourceTree = "<group>";
 		};
 		A0B990F5C06DEBA2E1156486 /* Pods */ = {
@@ -205,6 +204,7 @@
 		E128A749292A01A60005011A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A0A77AFB295B28D8005CD9B5 /* DecodeModels.swift */,
 				E15DC1D0292A045600FE1818 /* GroupCellModel.swift */,
 				E15DC1D2292A047200FE1818 /* GroupCellDataModel.swift */,
 				E15DC1D8292A04D100FE1818 /* FunctionCellModel.swift */,
@@ -389,7 +389,7 @@
 				E10A71712931E93700653EA3 /* DeviceCellDataModel.swift in Sources */,
 				E15DC1D5292A04A000FE1818 /* GroupCell.swift in Sources */,
 				E15DC1E0292A089A00FE1818 /* UIViewExtensions.swift in Sources */,
-				A0A77AFC295B28D8005CD9B5 /* ForNetwork.swift in Sources */,
+				A0A77AFC295B28D8005CD9B5 /* DecodeModels.swift in Sources */,
 				E10A716D2931E88400653EA3 /* DeviceCell.swift in Sources */,
 				E10A716F2931E90100653EA3 /* DeviceCellModel.swift in Sources */,
 				E10A71732931EA0E00653EA3 /* GroupsViewController.swift in Sources */,

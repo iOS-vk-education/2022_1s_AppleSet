@@ -9,19 +9,19 @@ import Foundation
 
 
 final class TopicModel {
-    let topic: String
+    let topics: [String]
     
-    init(topic: String = "") {
-        self.topic = topic
+    init(topics: [String] = []) {
+        self.topics = topics
     }
 }
 
 struct CreateTopicData {
-    let topic : String
+    let topics : [String]
     
     func dict() -> [String: Any] {
         return [
-            "topic": topic,
+            "topics": topics,
         ]
     }
 }

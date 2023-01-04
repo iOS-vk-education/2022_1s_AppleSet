@@ -130,7 +130,7 @@ class AllDevicesViewController: UIViewController {
     
     // MARK: - add device cell
     
-    func addDeviceCell(with name: String, topic: String) {
+    func addDeviceCell(with name: String, topics: [String]) {
         
         databaseManager.seeAllDevices { result in
             switch result {
@@ -144,7 +144,7 @@ class AllDevicesViewController: UIViewController {
                     }
                 }
                 
-                self.databaseManager.addDevice(device: CreateDeviceData(name: name), topic: CreateTopicData(topic: topic)) { result in
+                self.databaseManager.addDevice(device: CreateDeviceData(name: name), topics: CreateTopicData(topics: topics)) { result in
                     switch result {
                     case .success:
                         break

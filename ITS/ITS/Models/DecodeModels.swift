@@ -22,7 +22,7 @@ struct Status: Decodable {
 }
 
 struct DeviceInfo: Decodable {
-    let topic: String
+    let topics: [String]
 }
 
 enum StatusName: Int, Decodable {

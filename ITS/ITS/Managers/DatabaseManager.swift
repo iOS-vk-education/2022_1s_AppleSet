@@ -74,13 +74,13 @@ class DatabaseManager {
         }
     }
     
-    func addDevice(device: CreateDeviceData, topic: CreateTopicData, completion: @escaping (Result<Void, Error>) -> Void) {
+    func addDevice(device: CreateDeviceData, topics: CreateTopicData, completion: @escaping (Result<Void, Error>) -> Void) {
         
         let db = configureFB()
         let name: String = device.dict()["name"] as! String
         
         db.collection("allDevices").document(name).setData(["name": name])
-        db.collection("deviceTopics").document(name).setData(["topic": topic])
+        db.collection("deviceTopics").document(name).setData(["topics": topics])
         
     }
     
